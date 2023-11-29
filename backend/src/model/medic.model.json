@@ -1,0 +1,490 @@
+{
+    "ActualizarAtencion": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "Fecha",
+                "Type": "Date"
+            },
+            {
+                "Param": "Tipo",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Detalles",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.ActualizarAtencion",
+        "type": "execute"
+    },
+    "ActualizarCirugia": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "Fecha",
+                "Type": "Date"
+            },
+            {
+                "Param": "Hora",
+                "Type": "Time"
+            },
+            {
+                "Param": "Tipo",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "PersonalMedico",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Medicamentos",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Materiales",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "ID_Quirofano",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.ActualizarCirugia",
+        "type": "execute"
+    },
+    "ActualizarConsulta": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "Fecha",
+                "Type": "Date"
+            },
+            {
+                "Param": "Hora",
+                "Type": "Time"
+            },
+            {
+                "Param": "ID_Paciente",
+                "Type": "Int"
+            },
+            {
+                "Param": "ID_Medico",
+                "Type": "Int"
+            },
+            {
+                "Param": "Motivo",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.ActualizarConsulta",
+        "type": "execute"
+    },
+    "ActualizarHabitacion": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "Tipo",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Estado",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.ActualizarHabitacion",
+        "type": "execute"
+    },
+    "ActualizarHospitalizacion": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "FechaIngreso",
+                "Type": "Date"
+            },
+            {
+                "Param": "FechaAlta",
+                "Type": "Date"
+            },
+            {
+                "Param": "Categoria",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Honorarios",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "ID_Paciente",
+                "Type": "Int"
+            },
+            {
+                "Param": "ID_Medico",
+                "Type": "Int"
+            },
+            {
+                "Param": "ID_Habitacion",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.ActualizarHospitalizacion",
+        "type": "execute"
+    },
+    "ActualizarMedico": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "Nombre",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "NumeroLicencia",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Especialidad",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.ActualizarMedico",
+        "type": "execute"
+    },
+    "ActualizarPaciente": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "Nombre",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Apellidos",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Direccion",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Telefono",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "FechaNacimiento",
+                "Type": "Date"
+            },
+            {
+                "Param": "SeguroMedico",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.ActualizarPaciente",
+        "type": "execute"
+    },
+    "ActualizarQuirofano": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            },
+            {
+                "Param": "Numero",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Estado",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.ActualizarQuirofano",
+        "type": "execute"
+    },
+    "EliminarAtencion": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarAtencion",
+        "type": "execute"
+    },
+    "EliminarCirugia": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarCirugia",
+        "type": "execute"
+    },
+    "EliminarConsulta": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarConsulta",
+        "type": "execute"
+    },
+    "EliminarHabitacion": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarHabitacion",
+        "type": "execute"
+    },
+    "EliminarHospitalizacion": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarHospitalizacion",
+        "type": "execute"
+    },
+    "EliminarMedico": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarMedico",
+        "type": "execute"
+    },
+    "EliminarPaciente": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarPaciente",
+        "type": "execute"
+    },
+    "EliminarQuirofano": {
+        "params": [
+            {
+                "Param": "ID",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.EliminarQuirofano",
+        "type": "execute"
+    },
+    "InsertarAtencion": {
+        "params": [
+            {
+                "Param": "Fecha",
+                "Type": "Date"
+            },
+            {
+                "Param": "Tipo",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Detalles",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.InsertarAtencion",
+        "type": "execute"
+    },
+    "InsertarCirugia": {
+        "params": [
+            {
+                "Param": "Fecha",
+                "Type": "Date"
+            },
+            {
+                "Param": "Hora",
+                "Type": "Time"
+            },
+            {
+                "Param": "Tipo",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "PersonalMedico",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Medicamentos",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Materiales",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "ID_Quirofano",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.InsertarCirugia",
+        "type": "execute"
+    },
+    "InsertarConsulta": {
+        "params": [
+            {
+                "Param": "Fecha",
+                "Type": "Date"
+            },
+            {
+                "Param": "Hora",
+                "Type": "Time"
+            },
+            {
+                "Param": "ID_Paciente",
+                "Type": "Int"
+            },
+            {
+                "Param": "ID_Medico",
+                "Type": "Int"
+            },
+            {
+                "Param": "Motivo",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.InsertarConsulta",
+        "type": "execute"
+    },
+    "InsertarHabitacion": {
+        "params": [
+            {
+                "Param": "Tipo",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Estado",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.InsertarHabitacion",
+        "type": "execute"
+    },
+    "InsertarHospitalizacion": {
+        "params": [
+            {
+                "Param": "FechaIngreso",
+                "Type": "Date"
+            },
+            {
+                "Param": "FechaAlta",
+                "Type": "Date"
+            },
+            {
+                "Param": "Categoria",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Honorarios",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "ID_Paciente",
+                "Type": "Int"
+            },
+            {
+                "Param": "ID_Medico",
+                "Type": "Int"
+            },
+            {
+                "Param": "ID_Habitacion",
+                "Type": "Int"
+            }
+        ],
+        "query": "dbo.InsertarHospitalizacion",
+        "type": "execute"
+    },
+    "InsertarMedico": {
+        "params": [
+            {
+                "Param": "Nombre",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "NumeroLicencia",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Especialidad",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.InsertarMedico",
+        "type": "execute"
+    },
+    "InsertarPaciente": {
+        "params": [
+            {
+                "Param": "Nombre",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Apellidos",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Direccion",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Telefono",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "FechaNacimiento",
+                "Type": "Date"
+            },
+            {
+                "Param": "SeguroMedico",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.InsertarPaciente",
+        "type": "execute"
+    },
+    "InsertarQuirofano": {
+        "params": [
+            {
+                "Param": "Numero",
+                "Type": "VarChar"
+            },
+            {
+                "Param": "Estado",
+                "Type": "VarChar"
+            }
+        ],
+        "query": "dbo.InsertarQuirofano",
+        "type": "execute"
+    }
+}
