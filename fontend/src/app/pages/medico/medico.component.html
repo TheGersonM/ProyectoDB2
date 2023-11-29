@@ -1,0 +1,104 @@
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Médicos</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="btn-group">
+                    <button (click)="establecerParametos(0, '', '', '')" type="button" data-toggle="modal"
+                        data-target="#medic" class="btn btn-default btn-sm">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button [disabled]="!seleccionMedico.size" (click)="eliminarMedico()" type="button"
+                        class="btn btn-default btn-sm">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button (click)="obtenerMedico()" [attr.data-toggle]="seleccionMedico.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionMedico.size == 1 ? '#medic': null"
+                        [disabled]="seleccionMedico.size != 1" class="btn btn-default btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button (click)="seleccionarTodo(medicos, seleccionMedico)" class="btn btn-default btn-sm">
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="card-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Licencia</th>
+                                    <th>Especialidad</th>
+                                </tr>
+                            </thead>
+                            <tbody style="cursor: pointer;">
+                                <tr *ngFor="let medico of medicos"
+                                    [ngClass]="{'table-primary': seleccionMedico.has(medico)}"
+                                    (click)="seleccionarLinea(seleccionMedico, medico, 1)">
+                                    <td>{{medico.Nombre}}</td>
+                                    <td>{{medico.NumeroLicencia}}</td>
+                                    <td>{{medico.Especialidad}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="medic" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Médico</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Nombre</label>
+                            <input [(ngModel)]="Nombre" type="text" class="form-control-sm form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Número de Licencia</label>
+                            <input [(ngModel)]="NumeroLicencia" type="text" class="form-control-sm form-control">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Especialidad</label>
+                            <input [(ngModel)]="Especialidad" type="text" class="form-control-sm form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button (click)="seleccionMedico.size == 1 ? actualizarMedico() : insertarMedico()" type="button"
+                    class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

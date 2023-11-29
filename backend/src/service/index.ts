@@ -6,7 +6,6 @@ export async function modelFunctions(fileName: string) {
     const filePath = path.resolve(__dirname, `../model/${fileName}.model.json`);
     const data = fs.readFileSync(filePath, 'utf8');
     const json = JSON.parse(data);
-
     const functions: { [key: string]: Function } = {};
 
     for (const element of json) {

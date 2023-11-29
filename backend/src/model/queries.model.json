@@ -1,0 +1,97 @@
+[
+    {
+        "ObtenerMedico": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerMedico(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerMedicos": {
+            "params": [],
+            "query": "select * from dbo.ObtenerMedicos",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerHabitaciones": {
+            "params": [],
+            "query": "select * from dbo.ObtenerHabitaciones",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerHabitacion": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerHabitacion(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerQuirofanos": {
+            "params": [],
+            "query": "select * from dbo.ObtenerQuirofanos",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerQuirofano": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerQuirofano(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerPacientes": {
+            "params": [],
+            "query": "select * from dbo.ObtenerPacientes",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerPaciente": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerPaciente(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerConsultas": {
+            "params": [],
+            "query": "select * from dbo.ObtenerConsultas",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerConsulta": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerConsulta(@ID)",
+            "type": "query"
+        }
+    }
+]

@@ -1,0 +1,112 @@
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Habitaciones</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="btn-group">
+                    <button (click)="establecerParametos(0, '', '', '')" type="button" data-toggle="modal"
+                        data-target="#medic" class="btn btn-default btn-sm">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button [disabled]="!seleccionHabitacion.size" (click)="eliminarHabitacion()" type="button"
+                        class="btn btn-default btn-sm">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button (click)="obtenerHabitacion()"
+                        [attr.data-toggle]="seleccionHabitacion.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionHabitacion.size == 1 ? '#medic': null"
+                        [disabled]="seleccionHabitacion.size != 1" class="btn btn-default btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button (click)="seleccionarTodo(habitaciones, seleccionHabitacion)" class="btn btn-default btn-sm">
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="card-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Número</th>
+                                </tr>
+                            </thead>
+                            <tbody style="cursor: pointer;">
+                                <tr *ngFor="let habitacion of habitaciones"
+                                    [ngClass]="{'table-primary': seleccionHabitacion.has(habitacion)}"
+                                    (click)="seleccionarLinea(seleccionHabitacion, habitacion, 1)">
+                                    <td>{{habitacion.Tipo}}</td>
+                                    <td>{{habitacion.Estado}}</td>
+                                    <td>{{habitacion.NumeroHabitacion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="medic" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Habitación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Tipo de Habitacion</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="Tipo">
+                                <option value="semiprivada">Semiprivada</option>
+                                <option value="privada">Privada</option>
+                                <option value="suite">Suite</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Estado de la habitación</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="Estado">
+                                <option value="ocupada">Ocupada</option>
+                                <option value="libre">Libre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Número de la habitación</label>
+                            <input [(ngModel)]="NumeroHabitacion" type="text" class="form-control-sm form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button (click)="seleccionHabitacion.size == 1 ? actualizarHabitacion() : insertarHabitacion()"
+                    type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
