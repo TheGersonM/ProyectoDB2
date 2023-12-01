@@ -93,5 +93,126 @@
             "query": "select * from dbo.ObtenerConsulta(@ID)",
             "type": "query"
         }
+    },
+    {
+        "ObtenerCamas": {
+            "params": [],
+            "query": "select * from dbo.ObtenerCamas",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerCama": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerCama(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerAtenciones": {
+            "params": [],
+            "query": "select * from dbo.ObtenerAtenciones",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerAtencion": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerAtencion(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerCirugias": {
+            "params": [],
+            "query": "select * from dbo.ObtenerCirugias",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerCirugia": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerCirugia(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerHospitalizaciones": {
+            "params": [],
+            "query": "select * from dbo.ObtenerHospitalizaciones",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerHospitalizacion": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerHospitalizacion(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerConsultorios": {
+            "params": [],
+            "query": "select * from dbo.ObtenerConsultorios",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerConsultorio": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerConsultorio(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerHospitalizacionesPorPaciente": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerHospitalizacionesPorPaciente(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerHabitacionesDisponibles": {
+            "params": [],
+            "query": "select * from dbo.ObtenerHabitacionesDisponibles()",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerCamasDisponibles": {
+            "params": [],
+            "query": "select * from dbo.ObtenerCamasDisponibles()",
+            "type": "query"
+        }
     }
 ]

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Consultas</h1>
+                <h1 class="m-0">Hospitalizaciones</h1>
             </div>
         </div>
     </div>
@@ -13,20 +13,22 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '', 0, 0, '')" type="button" data-toggle="modal"
+                    <button (click)="establecerParametros(0, 0, 0, '', '', 0, 0)" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <button [disabled]="!seleccionConsulta.size" (click)="eliminarConsulta()" type="button"
-                        class="btn btn-default btn-sm">
+                    <button [disabled]="!seleccionHospitalizacion.size" (click)="eliminarHospitalizacion()"
+                        type="button" class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerConsulta()" [attr.data-toggle]="seleccionConsulta.size == 1 ? 'modal': null"
-                        [attr.data-target]="seleccionConsulta.size == 1 ? '#medic': null"
-                        [disabled]="seleccionConsulta.size != 1" class="btn btn-default btn-sm">
+                    <button (click)="obtenerHospitalizacion()"
+                        [attr.data-toggle]="seleccionHospitalizacion.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionHospitalizacion.size == 1 ? '#medic': null"
+                        [disabled]="seleccionHospitalizacion.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button (click)="seleccionarTodo(consultas, seleccionConsulta)" class="btn btn-default btn-sm">
+                    <button (click)="seleccionarTodo(hospitalizaciones, seleccionHospitalizacion)"
+                        class="btn btn-default btn-sm">
                         <i class="fas fa-check-double"></i>
                     </button>
                 </div>
@@ -39,22 +41,22 @@
                                 <tr>
                                     <th>Paciente</th>
                                     <th>Médico</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Motivo</th>
-                                    <th>Estado</th>
+                                    <th>Fecha Ingreso</th>
+                                    <th>Fecha Alta</th>
+                                    <th>Habitación</th>
+                                    <th>Cama</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let consulta of consultas"
-                                    [ngClass]="{'table-primary': seleccionConsulta.has(consulta)}"
-                                    (click)="seleccionarLinea(seleccionConsulta, consulta, 1)">
-                                    <td>{{consulta.NombrePaciente}}</td>
-                                    <td>{{consulta.NombreMedico}}</td>
-                                    <td>{{consulta.Fecha}}</td>
-                                    <td>{{consulta.Hora}}</td>
-                                    <td>{{consulta.Motivo}}</td>
-                                    <td>{{consulta.Estado}}</td>
+                                <tr *ngFor="let hospitalizacion of hospitalizaciones"
+                                    [ngClass]="{'table-primary': seleccionHospitalizacion.has(hospitalizacion)}"
+                                    (click)="seleccionarLinea(seleccionHospitalizacion, hospitalizacion, 1)">
+                                    <td>{{hospitalizacion.NombrePaciente}}</td>
+                                    <td>{{hospitalizacion.NombreMedico}}</td>
+                                    <td>{{hospitalizacion.FechaIngreso}}</td>
+                                    <td>{{hospitalizacion.FechaAlta}}</td>
+                                    <td>{{hospitalizacion.NumeroHabitacion}}</td>
+                                    <td>{{hospitalizacion.NumeroCama}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,7 +72,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Consulta</h5>
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Hospitalización</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -82,7 +84,7 @@
                             <label for="">Paciente</label>
                             <select class="form-control form-control-sm" [(ngModel)]="ID_Paciente">
                                 <option *ngFor="let paciente of pacientes" [ngValue]="paciente.ID">
-                                    {{paciente.Nombre}} - {{paciente.Apellidos}}
+                                    {{paciente.Nombre + ' ' + paciente.Apellidos}}
                                 </option>
                             </select>
                         </div>
@@ -101,31 +103,46 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Fecha</label>
-                            <input type="date" class="form-control form-control-sm" [(ngModel)]="Fecha">
+                            <label for="">Fecha de Ingreso</label>
+                            <input type="date" class="form-control form-control-sm" [(ngModel)]="FechaIngreso">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Hora</label>
-                            <input type="time" class="form-control form-control-sm" [(ngModel)]="Hora">
+                            <label for="">Fecha de Alta</label>
+                            <input [disabled]="ID == 0" type="date" class="form-control form-control-sm"
+                                [(ngModel)]="FechaAlta">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Motivo</label>
-                            <textarea type="time" class="form-control form-control-sm" [(ngModel)]="Motivo">
-                            </textarea>
+                            <label for="">Habitación</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="ID_Habitacion">
+                                <option *ngFor="let habitacion of habitaciones" [ngValue]="habitacion.ID">
+                                    {{habitacion.NumeroHabitacion}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Cama</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="ID_Cama">
+                                <option *ngFor="let cama of camas" [ngValue]="cama.ID">
+                                    {{cama.Numero}}
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionConsulta.size == 1 ? actualizarConsulta() : insertarConsulta()" type="button"
-                    class="btn btn-primary">Save changes</button>
+                <button
+                    (click)="seleccionHospitalizacion.size == 1 ? actualizarHospitalizacion() : insertarHospitalizacion()"
+                    type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

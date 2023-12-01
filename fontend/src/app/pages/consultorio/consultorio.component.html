@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Quirófanos</h1>
+                <h1 class="m-0">Consultorios</h1>
             </div>
         </div>
     </div>
@@ -13,21 +13,22 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '')" type="button" data-toggle="modal"
+                    <button (click)="establecerParametros(0, '', 0, '')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <button [disabled]="!seleccionQuirofano.size" (click)="eliminarQuirofano()" type="button"
+                    <button [disabled]="!seleccionConsultorio.size" (click)="eliminarConsultorio()" type="button"
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerQuirofano()"
-                        [attr.data-toggle]="seleccionQuirofano.size == 1 ? 'modal': null"
-                        [attr.data-target]="seleccionQuirofano.size == 1 ? '#medic': null"
-                        [disabled]="seleccionQuirofano.size != 1" class="btn btn-default btn-sm">
+                    <button (click)="obtenerConsultorio()"
+                        [attr.data-toggle]="seleccionConsultorio.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionConsultorio.size == 1 ? '#medic': null"
+                        [disabled]="seleccionConsultorio.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button (click)="seleccionarTodo(quirofanos, seleccionQuirofano)" class="btn btn-default btn-sm">
+                    <button (click)="seleccionarTodo(consultorios, seleccionConsultorio)"
+                        class="btn btn-default btn-sm">
                         <i class="fas fa-check-double"></i>
                     </button>
                 </div>
@@ -38,16 +39,18 @@
                         <table class="table table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <th>Número</th>
-                                    <th>Estado</th>
+                                    <th>Nombre</th>
+                                    <th>Médico</th>
+                                    <th>Tipo</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let quirofano of quirofanos"
-                                    [ngClass]="{'table-primary': seleccionQuirofano.has(quirofano)}"
-                                    (click)="seleccionarLinea(seleccionQuirofano, quirofano, 1)">
-                                    <td>{{quirofano.Numero}}</td>
-                                    <td>{{quirofano.Estado}}</td>
+                                <tr *ngFor="let consultorio of consultorios"
+                                    [ngClass]="{'table-primary': seleccionConsultorio.has(consultorio)}"
+                                    (click)="seleccionarLinea(seleccionConsultorio, consultorio, 1)">
+                                    <td>{{consultorio.Nombre}}</td>
+                                    <td>{{consultorio.NombreMedico}}</td>
+                                    <td>{{consultorio.Tipo}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -63,7 +66,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Quirófano</h5>
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Consultorio</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -72,18 +75,28 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Número de quirófano</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Numero">
+                            <label for="">Nombre</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Nombre">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Médico</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="ID_Medico">
+                                <option *ngFor="let medico of medicos" [ngValue]="medico.ID">
+                                    {{medico.Nombre}}
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Estado de la habitación</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="Estado">
-                                <option value="ocupada">Ocupada</option>
-                                <option value="libre">Libre</option>
+                            <label for="">Tipo</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="Tipo">
+                                <option value="alquilada">Alquilada</option>
+                                <option value="no alquilada">No alquilada</option>
                             </select>
                         </div>
                     </div>
@@ -91,7 +104,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionQuirofano.size == 1 ? actualizarQuirofano() : insertarQuirofano()"
+                <button (click)="seleccionConsultorio.size == 1 ? actualizarConsultorio() : insertarConsultorio()"
                     type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>

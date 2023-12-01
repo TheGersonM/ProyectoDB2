@@ -9,8 +9,18 @@ modelFunctions("procedures").then((functions) => {
 
 export const ActualizarAtencion = async ({ body }: Request, res: Response) => {
     try {
-        const { ID, Fecha, Tipo, Detalles } = body
-        return res.json(await proceduresModel.ActualizarAtencion(ID, Fecha, Tipo, Detalles));
+        const { ID, ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles } = body
+        return res.json(await proceduresModel.ActualizarAtencion(ID, ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles));
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const ActualizarCama = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID, Numero, Estado } = body
+        return res.json(await proceduresModel.ActualizarCama(ID, Numero, Estado));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -18,9 +28,10 @@ export const ActualizarAtencion = async ({ body }: Request, res: Response) => {
 
 export const ActualizarCirugia = async ({ body }: Request, res: Response) => {
     try {
-        const { ID, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = body
-        return res.json(await proceduresModel.ActualizarCirugia(ID, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano));
+        const { ID, ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = body
+        return res.json(await proceduresModel.ActualizarCirugia(ID, ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano));
     } catch (err) {
+        console.log(err)
         return res.status(500).json(err);
     }
 }
@@ -34,10 +45,18 @@ export const ActualizarConsulta = async ({ body }: Request, res: Response) => {
     }
 }
 
+export const ActualizarConsultorio = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID, Nombre, ID_Medico, Tipo } = body
+        return res.json(await proceduresModel.ActualizarConsultorio(ID, Nombre, ID_Medico, Tipo));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 export const ActualizarHabitacion = async ({ body }: Request, res: Response) => {
     try {
         const { ID, Tipo, Estado, NumeroHabitacion } = body
-        console.log(Tipo)
         return res.json(await proceduresModel.ActualizarHabitacion(ID, Tipo, Estado, NumeroHabitacion));
     } catch (err) {
         return res.status(500).json(err);
@@ -46,8 +65,8 @@ export const ActualizarHabitacion = async ({ body }: Request, res: Response) => 
 
 export const ActualizarHospitalizacion = async ({ body }: Request, res: Response) => {
     try {
-        const { ID, FechaIngreso, FechaAlta, Categoria, Honorarios, ID_Paciente, ID_Medico, ID_Habitacion } = body
-        return res.json(await proceduresModel.ActualizarHospitalizacion(ID, FechaIngreso, FechaAlta, Categoria, Honorarios, ID_Paciente, ID_Medico, ID_Habitacion));
+        const { ID, ID_Paciente, ID_Medico, FechaIngreso, FechaAlta, ID_Habitacion, ID_Cama } = body
+        return res.json(await proceduresModel.ActualizarHospitalizacion(ID, ID_Paciente, ID_Medico, FechaIngreso, FechaAlta, ID_Habitacion, ID_Cama));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -67,7 +86,6 @@ export const ActualizarPaciente = async ({ body }: Request, res: Response) => {
         const { ID, Nombre, Apellidos, Direccion, Telefono, FechaNacimiento, SeguroMedico } = body
         return res.json(await proceduresModel.ActualizarPaciente(ID, Nombre, Apellidos, Direccion, Telefono, FechaNacimiento, SeguroMedico));
     } catch (err) {
-        console.log(err)
         return res.status(500).json(err);
     }
 }
@@ -85,6 +103,16 @@ export const EliminarAtencion = async ({ body }: Request, res: Response) => {
     try {
         const { ID } = body
         return res.json(await proceduresModel.EliminarAtencion(ID));
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const EliminarCama = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID } = body
+        return res.json(await proceduresModel.EliminarCama(ID));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -108,12 +136,20 @@ export const EliminarConsulta = async ({ body }: Request, res: Response) => {
     }
 }
 
+export const EliminarConsultorio = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID } = body
+        return res.json(await proceduresModel.EliminarConsultorio(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 export const EliminarHabitacion = async ({ body }: Request, res: Response) => {
     try {
         const { ID } = body
         return res.json(await proceduresModel.EliminarHabitacion(ID));
     } catch (err) {
-        console.log(err)
         return res.status(500).json(err);
     }
 }
@@ -132,7 +168,6 @@ export const EliminarMedico = async ({ body }: Request, res: Response) => {
         const { ID } = body
         return res.json(await proceduresModel.EliminarMedico(ID));
     } catch (err) {
-        console.log(err)
         return res.status(500).json(err);
     }
 }
@@ -149,18 +184,25 @@ export const EliminarPaciente = async ({ body }: Request, res: Response) => {
 export const EliminarQuirofano = async ({ body }: Request, res: Response) => {
     try {
         const { ID } = body
-        console.log(ID)
         return res.json(await proceduresModel.EliminarQuirofano(ID));
     } catch (err) {
-        console.log(err)
         return res.status(500).json(err);
     }
 }
 
 export const InsertarAtencion = async ({ body }: Request, res: Response) => {
     try {
-        const { Fecha, Tipo, Detalles } = body
-        return res.json(await proceduresModel.InsertarAtencion(Fecha, Tipo, Detalles));
+        const { ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles } = body
+        return res.json(await proceduresModel.InsertarAtencion(ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const InsertarCama = async ({ body }: Request, res: Response) => {
+    try {
+        const { Numero, Estado } = body
+        return res.json(await proceduresModel.InsertarCama(Numero, Estado));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -168,8 +210,8 @@ export const InsertarAtencion = async ({ body }: Request, res: Response) => {
 
 export const InsertarCirugia = async ({ body }: Request, res: Response) => {
     try {
-        const { Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = body
-        return res.json(await proceduresModel.InsertarCirugia(Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano));
+        const { ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = body
+        return res.json(await proceduresModel.InsertarCirugia(ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -180,6 +222,16 @@ export const InsertarConsulta = async ({ body }: Request, res: Response) => {
         const { Fecha, Hora, ID_Paciente, ID_Medico, Motivo } = body
         return res.json(await proceduresModel.InsertarConsulta(Fecha, Hora, ID_Paciente, ID_Medico, Motivo));
     } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const InsertarConsultorio = async ({ body }: Request, res: Response) => {
+    try {
+        const { Nombre, ID_Medico, Tipo } = body
+        return res.json(await proceduresModel.InsertarConsultorio(Nombre, ID_Medico, Tipo));
+    } catch (err) {
+        console.log(err)
         return res.status(500).json(err);
     }
 }
@@ -195,8 +247,8 @@ export const InsertarHabitacion = async ({ body }: Request, res: Response) => {
 
 export const InsertarHospitalizacion = async ({ body }: Request, res: Response) => {
     try {
-        const { FechaIngreso, FechaAlta, Categoria, Honorarios, ID_Paciente, ID_Medico, ID_Habitacion } = body
-        return res.json(await proceduresModel.InsertarHospitalizacion(FechaIngreso, FechaAlta, Categoria, Honorarios, ID_Paciente, ID_Medico, ID_Habitacion));
+        const { ID_Paciente, ID_Medico, FechaIngreso, ID_Habitacion, ID_Cama } = body
+        return res.json(await proceduresModel.InsertarHospitalizacion(ID_Paciente, ID_Medico, FechaIngreso, ID_Habitacion, ID_Cama));
     } catch (err) {
         return res.status(500).json(err);
     }

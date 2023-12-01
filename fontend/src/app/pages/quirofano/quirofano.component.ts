@@ -46,7 +46,7 @@ export class QuirofanoComponent implements OnInit {
       this.toastService.error("Error Interno");
       return [];
     })).subscribe(data => {
-      this.establecerParametos(data[0].ID, data[0].Numero, data[0].Estado);
+      this.establecerParametros(data[0].ID, data[0].Numero, data[0].Estado);
     })
   }
 
@@ -102,7 +102,7 @@ export class QuirofanoComponent implements OnInit {
     this.globalService.removeLine(arr, set);
   }
 
-  establecerParametos = (ID: any, Numero: any, Estado: any) => {
+  establecerParametros = (ID: any, Numero: any, Estado: any) => {
     this.ID = ID;
     this.Numero = Numero;
     this.Estado = Estado;

@@ -6,6 +6,11 @@ import { HabitacionComponent } from './habitacion/habitacion.component';
 import { QuirofanoComponent } from './quirofano/quirofano.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ConsultaComponent } from './consulta/consulta.component';
+import { CamaComponent } from './cama/cama.component';
+import { HospitalizacionComponent } from './hospitalizacion/hospitalizacion.component';
+import { AtencionComponent } from './atencion/atencion.component';
+import { CirugiaComponent } from './cirugia/cirugia.component';
+import { ConsultorioComponent } from './consultorio/consultorio.component';
 
 const routes: Routes = [
   {
@@ -15,7 +20,12 @@ const routes: Routes = [
       { path: 'habitacion', component: HabitacionComponent, pathMatch: 'full' },
       { path: 'quirofano', component: QuirofanoComponent, pathMatch: 'full' },
       { path: 'paciente', component: PacienteComponent, pathMatch: 'full' },
-      { path: 'consulta', component: ConsultaComponent, pathMatch: 'full' }
+      { path: 'consulta', component: ConsultaComponent, pathMatch: 'full' },
+      { path: 'cama', component: CamaComponent, pathMatch: 'full' },
+      { path: 'hospitalizacion', component: HospitalizacionComponent, pathMatch: 'full' },
+      { path: 'atencion', component: AtencionComponent, pathMatch: 'full' },
+      { path: 'cirugia', component: CirugiaComponent, pathMatch: 'full' },
+      { path: 'consultorio', component: ConsultorioComponent, pathMatch: 'full' }
     ]
   }
 ];

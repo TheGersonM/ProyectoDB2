@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Quirófanos</h1>
+                <h1 class="m-0">Camas</h1>
             </div>
         </div>
     </div>
@@ -17,17 +17,16 @@
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <button [disabled]="!seleccionQuirofano.size" (click)="eliminarQuirofano()" type="button"
+                    <button [disabled]="!seleccionCama.size" (click)="eliminarCama()" type="button"
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerQuirofano()"
-                        [attr.data-toggle]="seleccionQuirofano.size == 1 ? 'modal': null"
-                        [attr.data-target]="seleccionQuirofano.size == 1 ? '#medic': null"
-                        [disabled]="seleccionQuirofano.size != 1" class="btn btn-default btn-sm">
+                    <button (click)="obtenerCama()" [attr.data-toggle]="seleccionCama.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionCama.size == 1 ? '#medic': null"
+                        [disabled]="seleccionCama.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button (click)="seleccionarTodo(quirofanos, seleccionQuirofano)" class="btn btn-default btn-sm">
+                    <button (click)="seleccionarTodo(camas, seleccionCama)" class="btn btn-default btn-sm">
                         <i class="fas fa-check-double"></i>
                     </button>
                 </div>
@@ -38,16 +37,15 @@
                         <table class="table table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <th>Número</th>
+                                    <th>Numero Inventario</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let quirofano of quirofanos"
-                                    [ngClass]="{'table-primary': seleccionQuirofano.has(quirofano)}"
-                                    (click)="seleccionarLinea(seleccionQuirofano, quirofano, 1)">
-                                    <td>{{quirofano.Numero}}</td>
-                                    <td>{{quirofano.Estado}}</td>
+                                <tr *ngFor="let cama of camas" [ngClass]="{'table-primary': seleccionCama.has(cama)}"
+                                    (click)="seleccionarLinea(seleccionCama, cama, 1)">
+                                    <td>{{cama.Numero}}</td>
+                                    <td>{{cama.Estado}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -63,7 +61,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Quirófano</h5>
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Cama</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -72,15 +70,13 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Número de quirófano</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Numero">
+                            <label for="">Número de inventario</label>
+                            <input [(ngModel)]="Numero" type="text" class="form-control-sm form-control">
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Estado de la habitación</label>
+                            <label for="">Estado de la cama</label>
                             <select class="form-control form-control-sm" [(ngModel)]="Estado">
                                 <option value="ocupada">Ocupada</option>
                                 <option value="libre">Libre</option>
@@ -91,8 +87,8 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionQuirofano.size == 1 ? actualizarQuirofano() : insertarQuirofano()"
-                    type="button" class="btn btn-primary">Save changes</button>
+                <button (click)="seleccionCama.size == 1 ? actualizarCama() : insertarCama()" type="button"
+                    class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

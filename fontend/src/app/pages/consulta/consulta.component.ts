@@ -70,7 +70,7 @@ export class ConsultaComponent implements OnInit {
       this.toastService.error("Error Interno");
       return [];
     })).subscribe(data => {
-      this.establecerParametos(data[0].ID, data[0].Fecha, data[0].Hora, data[0].ID_Paciente, data[0].ID_Medico, data[0].Motivo);
+      this.establecerParametros(data[0].ID, data[0].Fecha, data[0].Hora, data[0].ID_Paciente, data[0].ID_Medico, data[0].Motivo);
     })
   }
 
@@ -125,7 +125,7 @@ export class ConsultaComponent implements OnInit {
     this.globalService.removeLine(arr, set);
   }
 
-  establecerParametos = (ID: any, Fecha: any, Hora: any, ID_Paciente: any, ID_Medico: any, Motivo: any) => {
+  establecerParametros = (ID: any, Fecha: any, Hora: any, ID_Paciente: any, ID_Medico: any, Motivo: any) => {
     this.ID = ID;
     this.ID_Paciente = ID_Paciente;
     this.ID_Medico = ID_Medico;

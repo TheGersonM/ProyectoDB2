@@ -11,6 +11,11 @@ import { QuirofanoComponent } from './quirofano/quirofano.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ConsultaComponent } from './consulta/consulta.component';
+import { CamaComponent } from './cama/cama.component';
+import { HospitalizacionComponent } from './hospitalizacion/hospitalizacion.component';
+import { AtencionComponent } from './atencion/atencion.component';
+import { CirugiaComponent } from './cirugia/cirugia.component';
+import { ConsultorioComponent } from './consultorio/consultorio.component';
 
 
 
@@ -21,7 +26,12 @@ import { ConsultaComponent } from './consulta/consulta.component';
     HabitacionComponent,
     QuirofanoComponent,
     PacienteComponent,
-    ConsultaComponent
+    ConsultaComponent,
+    CamaComponent,
+    HospitalizacionComponent,
+    AtencionComponent,
+    CirugiaComponent,
+    ConsultorioComponent
   ],
   imports: [
     CommonModule,

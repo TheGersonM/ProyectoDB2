@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Consultas</h1>
+                <h1 class="m-0">Atenciones</h1>
             </div>
         </div>
     </div>
@@ -13,20 +13,20 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '', 0, 0, '')" type="button" data-toggle="modal"
+                    <button (click)="establecerParametros(0, 0, 0, 0, '', '', '')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <button [disabled]="!seleccionConsulta.size" (click)="eliminarConsulta()" type="button"
+                    <button [disabled]="!seleccionAtencion.size" (click)="eliminarAtencion()" type="button"
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerConsulta()" [attr.data-toggle]="seleccionConsulta.size == 1 ? 'modal': null"
-                        [attr.data-target]="seleccionConsulta.size == 1 ? '#medic': null"
-                        [disabled]="seleccionConsulta.size != 1" class="btn btn-default btn-sm">
+                    <button (click)="obtenerAtencion()" [attr.data-toggle]="seleccionAtencion.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionAtencion.size == 1 ? '#medic': null"
+                        [disabled]="seleccionAtencion.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button (click)="seleccionarTodo(consultas, seleccionConsulta)" class="btn btn-default btn-sm">
+                    <button (click)="seleccionarTodo(atenciones, seleccionAtencion)" class="btn btn-default btn-sm">
                         <i class="fas fa-check-double"></i>
                     </button>
                 </div>
@@ -38,23 +38,21 @@
                             <thead>
                                 <tr>
                                     <th>Paciente</th>
-                                    <th>Médico</th>
+                                    <th>Medico</th>
+                                    <th>Hospitalización</th>
                                     <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Motivo</th>
-                                    <th>Estado</th>
+                                    <th>Detalles</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let consulta of consultas"
-                                    [ngClass]="{'table-primary': seleccionConsulta.has(consulta)}"
-                                    (click)="seleccionarLinea(seleccionConsulta, consulta, 1)">
-                                    <td>{{consulta.NombrePaciente}}</td>
-                                    <td>{{consulta.NombreMedico}}</td>
-                                    <td>{{consulta.Fecha}}</td>
-                                    <td>{{consulta.Hora}}</td>
-                                    <td>{{consulta.Motivo}}</td>
-                                    <td>{{consulta.Estado}}</td>
+                                <tr *ngFor="let atencion of atenciones"
+                                    [ngClass]="{'table-primary': seleccionAtencion.has(atencion)}"
+                                    (click)="seleccionarLinea(seleccionAtencion, atencion, 1)">
+                                    <td>{{atencion.NombrePaciente}}</td>
+                                    <td>{{atencion.NombreMedico}}</td>
+                                    <td>{{atencion.ID_Hospitalizacion}}</td>
+                                    <td>{{atencion.Fecha}}</td>
+                                    <td>{{atencion.Detalles}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,7 +68,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Consulta</h5>
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Atenciones</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -80,9 +78,9 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Paciente</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="ID_Paciente">
+                            <select (change)="obtenerHospitalizacionesPorPaciente()" class="form-control form-control-sm" [(ngModel)]="ID_Paciente">
                                 <option *ngFor="let paciente of pacientes" [ngValue]="paciente.ID">
-                                    {{paciente.Nombre}} - {{paciente.Apellidos}}
+                                    {{paciente.Nombre + ' ' + paciente.Apellidos}}
                                 </option>
                             </select>
                         </div>
@@ -101,30 +99,47 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Fecha</label>
-                            <input type="date" class="form-control form-control-sm" [(ngModel)]="Fecha">
+                            <label for="">Hospitalización</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="ID_Hospitalizacion">
+                                <option *ngFor="let hospitalizacion of hospitalizaciones"
+                                    [ngValue]="hospitalizacion.ID">
+                                    {{hospitalizacion.ID}}
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Hora</label>
-                            <input type="time" class="form-control form-control-sm" [(ngModel)]="Hora">
+                            <label for="">Fecha</label>
+                            <input type="date" class="form-control form-control-sm" [(ngModel)]="Fecha">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Motivo</label>
-                            <textarea type="time" class="form-control form-control-sm" [(ngModel)]="Motivo">
-                            </textarea>
+                            <label for="">Tipo</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="Tipo">
+                                <option value="vm">Visitas médicas</option>
+                                <option value="am">Aplicación de medicamente</option>
+                                <option value="as">Suministro de alimentos</option>
+                                <option value="em">Exámenes médicos</option>
+                                <option value="ae">Atenciones extras</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Detalles</label>
+                            <textarea type="text" class="form-control form-control-sm"
+                                [(ngModel)]="Detalles"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionConsulta.size == 1 ? actualizarConsulta() : insertarConsulta()" type="button"
+                <button (click)="seleccionAtencion.size == 1 ? actualizarAtencion() : insertarAtencion()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>

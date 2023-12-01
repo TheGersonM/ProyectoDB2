@@ -53,7 +53,7 @@ export class PacienteComponent implements OnInit {
         this.toastService.error("Error Interno");
         return [];
       })).subscribe(data => {
-        this.establecerParametos(data[0].ID, data[0].Nombre, data[0].Apellidos, data[0].Direccion, data[0].Telefono, data[0].FechaNacimiento, data[0].SeguroMedico);
+        this.establecerParametros(data[0].ID, data[0].Nombre, data[0].Apellidos, data[0].Direccion, data[0].Telefono, data[0].FechaNacimiento, data[0].SeguroMedico);
       })
   }
 
@@ -105,7 +105,7 @@ export class PacienteComponent implements OnInit {
     this.globalService.removeLine(arr, set);
   }
 
-  establecerParametos = (ID: any, Nombres: any, Apellidos: any, Direccion: any, Telefono: any, FechaNacimiento: any, SeguroMedico: any) => {
+  establecerParametros = (ID: any, Nombres: any, Apellidos: any, Direccion: any, Telefono: any, FechaNacimiento: any, SeguroMedico: any) => {
     this.ID = ID;
     this.Nombres = Nombres;
     this.Apellidos = Apellidos;

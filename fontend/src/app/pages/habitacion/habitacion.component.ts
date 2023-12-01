@@ -46,7 +46,7 @@ export class HabitacionComponent implements OnInit {
       this.toastService.error("Error Interno");
       return [];
     })).subscribe(data => {
-      this.establecerParametos(data[0].ID, data[0].Tipo, data[0].Estado, data[0].NumeroHabitacion);
+      this.establecerParametros(data[0].ID, data[0].Tipo, data[0].Estado, data[0].NumeroHabitacion);
     })
   }
 
@@ -101,7 +101,7 @@ export class HabitacionComponent implements OnInit {
     this.globalService.removeLine(arr, set);
   }
 
-  establecerParametos = (ID: any, Tipo: any, Estado: any, NumeroHabitacion: any) => {
+  establecerParametros = (ID: any, Tipo: any, Estado: any, NumeroHabitacion: any) => {
     this.ID = ID
     this.Tipo = Tipo
     this.Estado = Estado
