@@ -76,6 +76,37 @@
         }
     },
     {
+        "ObtenerFacturas": {
+            "params": [],
+            "query": "select * from dbo.ObtenerFacturas",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerFactura": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerFactura(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerFacturaDetalle": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerFacturaDetalle(@ID)",
+            "type": "query"
+        }
+    },
+    {
         "ObtenerConsultas": {
             "params": [],
             "query": "select * from dbo.ObtenerConsultas",
@@ -95,9 +126,54 @@
         }
     },
     {
+        "ObtenerCobroConsultorios": {
+            "params": [],
+            "query": "select * from dbo.ObtenerCobroConsultorios",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerCobroConsultorio": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerCobroConsultorio(@ID)",
+            "type": "query"
+        }
+    },
+    {
         "ObtenerCamas": {
             "params": [],
             "query": "select * from dbo.ObtenerCamas",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerCheques": {
+            "params": [],
+            "query": "select * from dbo.ObtenerCheques",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerCheque": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerCheque(@ID)",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerConsultoriosAlquilados": {
+            "params": [],
+            "query": "select * from dbo.ObtenerConsultoriosAlquilados()",
             "type": "query"
         }
     },
@@ -212,6 +288,18 @@
         "ObtenerCamasDisponibles": {
             "params": [],
             "query": "select * from dbo.ObtenerCamasDisponibles()",
+            "type": "query"
+        }
+    },
+    {
+        "ObtenerAtencionesPorPaciente": {
+            "params": [
+                {
+                    "Param": "ID_Paciente",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerAtencionesPorPaciente(@ID_Paciente)",
             "type": "query"
         }
     }

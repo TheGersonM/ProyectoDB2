@@ -16,6 +16,9 @@ import { HospitalizacionComponent } from './hospitalizacion/hospitalizacion.comp
 import { AtencionComponent } from './atencion/atencion.component';
 import { CirugiaComponent } from './cirugia/cirugia.component';
 import { ConsultorioComponent } from './consultorio/consultorio.component';
+import { FacturaComponent } from './factura/factura.component';
+import { CobroConsultorioComponent } from './cobro-consultorio/cobro-consultorio.component';
+import { ChequeComponent } from './cheque/cheque.component';
 
 
 
@@ -31,7 +34,10 @@ import { ConsultorioComponent } from './consultorio/consultorio.component';
     HospitalizacionComponent,
     AtencionComponent,
     CirugiaComponent,
-    ConsultorioComponent
+    ConsultorioComponent,
+    FacturaComponent,
+    CobroConsultorioComponent,
+    ChequeComponent
   ],
   imports: [
     CommonModule,

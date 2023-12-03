@@ -56,6 +56,34 @@
         }
     },
     {
+        "ActualizarCheque": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "ID_Medico",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Fecha",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Concepto",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Valor",
+                    "Type": "Float"
+                }
+            ],
+            "query": "dbo.ActualizarCheque",
+            "type": "execute"
+        }
+    },
+    {
         "ActualizarCirugia": {
             "params": [
                 {
@@ -100,6 +128,42 @@
                 }
             ],
             "query": "dbo.ActualizarCirugia",
+            "type": "execute"
+        }
+    },
+    {
+        "ActualizarCobroConsultorio": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Nombre",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Concepto",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Valor",
+                    "Type": "Float"
+                },
+                {
+                    "Param": "Impuesto",
+                    "Type": "Float"
+                },
+                {
+                    "Param": "Total",
+                    "Type": "Float"
+                },
+                {
+                    "Param": "ID_Consultorio",
+                    "Type": "Int"
+                }
+            ],
+            "query": "dbo.ActualizarCobroConsultorio",
             "type": "execute"
         }
     },
@@ -156,6 +220,68 @@
                 }
             ],
             "query": "dbo.ActualizarConsultorio",
+            "type": "execute"
+        }
+    },
+    {
+        "ActualizarFactura": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "ID_Paciente",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Fecha",
+                    "Type": "VarChar"
+                }
+            ],
+            "query": "dbo.ActualizarFactura",
+            "type": "execute"
+        }
+    },
+    {
+        "ActualizarFacturaDetalle": {
+            "params": [
+                {
+                    "Param": "ID_Factura",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "FacturaDetalle",
+                    "Type": "Table",
+                    "Cols": [
+                        {
+                            "Name": "ID_Paciente",
+                            "type": "Int"
+                        },
+                        {
+                            "Name": "ID_Detalle",
+                            "type": "Int"
+                        },
+                        {
+                            "Name": "Detalle",
+                            "type": "VarChar"
+                        },
+                        {
+                            "Name": "Cantidad",
+                            "type": "Float"
+                        },
+                        {
+                            "Name": "Precio",
+                            "type": "Float"
+                        },
+                        {
+                            "Name": "Tipo",
+                            "type": "VarChar"
+                        }
+                    ]
+                }
+            ],
+            "query": "dbo.ActualizarFacturaDetalle",
             "type": "execute"
         }
     },
@@ -324,6 +450,18 @@
         }
     },
     {
+        "EliminarCheque": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "dbo.EliminarCheque",
+            "type": "execute"
+        }
+    },
+    {
         "EliminarCirugia": {
             "params": [
                 {
@@ -332,6 +470,18 @@
                 }
             ],
             "query": "dbo.EliminarCirugia",
+            "type": "execute"
+        }
+    },
+    {
+        "EliminarCobroConsultorio": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "dbo.EliminarCobroConsultorio",
             "type": "execute"
         }
     },
@@ -356,6 +506,30 @@
                 }
             ],
             "query": "dbo.EliminarConsultorio",
+            "type": "execute"
+        }
+    },
+    {
+        "EliminarFactura": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "dbo.EliminarFactura",
+            "type": "execute"
+        }
+    },
+    {
+        "EliminarFacturaDetalle": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "dbo.EliminarFacturaDetalle",
             "type": "execute"
         }
     },
@@ -468,6 +642,30 @@
         }
     },
     {
+        "InsertarCheque": {
+            "params": [
+                {
+                    "Param": "ID_Medico",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Fecha",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Concepto",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Valor",
+                    "Type": "Float"
+                }
+            ],
+            "query": "dbo.InsertarCheque",
+            "type": "execute"
+        }
+    },
+    {
         "InsertarCirugia": {
             "params": [
                 {
@@ -508,6 +706,38 @@
                 }
             ],
             "query": "dbo.InsertarCirugia",
+            "type": "execute"
+        }
+    },
+    {
+        "InsertarCobroConsultorio": {
+            "params": [
+                {
+                    "Param": "Nombre",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Concepto",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Valor",
+                    "Type": "Float"
+                },
+                {
+                    "Param": "Impuesto",
+                    "Type": "Float"
+                },
+                {
+                    "Param": "Total",
+                    "Type": "Float"
+                },
+                {
+                    "Param": "ID_Consultorio",
+                    "Type": "Int"
+                }
+            ],
+            "query": "dbo.InsertarCobroConsultorio",
             "type": "execute"
         }
     },
@@ -556,6 +786,64 @@
                 }
             ],
             "query": "dbo.InsertarConsultorio",
+            "type": "execute"
+        }
+    },
+    {
+        "InsertarFactura": {
+            "params": [
+                {
+                    "Param": "ID_Paciente",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Fecha",
+                    "Type": "VarChar"
+                }
+            ],
+            "query": "dbo.InsertarFactura",
+            "type": "execute"
+        }
+    },
+    {
+        "InsertarFacturaDetalle": {
+            "params": [
+                {
+                    "Param": "ID_Factura",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "FacturaDetalle",
+                    "Type": "Table",
+                    "Cols": [
+                        {
+                            "Name": "ID_Paciente",
+                            "type": "Int"
+                        },
+                        {
+                            "Name": "ID_Detalle",
+                            "type": "Int"
+                        },
+                        {
+                            "Name": "Detalle",
+                            "type": "VarChar"
+                        },
+                        {
+                            "Name": "Cantidad",
+                            "type": "Float"
+                        },
+                        {
+                            "Name": "Precio",
+                            "type": "Float"
+                        },
+                        {
+                            "Name": "Tipo",
+                            "type": "VarChar"
+                        }
+                    ]
+                }
+            ],
+            "query": "dbo.InsertarFacturaDetalle",
             "type": "execute"
         }
     },

@@ -15,14 +15,26 @@ export class ProceduresService {
   ActualizarCama = (ID: any, Numero: any, Estado: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarCama`, { ID, Numero, Estado })
   }
+  ActualizarCheque = (ID: any, ID_Medico: any, Fecha: any, Concepto: any, Valor: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarCheque`, { ID, ID_Medico, Fecha, Concepto, Valor })
+  }
   ActualizarCirugia = (ID: any, ID_Paciente: any, ID_Medico: any, Fecha: any, Hora: any, Tipo: any, PersonalMedico: any, Medicamentos: any, Materiales: any, ID_Quirofano: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarCirugia`, { ID, ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano })
+  }
+  ActualizarCobroConsultorio = (ID: any, Nombre: any, Concepto: any, Valor: any, Impuesto: any, Total: any, ID_Consultorio: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarCobroConsultorio`, { ID, Nombre, Concepto, Valor, Impuesto, Total, ID_Consultorio })
   }
   ActualizarConsulta = (ID: any, Fecha: any, Hora: any, ID_Paciente: any, ID_Medico: any, Motivo: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarConsulta`, { ID, Fecha, Hora, ID_Paciente, ID_Medico, Motivo })
   }
   ActualizarConsultorio = (ID: any, Nombre: any, ID_Medico: any, Tipo: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarConsultorio`, { ID, Nombre, ID_Medico, Tipo })
+  }
+  ActualizarFactura = (ID: any, ID_Paciente: any, Fecha: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarFactura`, { ID, ID_Paciente, Fecha })
+  }
+  ActualizarFacturaDetalle = (ID_Factura: any, FacturaDetalle: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarFacturaDetalle`, { ID_Factura, FacturaDetalle })
   }
   ActualizarHabitacion = (ID: any, Tipo: any, Estado: any, NumeroHabitacion: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarHabitacion`, { ID, Tipo, Estado, NumeroHabitacion })
@@ -45,14 +57,26 @@ export class ProceduresService {
   EliminarCama = (ID: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarCama`, { ID })
   }
+  EliminarCheque = (ID: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarCheque`, { ID })
+  }
   EliminarCirugia = (ID: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarCirugia`, { ID })
+  }
+  EliminarCobroConsultorio = (ID: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarCobroConsultorio`, { ID })
   }
   EliminarConsulta = (ID: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarConsulta`, { ID })
   }
   EliminarConsultorio = (ID: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarConsultorio`, { ID })
+  }
+  EliminarFactura = (ID: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarFactura`, { ID })
+  }
+  EliminarFacturaDetalle = (ID: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarFacturaDetalle`, { ID })
   }
   EliminarHabitacion = (ID: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/EliminarHabitacion`, { ID })
@@ -75,14 +99,26 @@ export class ProceduresService {
   InsertarCama = (Numero: any, Estado: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarCama`, { Numero, Estado })
   }
+  InsertarCheque = (ID_Medico: any, Fecha: any, Concepto: any, Valor: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarCheque`, { ID_Medico, Fecha, Concepto, Valor })
+  }
   InsertarCirugia = (ID_Paciente: any, ID_Medico: any, Fecha: any, Hora: any, Tipo: any, PersonalMedico: any, Medicamentos: any, Materiales: any, ID_Quirofano: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarCirugia`, { ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano })
+  }
+  InsertarCobroConsultorio = (Nombre: any, Concepto: any, Valor: any, Impuesto: any, Total: any, ID_Consultorio: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarCobroConsultorio`, { Nombre, Concepto, Valor, Impuesto, Total, ID_Consultorio })
   }
   InsertarConsulta = (Fecha: any, Hora: any, ID_Paciente: any, ID_Medico: any, Motivo: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarConsulta`, { Fecha, Hora, ID_Paciente, ID_Medico, Motivo })
   }
   InsertarConsultorio = (Nombre: any, ID_Medico: any, Tipo: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/insertarConsultorio`, { Nombre, ID_Medico, Tipo })
+  }
+  InsertarFactura = (ID_Paciente: any, Fecha: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarFactura`, { ID_Paciente, Fecha })
+  }
+  InsertarFacturaDetalle = (ID_Factura: any, FacturaDetalle: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarFacturaDetalle`, { ID_Factura, FacturaDetalle })
   }
   InsertarHabitacion = (Tipo: any, Estado: any, NumeroHabitacion: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarHabitacion`, { Tipo, Estado, NumeroHabitacion })

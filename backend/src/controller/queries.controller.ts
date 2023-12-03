@@ -74,6 +74,31 @@ export const ObtenerPaciente = async ({ query }: Request, res: Response) => {
         return res.status(500).json(err);
     }
 }
+
+export const ObtenerFacturas = async ({ query }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.ObtenerFacturas());
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const ObtenerFactura = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID } = query
+        return res.json(await queriesModel.ObtenerFactura(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+export const ObtenerFacturaDetalle = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID } = query
+        return res.json(await queriesModel.ObtenerFacturaDetalle(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
 export const ObtenerConsultas = async ({ query }: Request, res: Response) => {
     try {
         return res.json(await queriesModel.ObtenerConsultas());
@@ -86,6 +111,32 @@ export const ObtenerConsulta = async ({ query }: Request, res: Response) => {
     try {
         const { ID } = query
         return res.json(await queriesModel.ObtenerConsulta(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const ObtenerConsultoriosAlquilados = async ({ query }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.ObtenerConsultoriosAlquilados());
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const ObtenerCobroConsultorios = async ({ query }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.ObtenerCobroConsultorios());
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const ObtenerCobroConsultorio = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID } = query
+        return res.json(await queriesModel.ObtenerCobroConsultorio(ID));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -176,6 +227,23 @@ export const ObtenerConsultorio = async ({ query }: Request, res: Response) => {
     }
 }
 
+export const ObtenerCheques = async ({ query }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.ObtenerCheques());
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const ObtenerCheque = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID } = query
+        return res.json(await queriesModel.ObtenerCheque(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 export const ObtenerHospitalizacionesPorPaciente = async ({ query }: Request, res: Response) => {
     try {
         const { ID } = query
@@ -196,6 +264,16 @@ export const ObtenerHabitacionesDisponibles = async ({ query }: Request, res: Re
 export const ObtenerCamasDisponibles = async ({ query }: Request, res: Response) => {
     try {
         return res.json(await queriesModel.ObtenerCamasDisponibles());
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const ObtenerAtencionesPorPaciente = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID_Paciente } = query
+        return res.json(await queriesModel.ObtenerAtencionesPorPaciente(ID_Paciente));
     } catch (err) {
         console.log(err)
         return res.status(500).json(err);

@@ -7,7 +7,6 @@ export async function modelFunctions(fileName: string) {
     const data = fs.readFileSync(filePath, 'utf8');
     const json = JSON.parse(data);
     const functions: { [key: string]: Function } = {};
-
     for (const element of json) {
         for (const key of Object.keys(element)) {
             const functionName = key;
@@ -37,15 +36,15 @@ export async function modelFunctions(fileName: string) {
 
                     if (params[i].Type == "Table") {
                         const table = new mssql.Table();
+
                         params[i].Cols.forEach((element: any) => {
                             table.columns.add(element.Name, mssql[element.type as keyof typeof mssql]);
                         });
-
+                        
                         paramValues[paramName].forEach((row: any) => {
                             const values: any = Object.values(row);
                             table.rows.add(...values);
                         });
-
                         request.input(paramName, table);
                     } else {
                         paramType = mssql[params[i].Type as keyof typeof mssql];
@@ -53,7 +52,7 @@ export async function modelFunctions(fileName: string) {
                         request.input(paramName, paramType, paramValue);
                     }
                 }
-
+        
                 var rs: any;
                 if (type == "query") {
                     rs = await request.query(query);

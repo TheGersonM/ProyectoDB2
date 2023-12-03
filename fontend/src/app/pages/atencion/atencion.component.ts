@@ -54,6 +54,7 @@ export class AtencionComponent implements OnInit {
       return [];
     })).subscribe(data => {
       this.establecerParametros(data[0].ID, data[0].ID_Paciente, data[0].ID_Hospitalizacion, data[0].ID_Medico, data[0].Fecha, data[0].Tipo, data[0].Detalles);
+      this.obtenerHospitalizacionesPorPaciente();
     })
   }
 
@@ -77,7 +78,6 @@ export class AtencionComponent implements OnInit {
     this.qService.ObtenerHospitalizacionesPorPaciente(this.ID_Paciente).pipe(catchError((error: any) => {
       return [];
     })).subscribe(data => {
-      console.log(data)
       this.hospitalizaciones = data
     })
   }

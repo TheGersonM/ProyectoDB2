@@ -12,7 +12,6 @@ export const ActualizarAtencion = async ({ body }: Request, res: Response) => {
         const { ID, ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles } = body
         return res.json(await proceduresModel.ActualizarAtencion(ID, ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles));
     } catch (err) {
-        console.log(err)
         return res.status(500).json(err);
     }
 }
@@ -26,12 +25,29 @@ export const ActualizarCama = async ({ body }: Request, res: Response) => {
     }
 }
 
+export const ActualizarCheque = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID, ID_Medico, Fecha, Concepto, Valor } = body
+        return res.json(await proceduresModel.ActualizarCheque(ID, ID_Medico, Fecha, Concepto, Valor));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 export const ActualizarCirugia = async ({ body }: Request, res: Response) => {
     try {
         const { ID, ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = body
         return res.json(await proceduresModel.ActualizarCirugia(ID, ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano));
     } catch (err) {
-        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const ActualizarCobroConsultorio = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID, Nombre, Concepto, Valor, Impuesto, Total, ID_Consultorio } = body
+        return res.json(await proceduresModel.ActualizarCobroConsultorio(ID, Nombre, Concepto, Valor, Impuesto, Total, ID_Consultorio));
+    } catch (err) {
         return res.status(500).json(err);
     }
 }
@@ -49,6 +65,24 @@ export const ActualizarConsultorio = async ({ body }: Request, res: Response) =>
     try {
         const { ID, Nombre, ID_Medico, Tipo } = body
         return res.json(await proceduresModel.ActualizarConsultorio(ID, Nombre, ID_Medico, Tipo));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const ActualizarFactura = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID, ID_Paciente, Fecha } = body
+        return res.json(await proceduresModel.ActualizarFactura(ID, ID_Paciente, Fecha));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const ActualizarFacturaDetalle = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID_Factura, FacturaDetalle } = body
+        return res.json(await proceduresModel.ActualizarFacturaDetalle(ID_Factura, FacturaDetalle));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -104,7 +138,6 @@ export const EliminarAtencion = async ({ body }: Request, res: Response) => {
         const { ID } = body
         return res.json(await proceduresModel.EliminarAtencion(ID));
     } catch (err) {
-        console.log(err)
         return res.status(500).json(err);
     }
 }
@@ -118,10 +151,27 @@ export const EliminarCama = async ({ body }: Request, res: Response) => {
     }
 }
 
+export const EliminarCheque = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID } = body
+        return res.json(await proceduresModel.EliminarCheque(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 export const EliminarCirugia = async ({ body }: Request, res: Response) => {
     try {
         const { ID } = body
         return res.json(await proceduresModel.EliminarCirugia(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+export const EliminarCobroConsultorio = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID } = body
+        return res.json(await proceduresModel.EliminarCobroConsultorio(ID));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -140,6 +190,24 @@ export const EliminarConsultorio = async ({ body }: Request, res: Response) => {
     try {
         const { ID } = body
         return res.json(await proceduresModel.EliminarConsultorio(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const EliminarFactura = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID } = body
+        return res.json(await proceduresModel.EliminarFactura(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const EliminarFacturaDetalle = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID } = body
+        return res.json(await proceduresModel.EliminarFacturaDetalle(ID));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -208,10 +276,28 @@ export const InsertarCama = async ({ body }: Request, res: Response) => {
     }
 }
 
+export const InsertarCheque = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID_Medico, Fecha, Concepto, Valor } = body
+        return res.json(await proceduresModel.InsertarCheque(ID_Medico, Fecha, Concepto, Valor));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 export const InsertarCirugia = async ({ body }: Request, res: Response) => {
     try {
         const { ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = body
         return res.json(await proceduresModel.InsertarCirugia(ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const InsertarCobroConsultorio = async ({ body }: Request, res: Response) => {
+    try {
+        const { Nombre, Concepto, Valor, Impuesto, Total, ID_Consultorio } = body
+        return res.json(await proceduresModel.InsertarCobroConsultorio(Nombre, Concepto, Valor, Impuesto, Total, ID_Consultorio));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -231,7 +317,24 @@ export const InsertarConsultorio = async ({ body }: Request, res: Response) => {
         const { Nombre, ID_Medico, Tipo } = body
         return res.json(await proceduresModel.InsertarConsultorio(Nombre, ID_Medico, Tipo));
     } catch (err) {
-        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const InsertarFactura = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID_Paciente, Fecha } = body
+        return res.json(await proceduresModel.InsertarFactura(ID_Paciente, Fecha));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
+export const InsertarFacturaDetalle = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID_Factura, FacturaDetalle } = body
+        return res.json(await proceduresModel.InsertarFacturaDetalle(ID_Factura, FacturaDetalle));
+    } catch (err) {
         return res.status(500).json(err);
     }
 }

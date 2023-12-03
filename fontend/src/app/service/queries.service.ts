@@ -17,6 +17,14 @@ export class QueriesService {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerMedicos?ID=${ID}`)
   }
 
+  ObtenerCheques = () => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerCheques`)
+  }
+
+  ObtenerCheque = (ID: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerCheques?ID=${ID}`)
+  }
+
   ObtenerHabitaciones = () => {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerHabitaciones`)
   }
@@ -41,12 +49,36 @@ export class QueriesService {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerPaciente?ID=${ID}`)
   }
 
+  ObtenerFacturas = () => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerFacturas`)
+  }
+
+  ObtenerFactura = (ID: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerFactura?ID=${ID}`)
+  }
+
+  ObtenerFacturaDetalle = (ID: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerFacturaDetalle?ID=${ID}`)
+  }
+
   ObtenerConsultas = () => {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerConsultas`)
   }
 
   ObtenerConsulta = (ID: any) => {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerConsulta?ID=${ID}`)
+  }
+
+  ObtenerConsultoriosAlquilados = () => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerConsultoriosAlquilados`)
+  }
+
+  ObtenerCobroConsultorios = () => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerCobroConsultorios`)
+  }
+
+  ObtenerCobroConsultorio = (ID: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerCobroConsultorio?ID=${ID}`)
   }
 
   ObtenerCamas = () => {
@@ -99,5 +131,9 @@ export class QueriesService {
 
   ObtenerConsultorio = (ID: any) => {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerConsultorio?ID=${ID}`)
+  }
+
+  ObtenerAtencionesPorPaciente = (ID_Paciente: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerAtencionesPorPaciente?ID_Paciente=${ID_Paciente}`)
   }
 }
