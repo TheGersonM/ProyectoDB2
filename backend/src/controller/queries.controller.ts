@@ -11,7 +11,8 @@ export const ObtenerMedicos = async ({ body }: Request, res: Response) => {
     try {
         return res.json(await queriesModel.ObtenerMedicos());
     } catch (err) {
-        return res.status(500).json(err);
+        console.log(err)
+        return res.status(500).json(err.message);
     }
 }
 
