@@ -71,7 +71,6 @@ insertarMedico = () => {
     this.obtenerMedicos();
   })
 }
-//#region Cerrar modal
 cerrarModal() {
 
 }
@@ -103,7 +102,9 @@ cerrarModal() {
       this.toastService.success("Medico actualizado");
       this.seleccionMedico.clear();
       this.obtenerMedicos();
-    })
+      this.cerrarModal();
+      $('#medic').modal('hide'); 
+    });
   }
 
   seleccionarLinea = (set: Set<any>, obj: any, tipo: number) => {
