@@ -7,6 +7,8 @@ import { catchError } from 'rxjs';
 import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
 
+declare var $:any;
+
 
 @Component({
   selector: 'app-medico',
@@ -54,29 +56,28 @@ export class MedicoComponent implements OnInit {
     })
   }
 //#region Insertar medico
-  insertarMedico = () => {  
-    this.pService.InsertarMedico(this.Nombre, this.NumeroLicencia, this.Especialidad).pipe(
-      catchError((error: any) => {
-        this.toastService.error("Error Interno");
-        return [];
-      })
-    )
-      .subscribe(data => {
-        this.seleccionMedico.clear();
-        this.cerrarModal();
-        this.toastService.success("Medico insertado");
-        
-        this.obtenerMedicos();
-      })
-  }
+insertarMedico = () => {  
+  this.pService.InsertarMedico(this.Nombre, this.NumeroLicencia, this.Especialidad).pipe(
+    catchError((error: any) => {
+      this.toastService.error("Error Interno");
+      return [];
+    })
+  )
+  .subscribe(data => {
+    this.seleccionMedico.clear(); // Limpiar la selección
+    this.toastService.success("Medico insertado");
+    this.cerrarModal(); // Llamar al método para cerrar el modal
+    $('#medic').modal('hide'); // Usar jQuery para cerrar el modal
+    this.obtenerMedicos();
+  })
+}
 //#region Cerrar modal
-  cerrarModal() {
-    const modalElement = document.getElementById('medic');
-    if (modalElement) {
-      const modalInstance = Modal.getInstance(modalElement) || new Modal(modalElement);
-      modalInstance.hide(); // Cierra el modal
-    }
-  }
+cerrarModal() {
+
+}
+
+
+  
   //#region Eliminar medico
   eliminarMedico = () => {
     const { ID } = Array.from(this.seleccionMedico.values())[0];
