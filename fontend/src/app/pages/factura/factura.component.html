@@ -1,0 +1,247 @@
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Facturas</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="btn-group">
+                    <button (click)="EstablecerParametros(0, 0, '', 0, 0, 0, [])" type="button" data-toggle="modal"
+                        data-target="#medic" class="btn btn-default btn-sm">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button [disabled]="!seleccionFactura.size" (click)="eliminarFactura()" type="button"
+                        class="btn btn-default btn-sm">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button (click)="obtenerFactura()" [attr.data-toggle]="seleccionFactura.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionFactura.size == 1 ? '#medic': null"
+                        [disabled]="seleccionFactura.size != 1" class="btn btn-default btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button (click)="seleccionarTodo(facturas, seleccionFactura)" class="btn btn-default btn-sm">
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="card-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Paciente</th>
+                                    <th>Fecha</th>
+                                    <th>SubTotal</th>
+                                    <th>Impuesto</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody style="cursor: pointer;">
+                                <tr *ngFor="let factura of facturas"
+                                    [ngClass]="{'table-primary': seleccionFactura.has(factura)}"
+                                    (click)="seleccionarLinea(seleccionFactura, factura, 1)">
+                                    <td>{{factura.NombrePaciente}}</td>
+                                    <td>{{factura.Fecha}}</td>
+                                    <td>{{factura.Subtotal}}</td>
+                                    <td>{{factura.Impuesto}}</td>
+                                    <td>{{factura.Total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="medic" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Factura</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Paciente</label>
+                            <select (change)="ObtenerAtencionesPorPaciente()" class="form-control form-control-sm"
+                                [(ngModel)]="ID_Paciente">
+                                <option *ngFor="let paciente of pacientes" [ngValue]="paciente.ID">
+                                    {{paciente.Nombre + ' ' + paciente.Apellidos}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Fecha</label>
+                            <input type="date" class="form-control form-control-sm" [(ngModel)]="Fecha">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">SubTotal</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Subtotal" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Impuesto</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Impuesto" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="">Total</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Total" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card border-0 shadow-none">
+                            <div class="card-header">
+                                <div class="btn-group">
+                                    <button type="button" data-toggle="modal" data-target="#detalle"
+                                        class="btn btn-default btn-sm">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <button [disabled]="!seleccionDetalle.size"
+                                        (click)="removeLine(FacturaDetalle, seleccionDetalle)" type="button"
+                                        class="btn btn-default btn-sm">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button (click)="seleccionarTodo(FacturaDetalle, seleccionDetalle)"
+                                        class="btn btn-default btn-sm">
+                                        <i class="fas fa-check-double"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Descripción</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="cursor: pointer;">
+                                            <tr *ngFor="let detalle of FacturaDetalle"
+                                                [ngClass]="{'table-primary': seleccionDetalle.has(detalle)}"
+                                                (click)="seleccionarLinea(seleccionDetalle, detalle, 1)">
+                                                <td>{{detalle.ID_Detalle}}</td>
+                                                <td>{{detalle.Detalle}}</td>
+                                                <td (click)="edicionLinea(detalle, 'Cantidad')">
+                                                    <ng-container
+                                                        *ngIf="edicionFila.has(detalle) && edicion == 'Cantidad'; else cantidadInput">
+                                                        <input (keypress)="confirmarEdicion($event)"
+                                                            class="form-control form-control-sm" type="number"
+                                                            [(ngModel)]="detalle.Cantidad" min="0">
+                                                    </ng-container>
+                                                    <ng-template #cantidadInput>
+                                                        {{detalle.Cantidad}}
+                                                    </ng-template>
+                                                </td>
+                                                <td (click)="edicionLinea(detalle, 'Precio')">
+                                                    <ng-container
+                                                        *ngIf="edicionFila.has(detalle) && edicion == 'Precio'; else precioInput">
+                                                        <input (keypress)="confirmarEdicion($event)"
+                                                            class="form-control form-control-sm" type="number"
+                                                            [(ngModel)]="detalle.Precio" min="0">
+                                                    </ng-container>
+                                                    <ng-template #precioInput>
+                                                        {{detalle.Precio}}
+                                                    </ng-template>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button (click)="seleccionFactura.size == 1 ? actualizarFactura() : insertarFactura()" type="button"
+                        class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detalle" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Detalle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="card border-0 shadow-none">
+                            <div class="card-header">
+                                <div class="btn-group">
+                                    <button (click)="agragerAtencionesAFactura()" type="button"
+                                        class="btn btn-default btn-sm">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <button (click)="seleccionarTodo(atenciones, seleccionAtencion)"
+                                        class="btn btn-default btn-sm">
+                                        <i class="fas fa-check-double"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Descripción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="cursor: pointer;">
+                                            <tr *ngFor="let atencion of atenciones"
+                                                [ngClass]="{'table-primary': seleccionAtencion.has(atencion)}"
+                                                (click)="seleccionarLinea(seleccionAtencion, atencion, 1)">
+                                                <td>{{atencion.ID_Detalle}}</td>
+                                                <td>{{atencion.Detalle}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Pacientes</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="btn-group">
+                    <button (click)="establecerParametros(0, '', '', '', '', '', '')" type="button" data-toggle="modal"
+                        data-target="#medic" class="btn btn-default btn-sm">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button [disabled]="!seleccionPaciente.size" (click)="eliminarPaciente()" type="button"
+                        class="btn btn-default btn-sm">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button (click)="obtenerPaciente()" [attr.data-toggle]="seleccionPaciente.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionPaciente.size == 1 ? '#medic': null"
+                        [disabled]="seleccionPaciente.size != 1" class="btn btn-default btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button (click)="seleccionarTodo(pacientes, seleccionPaciente)" class="btn btn-default btn-sm">
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="card-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Dirección</th>
+                                    <th>Teléfono</th>
+                                    <th>Nacimiento</th>
+                                    <th>Seguro Médico</th>
+                                </tr>
+                            </thead>
+                            <tbody style="cursor: pointer;">
+                                <tr *ngFor="let paciente of pacientes"
+                                    [ngClass]="{'table-primary': seleccionPaciente.has(paciente)}"
+                                    (click)="seleccionarLinea(seleccionPaciente, paciente, 1)">
+                                    <td>{{paciente.Nombre}}</td>
+                                    <td>{{paciente.Apellidos}}</td>
+                                    <td>{{paciente.Direccion}}</td>
+                                    <td>{{paciente.Telefono}}</td>
+                                    <td>{{paciente.FechaNacimiento}}</td>
+                                    <td>{{paciente.SeguroMedico}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="medic" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Paciente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Nombre del paciente</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Nombres">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Apellidos</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="Apellidos">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Dirección</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="Direccion">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Teléfono</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="Telefono">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control form-control-sm" [(ngModel)]="FechaNacimiento">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Seguro Médico</label>
+                            <input class="form-control form-control-sm" [(ngModel)]="SeguroMedico">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button (click)="seleccionPaciente.size == 1 ? actualizarPaciente() : insertarPaciente()" type="button"
+                    class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
