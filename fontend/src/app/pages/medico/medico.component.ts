@@ -4,11 +4,9 @@ import { ProceduresService } from 'app/service/procedures.service';
 import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
-import * as bootstrap from 'bootstrap';
-import { Modal } from 'bootstrap';
+
 
 declare var $:any;
-
 
 @Component({
   selector: 'app-medico',
@@ -22,7 +20,6 @@ export class MedicoComponent implements OnInit {
   Nombre: any
   NumeroLicencia: any
   Especialidad: any
-
   seleccionMedico: Set<any> = new Set();
 
   constructor(
@@ -31,7 +28,6 @@ export class MedicoComponent implements OnInit {
     private globalService: GlobalService,
     private toastService: ToastrService
   ) { }
-
 
   ngOnInit(): void {
     this.obtenerMedicos();
@@ -45,7 +41,6 @@ export class MedicoComponent implements OnInit {
       this.medicos = data;
     })
   }
-
   obtenerMedico = () => {
     const { ID } = Array.from(this.seleccionMedico.values())[0];
     this.qService.ObtenerMedico(ID).pipe(catchError((error: any) => {
@@ -72,11 +67,7 @@ insertarMedico = () => {
   })
 }
 cerrarModal() {
-
-}
-
-
-  
+}  
   //#region Eliminar medico
   eliminarMedico = () => {
     const { ID } = Array.from(this.seleccionMedico.values())[0];
@@ -103,27 +94,22 @@ cerrarModal() {
       this.seleccionMedico.clear();
       this.obtenerMedicos();
       this.cerrarModal();
-      $('#medic').modal('hide'); 
+      $('#medic').modal('hide'); // Usar jQuery para cerrar el modal
     });
   }
-
   seleccionarLinea = (set: Set<any>, obj: any, tipo: number) => {
     this.globalService.addLine(set, obj, tipo);
   }
-
   seleccionarTodo = (arr: any[], set: Set<any>) => {
     this.globalService.selectAll(arr, set);
   }
-
   removeLine = (arr: any[], set: Set<any>) => {
     this.globalService.removeLine(arr, set);
   }
-
   establecerParametros = (ID: any, Nombre: any, NumeroLicencia: any, Especialidad: any) => {
     this.ID = ID;
     this.Nombre = Nombre;
     this.NumeroLicencia = NumeroLicencia;
     this.Especialidad = Especialidad;
   }
-
 }
