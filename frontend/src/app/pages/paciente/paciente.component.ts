@@ -5,8 +5,6 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
-
-
 declare var $:any;
 
 @Component({
