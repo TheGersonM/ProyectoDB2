@@ -21,6 +21,7 @@ export class MedicoComponent implements OnInit {
   NumeroLicencia: any
   Especialidad: any
   seleccionMedico: Set<any> = new Set();
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar';
 
   constructor(
     private pService: ProceduresService,
@@ -42,12 +43,7 @@ export class MedicoComponent implements OnInit {
     })
   }
   obtenerMedico = () => {
-    const seleccionado = Array.from(this.seleccionMedico.values())[0];
-    if (!seleccionado) {
-      this.toastService.warning("Seleccione un médico primero.");
-      return;
-    }
-    const { ID } = seleccionado;
+    const { ID } = Array.from(this.seleccionMedico.values())[0];
     this.qService.ObtenerMedico(ID).pipe(catchError((error: any) => {
       this.toastService.error("Error Interno");
       return [];
@@ -120,5 +116,27 @@ cerrarModal() {
     this.Nombre = Nombre;
     this.NumeroLicencia = NumeroLicencia;
     this.Especialidad = Especialidad;
+  }
+  abrirModal(modo: 'insertar' | 'actualizar') {
+    this.modoFormulario = modo;
+  
+    if (modo === 'insertar') {
+      // Limpiar el formulario
+      this.Nombre = '';
+      this.NumeroLicencia = '';
+      this.Especialidad = '';
+    } else if (modo === 'actualizar') {
+      
+      // Cargar los datos del quirófano seleccionado
+      const seleccionado = Array.from(this.seleccionMedico.values())[0];
+      if (seleccionado) {
+        this.ID = seleccionado.ID;
+        this.Nombre = seleccionado.Nombre;
+        this.NumeroLicencia = seleccionado.NumeroLicencia;
+        this.Especialidad = seleccionado.Especialidad;
+      }else {
+        this.toastService.warning("Debe seleccionar un medico");
+      }
+    }
   }
 }

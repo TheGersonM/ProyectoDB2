@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '', '')" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,9 +21,10 @@
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerMedico()" [attr.data-toggle]="seleccionMedico.size == 1 ? 'modal': null"
+                    <button [disabled]="!seleccionMedico.size" (click)="abrirModal('actualizar')" 
+                        [attr.data-toggle]="seleccionMedico.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionMedico.size == 1 ? '#medic': null"
-                        [disabled]="seleccionMedico.size != 1" class="btn btn-default btn-sm">
+                         class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
                     </button>
                     <button (click)="seleccionarTodo(medicos, seleccionMedico)" class="btn btn-default btn-sm">
@@ -43,7 +44,7 @@
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let medico of medicos; let i = index"
+                                <tr *ngFor="let medico of medicos"
                                     [ngClass]="{'table-primary': seleccionMedico.has(medico)}"
                                     (click)="seleccionarLinea(seleccionMedico, medico, 0)">
                                     <td>{{medico.Nombre}}</td>
@@ -99,7 +100,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionMedico.size == 1 ? actualizarMedico() : insertarMedico()" type="button"
+                <button (click)="modoFormulario === 'actualizar' ? actualizarMedico() : insertarMedico()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>
