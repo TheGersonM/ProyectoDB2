@@ -5,6 +5,7 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+declare var $:any;
 @Component({
   selector: 'app-quirofano',
   templateUrl: './quirofano.component.html',
@@ -49,7 +50,7 @@ export class QuirofanoComponent implements OnInit {
       this.establecerParametros(data[0].ID, data[0].Numero, data[0].Estado);
     })
   }
-
+  //#region Insertar quirófano
   insertarQuirofano = () => {
     this.pService.InsertarQuirofano(this.Numero, this.Estado).pipe(
       catchError((error: any) => {
@@ -59,10 +60,11 @@ export class QuirofanoComponent implements OnInit {
     ).subscribe(data => {
       this.seleccionQuirofano.clear();
       this.toastService.success("Se ha insertado el Quirofano");
-      this.obtenerQuirofanos();
-    })
+      this.obtenerQuirofanos(); // Refrescar la lista de quirófanos
+      this.cerrarModal(); // Llamar al método para cerrar el modal
+    });
   }
-
+  // #region Actualizar quirófano
   actualizarQuirofano = () => {
     this.pService.ActualizarQuirofano(this.ID, this.Numero, this.Estado).pipe(
       catchError((error: any) => {
@@ -72,8 +74,13 @@ export class QuirofanoComponent implements OnInit {
     ).subscribe(data => {
       this.seleccionQuirofano.clear();
       this.toastService.success("Se ha actualizado el Quirofano");
-      this.obtenerQuirofanos();
-    })
+      this.obtenerQuirofanos(); // Refrescar la lista de quirófanos
+      this.cerrarModal(); // Llamar al método para cerrar el modal
+    });
+  }
+  
+  cerrarModal() {
+    $('#medic').modal('hide'); // Cerrar el modal con jQuery
   }
 
   eliminarQuirofano = () => {

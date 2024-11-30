@@ -5,6 +5,8 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+declare var $:any;
+
 @Component({
   selector: 'app-paciente',
   templateUrl: './paciente.component.html',
@@ -56,28 +58,37 @@ export class PacienteComponent implements OnInit {
         this.establecerParametros(data[0].ID, data[0].Nombre, data[0].Apellidos, data[0].Direccion, data[0].Telefono, data[0].FechaNacimiento, data[0].SeguroMedico);
       })
   }
-
+  // #region Insertar paciente
   insertarPaciente = () => {
     this.pService.InsertarPaciente(this.Nombres, this.Apellidos, this.Direccion, this.Telefono, this.FechaNacimiento, this.SeguroMedico).pipe(
       catchError((error: any) => {
         this.toastService.error("Error Interno");
         return [];
-      })).subscribe(data => {
-        this.toastService.success("Se ha insertado el paciente");
-        this.obtenerPacientes();
       })
+    ).subscribe(data => {
+      this.toastService.success("Se ha insertado el paciente");
+      this.obtenerPacientes();
+      this.cerrarModal();  // Llamar al método para cerrar el modal después de insertar
+      $('#medic').modal('hide'); // Usar jQuery para cerrar el modal (ajustar el ID según tu modal)
+    });
   }
-
+  cerrarModal() {
+  }
+  
+  // #region Actualizar paciente
   actualizarPaciente = () => {
     this.pService.ActualizarPaciente(this.ID, this.Nombres, this.Apellidos, this.Direccion, this.Telefono, this.FechaNacimiento, this.SeguroMedico).pipe(
       catchError((error: any) => {
         this.toastService.error("Error Interno");
         return [];
-      })).subscribe(data => {
-        this.toastService.success("Se ha actualizado el paciente");
-        this.obtenerPacientes();
-        this.seleccionPaciente.clear();
       })
+    ).subscribe(data => {
+      this.toastService.success("Se ha actualizado el paciente");
+      this.obtenerPacientes();
+      this.seleccionPaciente.clear();
+      this.cerrarModal();  // Cerrar el modal después de actualizar
+      $('#medic').modal('hide'); // Cerrar el modal con jQuery (ajustar ID si es necesario)
+    });
   }
 
   eliminarPaciente = () => {

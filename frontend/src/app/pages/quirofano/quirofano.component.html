@@ -73,15 +73,16 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Número de quirófano</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Numero">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Numero"
+                                placeholder="Ingrese el número del quirófano" required>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Estado del quirofano</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="Estado">
+                            <label for="">Estado del quirófano</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="Estado" required>
                                 <option value="ocupada">Ocupada</option>
                                 <option value="libre">Libre</option>
                             </select>

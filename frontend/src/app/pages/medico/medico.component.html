@@ -43,9 +43,9 @@
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let medico of medicos"
+                                <tr *ngFor="let medico of medicos; let i = index"
                                     [ngClass]="{'table-primary': seleccionMedico.has(medico)}"
-                                    (click)="seleccionarLinea(seleccionMedico, medico, 1)">
+                                    (click)="seleccionarLinea(seleccionMedico, medico, i)">
                                     <td>{{medico.Nombre}}</td>
                                     <td>{{medico.NumeroLicencia}}</td>
                                     <td>{{medico.Especialidad}}</td>
@@ -74,7 +74,8 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Nombre</label>
-                            <input [(ngModel)]="Nombre" type="text" class="form-control-sm form-control">
+                            <input [(ngModel)]="Nombre" type="text" class="form-control-sm form-control" 
+                                placeholder="Ingrese el nombre del médico" required>
                         </div>
                     </div>
                 </div>
@@ -82,14 +83,16 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Número de Licencia</label>
-                            <input [(ngModel)]="NumeroLicencia" type="text" class="form-control-sm form-control">
+                            <input [(ngModel)]="NumeroLicencia" type="text" class="form-control-sm form-control"
+                                placeholder="Ingrese el número de licencia" required>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
                             <label for="">Especialidad</label>
-                            <input [(ngModel)]="Especialidad" type="text" class="form-control-sm form-control">
+                            <input [(ngModel)]="Especialidad" type="text" class="form-control-sm form-control"
+                                placeholder="Ingrese la especialidad del médico" required>
                         </div>
                     </div>
                 </div>
