@@ -45,12 +45,12 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let medico of medicos; let i = index"
                                     [ngClass]="{'table-primary': seleccionMedico.has(medico)}"
-                                    (click)="seleccionarLinea(seleccionMedico, medico, i)">
+                                    (click)="seleccionarLinea(seleccionMedico, medico, 0)">
                                     <td>{{medico.Nombre}}</td>
                                     <td>{{medico.NumeroLicencia}}</td>
                                     <td>{{medico.Especialidad}}</td>
                                 </tr>
-                            </tbody>
+                            </tbody>                            
                         </table>
                     </div>
                 </div>

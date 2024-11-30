@@ -21,23 +21,19 @@ export class GlobalService {
 
   addLine = (set: Set<any>, row: any, multiple: number) => {
     if (multiple) {
+      // Selección múltiple
       if (set.has(row)) {
         set.delete(row);
       } else {
         set.add(row);
       }
     } else {
-      if (set.has(row)) {
-        set.delete(row);
-      } else {
-        if (set.size) {
-          set.clear();
-        }
-
-        set.add(row);
-      }
+      // Selección única
+      set.clear(); // Limpia el Set antes de agregar un nuevo elemento
+      set.add(row);
     }
   }
+  
 
   selectAll = (arr: any, set: Set<any>) => {
     if (set.size == arr.length) {

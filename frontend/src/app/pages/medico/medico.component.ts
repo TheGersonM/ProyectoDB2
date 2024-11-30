@@ -42,14 +42,22 @@ export class MedicoComponent implements OnInit {
     })
   }
   obtenerMedico = () => {
-    const { ID } = Array.from(this.seleccionMedico.values())[0];
+    const seleccionado = Array.from(this.seleccionMedico.values())[0];
+    if (!seleccionado) {
+      this.toastService.warning("Seleccione un médico primero.");
+      return;
+    }
+    const { ID } = seleccionado;
     this.qService.ObtenerMedico(ID).pipe(catchError((error: any) => {
       this.toastService.error("Error Interno");
       return [];
     })).subscribe(data => {
-      this.establecerParametros(data[0].ID, data[0].Nombre, data[0].NumeroLicencia, data[0].Especialidad);
-    })
+      if (data && data.length > 0) {
+        this.establecerParametros(data[0].ID, data[0].Nombre, data[0].NumeroLicencia, data[0].Especialidad);
+      }
+    });
   }
+  
 //#region Insertar medico
 insertarMedico = () => {  
   this.pService.InsertarMedico(this.Nombre, this.NumeroLicencia, this.Especialidad).pipe(
@@ -100,6 +108,7 @@ cerrarModal() {
   seleccionarLinea = (set: Set<any>, obj: any, tipo: number) => {
     this.globalService.addLine(set, obj, tipo);
   }
+  
   seleccionarTodo = (arr: any[], set: Set<any>) => {
     this.globalService.selectAll(arr, set);
   }

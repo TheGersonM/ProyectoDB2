@@ -13,20 +13,22 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '')" type="button" data-toggle="modal"
-                        data-target="#medic" class="btn btn-default btn-sm">
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal" data-target="#medic"
+                        class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
+
                     <button [disabled]="!seleccionQuirofano.size" (click)="eliminarQuirofano()" type="button"
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerQuirofano()"
+                    <button [disabled]="!seleccionQuirofano.size" (click)="abrirModal('actualizar')"
                         [attr.data-toggle]="seleccionQuirofano.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionQuirofano.size == 1 ? '#medic': null"
-                        [disabled]="seleccionQuirofano.size != 1" class="btn btn-default btn-sm">
+                        class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
                     </button>
+
                     <button (click)="seleccionarTodo(quirofanos, seleccionQuirofano)" class="btn btn-default btn-sm">
                         <i class="fas fa-check-double"></i>
                     </button>
@@ -45,7 +47,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let quirofano of quirofanos"
                                     [ngClass]="{'table-primary': seleccionQuirofano.has(quirofano)}"
-                                    (click)="seleccionarLinea(seleccionQuirofano, quirofano, 1)">
+                                    (click)="seleccionarLinea(seleccionQuirofano, quirofano, 0)">
                                     <td>{{quirofano.Numero}}</td>
                                     <td>{{quirofano.Estado}}</td>
                                 </tr>
@@ -92,8 +94,11 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionQuirofano.size == 1 ? actualizarQuirofano() : insertarQuirofano()"
-                    type="button" class="btn btn-primary">Save changes</button>
+                <button (click)="modoFormulario === 'actualizar' ? actualizarQuirofano() : insertarQuirofano()"
+                    type="button" class="btn btn-primary">
+                    Save changes
+                </button>
+
             </div>
         </div>
     </div>

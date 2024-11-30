@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '', '', '', '', '')" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -127,7 +127,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionPaciente.size == 1 ? actualizarPaciente() : insertarPaciente()" type="button"
+                <button (click)="modoFormulario === 'actualizar' ? actualizarPaciente() : insertarPaciente()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>

@@ -23,6 +23,7 @@ export class PacienteComponent implements OnInit {
   Telefono: any
   FechaNacimiento: any
   SeguroMedico: any
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar';
 
   seleccionPaciente: Set<any> = new Set();
 
@@ -125,5 +126,30 @@ export class PacienteComponent implements OnInit {
     this.FechaNacimiento = FechaNacimiento;
     this.SeguroMedico = SeguroMedico;
   }
-
+  
+  abrirModal(modo: 'insertar' | 'actualizar') {
+    this.modoFormulario = modo;
+  
+    if (modo === 'insertar') {
+      // Limpiar el formulario
+      this.Nombres = '';
+      this.Apellidos = '';
+      this.Direccion = '';
+      this.Telefono = '';
+      this.FechaNacimiento = '';
+      this.SeguroMedico = '';
+    } else if (modo === 'actualizar') {
+      this.ID = this.obtenerPaciente();
+      // Cargar los datos del quirófano seleccionado
+      const seleccionado = Array.from(this.seleccionPaciente.values())[0];
+      if (seleccionado) {
+        this.Nombres = seleccionado.Nombres;
+        this.Apellidos = seleccionado.Apellidos;
+        this.Direccion = seleccionado.Direccion;
+        this.Telefono = seleccionado.Telefono;
+        this.FechaNacimiento = seleccionado.FechaNacimiento;
+        this.SeguroMedico = seleccionado.SeguroMedico;
+      }
+    }
+  }
 }

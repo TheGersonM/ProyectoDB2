@@ -18,6 +18,8 @@ export class QuirofanoComponent implements OnInit {
   ID: any;
   Numero: any;
   Estado: any;
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar';
+
 
   seleccionQuirofano: Set<any> = new Set();
 
@@ -114,5 +116,23 @@ export class QuirofanoComponent implements OnInit {
     this.Numero = Numero;
     this.Estado = Estado;
   }
+  abrirModal(modo: 'insertar' | 'actualizar') {
+    this.modoFormulario = modo;
+  
+    if (modo === 'insertar') {
+      // Limpiar el formulario
+      this.Numero = '';
+      this.Estado = 'libre';
+    } else if (modo === 'actualizar') {
+      this.ID = this.obtenerQuirofano();
+      // Cargar los datos del quirófano seleccionado
+      const seleccionado = Array.from(this.seleccionQuirofano.values())[0];
+      if (seleccionado) {
+        this.Numero = seleccionado.Numero;
+        this.Estado = seleccionado.Estado;
+      }
+    }
+  }
+  
 
 }
