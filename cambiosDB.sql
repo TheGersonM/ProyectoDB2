@@ -198,3 +198,5 @@ lineas finales para solucion en el update en el componente, que selecciona el ID
     }
   }
   
+
+  --las habitaciones semiprivadas tienen 3 camas y las habitaciones privadas tienen 1 camas, las suites tienen 2 camas 

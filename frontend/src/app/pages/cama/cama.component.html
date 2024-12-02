@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '')" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,7 +21,7 @@
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerCama()" [attr.data-toggle]="seleccionCama.size == 1 ? 'modal': null"
+                    <button (click)="abrirModal('actualizar')" [attr.data-toggle]="seleccionCama.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionCama.size == 1 ? '#medic': null"
                         [disabled]="seleccionCama.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
@@ -37,15 +37,19 @@
                         <table class="table table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <th>Numero Inventario</th>
+                                    <th>Numero de cama</th>
                                     <th>Estado</th>
+                                    <th>Numero de habitacion</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let cama of camas" [ngClass]="{'table-primary': seleccionCama.has(cama)}"
-                                    (click)="seleccionarLinea(seleccionCama, cama, 1)">
+                                <tr *ngFor="let cama of camas" 
+                                    [ngClass]="{'table-primary': seleccionCama.has(cama)}"
+                                    [ngStyle]="{'background-color': cama.Estado === 'libre' ? '#d4edda' : '#f8d7da', 'color': cama.Estado === 'libre' ? '#155724' : '#721c24'}"
+                                    (click)="seleccionarLinea(seleccionCama, cama, 0)">
                                     <td>{{cama.Numero}}</td>
                                     <td>{{cama.Estado}}</td>
+                                    <td>{{cama.Habitacion_ID}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,7 +74,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Número de inventario</label>
+                            <label for="">Número de cama</label>
                             <input [(ngModel)]="Numero" type="text" class="form-control-sm form-control">
                         </div>
                     </div>
@@ -84,10 +88,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Número de habitacion</label>
+                            <input [(ngModel)]="Habitacion_ID" type="text" class="form-control-sm form-control">
+                        </div>
+                    </div>
+                   
+                </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionCama.size == 1 ? actualizarCama() : insertarCama()" type="button"
+                <button (click)="modoFormulario === 'actualizar' ? actualizarCama() : insertarCama()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>

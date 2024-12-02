@@ -18,8 +18,8 @@ export const ActualizarAtencion = async ({ body }: Request, res: Response) => {
 
 export const ActualizarCama = async ({ body }: Request, res: Response) => {
     try {
-        const { ID, Numero, Estado } = body
-        return res.json(await proceduresModel.ActualizarCama(ID, Numero, Estado));
+        const { ID, Numero, Estado, Habitacion_ID } = body
+        return res.json(await proceduresModel.ActualizarCama(ID, Numero, Estado, Habitacion_ID));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -269,8 +269,8 @@ export const InsertarAtencion = async ({ body }: Request, res: Response) => {
 
 export const InsertarCama = async ({ body }: Request, res: Response) => {
     try {
-        const { Numero, Estado } = body
-        return res.json(await proceduresModel.InsertarCama(Numero, Estado));
+        const { Numero, Estado, Habitacion_ID } = body
+        return res.json(await proceduresModel.InsertarCama(Numero, Estado, Habitacion_ID));
     } catch (err) {
         return res.status(500).json(err);
     }

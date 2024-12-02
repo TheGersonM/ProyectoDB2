@@ -47,7 +47,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let consultorio of consultorios"
                                     [ngClass]="{'table-primary': seleccionConsultorio.has(consultorio)}"
-                                    (click)="seleccionarLinea(seleccionConsultorio, consultorio, 1)">
+                                    (click)="seleccionarLinea(seleccionConsultorio, consultorio, 0)">
                                     <td>{{consultorio.Nombre}}</td>
                                     <td>{{consultorio.NombreMedico}}</td>
                                     <td>{{consultorio.Tipo}}</td>

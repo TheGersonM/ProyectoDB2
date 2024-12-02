@@ -12,8 +12,8 @@ export class ProceduresService {
   ActualizarAtencion = (ID: any, ID_Paciente: any, ID_Hospitalizacion: any, ID_Medico: any, Fecha: any, Tipo: any, Detalles: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarAtencion`, { ID, ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles })
   }
-  ActualizarCama = (ID: any, Numero: any, Estado: any) => {
-    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarCama`, { ID, Numero, Estado })
+  ActualizarCama = (ID: any, Numero: any, Estado: any, Habitacion_ID: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarCama`, { ID, Numero, Estado, Habitacion_ID })
   }
   ActualizarCheque = (ID: any, ID_Medico: any, Fecha: any, Concepto: any, Valor: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarCheque`, { ID, ID_Medico, Fecha, Concepto, Valor })
@@ -96,8 +96,8 @@ export class ProceduresService {
   InsertarAtencion = (ID_Paciente: any, ID_Hospitalizacion: any, ID_Medico: any, Fecha: any, Tipo: any, Detalles: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarAtencion`, { ID_Paciente, ID_Hospitalizacion, ID_Medico, Fecha, Tipo, Detalles })
   }
-  InsertarCama = (Numero: any, Estado: any) => {
-    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarCama`, { Numero, Estado })
+  InsertarCama = (Numero: any, Estado: any, Habitacion_ID: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarCama`, { Numero, Estado, Habitacion_ID })
   }
   InsertarCheque = (ID_Medico: any, Fecha: any, Concepto: any, Valor: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarCheque`, { ID_Medico, Fecha, Concepto, Valor })
