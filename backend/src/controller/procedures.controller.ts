@@ -108,8 +108,8 @@ export const ActualizarHospitalizacion = async ({ body }: Request, res: Response
 
 export const ActualizarMedico = async ({ body }: Request, res: Response) => {
     try {
-        const { ID, Nombre, NumeroLicencia, Especialidad } = body
-        return res.json(await proceduresModel.ActualizarMedico(ID, Nombre, NumeroLicencia, Especialidad));
+        const { ID, Nombre, NumeroLicencia, Especialidad, Tipo } = body
+        return res.json(await proceduresModel.ActualizarMedico(ID, Nombre, NumeroLicencia, Especialidad, Tipo));
     } catch (err) {
         return res.status(500).json(err);
     }
@@ -359,8 +359,8 @@ export const InsertarHospitalizacion = async ({ body }: Request, res: Response) 
 
 export const InsertarMedico = async ({ body }: Request, res: Response) => {
     try {
-        const { Nombre, NumeroLicencia, Especialidad } = body
-        return res.json(await proceduresModel.InsertarMedico(Nombre, NumeroLicencia, Especialidad));
+        const { Nombre, NumeroLicencia, Especialidad, Tipo } = body
+        return res.json(await proceduresModel.InsertarMedico(Nombre, NumeroLicencia, Especialidad, Tipo));
     } catch (err) {
         return res.status(500).json(err);
     }

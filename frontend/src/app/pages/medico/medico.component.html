@@ -41,6 +41,7 @@
                                     <th>Nombre</th>
                                     <th>Licencia</th>
                                     <th>Especialidad</th>
+                                    <th>Tipo</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
@@ -50,6 +51,7 @@
                                     <td>{{medico.Nombre}}</td>
                                     <td>{{medico.NumeroLicencia}}</td>
                                     <td>{{medico.Especialidad}}</td>
+                                    <td>{{medico.Tipo}}</td>
                                 </tr>
                             </tbody>                            
                         </table>
@@ -77,6 +79,13 @@
                             <label for="">Nombre</label>
                             <input [(ngModel)]="Nombre" type="text" class="form-control-sm form-control" 
                                 placeholder="Ingrese el nombre del médico" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Tipo de medico</label>
+                            <input [(ngModel)]="Tipo" type="text" class="form-control-sm form-control"
+                                placeholder="Interno o Extero" required>
                         </div>
                     </div>
                 </div>

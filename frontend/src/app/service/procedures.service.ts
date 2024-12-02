@@ -42,8 +42,8 @@ export class ProceduresService {
   ActualizarHospitalizacion = (ID: any, ID_Paciente: any, ID_Medico: any, FechaIngreso: any, FechaAlta: any, ID_Habitacion: any, ID_Cama: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarHospitalizacion`, { ID, ID_Paciente, ID_Medico, FechaIngreso, FechaAlta, ID_Habitacion, ID_Cama })
   }
-  ActualizarMedico = (ID: any, Nombre: any, NumeroLicencia: any, Especialidad: any) => {
-    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarMedico`, { ID, Nombre, NumeroLicencia, Especialidad })
+  ActualizarMedico = (ID: any, Nombre: any, NumeroLicencia: any, Especialidad: any, Tipo: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarMedico`, { ID, Nombre, NumeroLicencia, Especialidad, Tipo })
   }
   ActualizarPaciente = (ID: any, Nombre: any, Apellidos: any, Direccion: any, Telefono: any, FechaNacimiento: any, SeguroMedico: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/ActualizarPaciente`, { ID, Nombre, Apellidos, Direccion, Telefono, FechaNacimiento, SeguroMedico })
@@ -126,8 +126,8 @@ export class ProceduresService {
   InsertarHospitalizacion = (ID_Paciente: any, ID_Medico: any, FechaIngreso: any, ID_Habitacion: any, ID_Cama: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarHospitalizacion`, { ID_Paciente, ID_Medico, FechaIngreso, ID_Habitacion, ID_Cama })
   }
-  InsertarMedico = (Nombre: any, NumeroLicencia: any, Especialidad: any) => {
-    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarMedico`, { Nombre, NumeroLicencia, Especialidad })
+  InsertarMedico = (Nombre: any, NumeroLicencia: any, Especialidad: any, Tipo: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarMedico`, { Nombre, NumeroLicencia, Especialidad, Tipo })
   }
   InsertarPaciente = (Nombre: any, Apellidos: any, Direccion: any, Telefono: any, FechaNacimiento: any, SeguroMedico: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarPaciente`, { Nombre, Apellidos, Direccion, Telefono, FechaNacimiento, SeguroMedico })

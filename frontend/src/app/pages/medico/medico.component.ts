@@ -20,6 +20,7 @@ export class MedicoComponent implements OnInit {
   Nombre: any
   NumeroLicencia: any
   Especialidad: any
+  Tipo: any
   seleccionMedico: Set<any> = new Set();
   modoFormulario: 'insertar' | 'actualizar' = 'insertar';
 
@@ -49,14 +50,14 @@ export class MedicoComponent implements OnInit {
       return [];
     })).subscribe(data => {
       if (data && data.length > 0) {
-        this.establecerParametros(data[0].ID, data[0].Nombre, data[0].NumeroLicencia, data[0].Especialidad);
+        this.establecerParametros(data[0].ID, data[0].Nombre, data[0].NumeroLicencia, data[0].Especialidad, data[0].Tipo);
       }
     });
   }
   
 //#region Insertar medico
 insertarMedico = () => {  
-  this.pService.InsertarMedico(this.Nombre, this.NumeroLicencia, this.Especialidad).pipe(
+  this.pService.InsertarMedico(this.Nombre, this.NumeroLicencia, this.Especialidad, this.Tipo).pipe(
     catchError((error: any) => {
       this.toastService.error("Error Interno");
       return [];
@@ -88,7 +89,7 @@ cerrarModal() {
   }
   //#region Actualizar medico
   actualizarMedico = () => {
-    this.pService.ActualizarMedico(this.ID, this.Nombre, this.NumeroLicencia, this.Especialidad).pipe(
+    this.pService.ActualizarMedico(this.ID, this.Nombre, this.NumeroLicencia, this.Especialidad, this.Tipo).pipe(
       catchError((error: any) => {
         this.toastService.error("Error Interno");
         return [];
@@ -111,11 +112,12 @@ cerrarModal() {
   removeLine = (arr: any[], set: Set<any>) => {
     this.globalService.removeLine(arr, set);
   }
-  establecerParametros = (ID: any, Nombre: any, NumeroLicencia: any, Especialidad: any) => {
+  establecerParametros = (ID: any, Nombre: any, NumeroLicencia: any, Especialidad: any, Tipo: any) => {
     this.ID = ID;
     this.Nombre = Nombre;
     this.NumeroLicencia = NumeroLicencia;
     this.Especialidad = Especialidad;
+    this.Tipo = Tipo;
   }
   abrirModal(modo: 'insertar' | 'actualizar') {
     this.modoFormulario = modo;
@@ -125,6 +127,7 @@ cerrarModal() {
       this.Nombre = '';
       this.NumeroLicencia = '';
       this.Especialidad = '';
+      this.Tipo = '';
     } else if (modo === 'actualizar') {
       
       // Cargar los datos del quirófano seleccionado
@@ -134,6 +137,7 @@ cerrarModal() {
         this.Nombre = seleccionado.Nombre;
         this.NumeroLicencia = seleccionado.NumeroLicencia;
         this.Especialidad = seleccionado.Especialidad;
+        this.Tipo = seleccionado.Tipo;
       }else {
         this.toastService.warning("Debe seleccionar un medico");
       }

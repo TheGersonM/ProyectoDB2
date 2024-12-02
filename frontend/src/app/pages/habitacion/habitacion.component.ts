@@ -4,6 +4,7 @@ import { ProceduresService } from 'app/service/procedures.service';
 import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
+declare var $:any;
 
 @Component({
   selector: 'app-habitacion',
@@ -17,6 +18,7 @@ export class HabitacionComponent implements OnInit {
   Tipo: any
   Estado: any
   NumeroHabitacion: any
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar'
 
   seleccionHabitacion: Set<any> = new Set()
 
@@ -50,6 +52,11 @@ export class HabitacionComponent implements OnInit {
     })
   }
 
+  cerrarModal() {
+    $('#medic').modal('hide'); // Cerrar el modal con jQuery
+  }
+
+
   insertarHabitacion = () => {
     this.pService.InsertarHabitacion(this.Tipo, this.Estado, this.NumeroHabitacion).pipe(
       catchError((error: any) => {
@@ -59,6 +66,9 @@ export class HabitacionComponent implements OnInit {
     ).subscribe(data => {
       this.toastService.success("Habitación insertada");
       this.obtenerHabitaciones();
+      //cerrar modal
+      this.cerrarModal();
+
     })
   }
 
@@ -66,7 +76,8 @@ export class HabitacionComponent implements OnInit {
     const { ID } = Array.from(this.seleccionHabitacion.values())[0];
     this.pService.EliminarHabitacion(ID).pipe(
       catchError((error: any) => {
-        this.toastService.error("Error Interno");
+          this.toastService.error("Ya hay alguien en la habitación");
+        
         return [];
       })
     ).subscribe(data => {
@@ -86,6 +97,7 @@ export class HabitacionComponent implements OnInit {
       this.toastService.success("Habitación actualizada");
       this.seleccionHabitacion.clear();
       this.obtenerHabitaciones();
+      this.cerrarModal();
     })
   }
 
@@ -106,5 +118,24 @@ export class HabitacionComponent implements OnInit {
     this.Tipo = Tipo
     this.Estado = Estado
     this.NumeroHabitacion = NumeroHabitacion
+  }
+  abrirModal(modo: 'insertar' | 'actualizar') {
+    this.modoFormulario = modo;
+  
+    if (modo === 'insertar') {
+      // Limpiar el formulario
+      this.Tipo = '';
+      this.NumeroHabitacion = '';
+      this.Estado = 'libre';
+    } else if (modo === 'actualizar') {
+      this.ID = this.obtenerHabitacion();
+      // Cargar los datos del quirófano seleccionado
+      const seleccionado = Array.from(this.seleccionHabitacion.values())[0];
+      if (seleccionado) {
+        this.Tipo = seleccionado.tipo;
+        this.Estado = seleccionado.Estado;
+        this.NumeroHabitacion = seleccionado.NumeroHabitacion;
+      }
+    }
   }
 }

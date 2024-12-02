@@ -363,6 +363,10 @@
                 {
                     "Param": "Especialidad",
                     "Type": "VarChar"
+                },
+                {
+                    "Param": "Tipo",
+                    "Type": "VarChar"
                 }
             ],
             "query": "dbo.ActualizarMedico",
@@ -908,6 +912,11 @@
                 },
                 {
                     "Param": "Especialidad",
+                    "Type": "VarChar"
+                }
+                ,
+                {
+                    "Param": "Tipo",
                     "Type": "VarChar"
                 }
             ],
