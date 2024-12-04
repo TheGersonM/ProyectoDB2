@@ -92,7 +92,22 @@ export class AtencionComponent implements OnInit {
 
   obtenerMedicos = () => {
     this.qService
-      .ObtenerMedicosPorConsulta(this.ID_Paciente)
+      .ObtenerMedicos()
+      .pipe(
+        catchError((error: any) => {
+          return [
+            this.toastService.error('Error Interno', 'Error Interno'),
+          ];
+        })
+      )
+      .subscribe((data) => {
+        this.medicos = data;
+      });
+  };
+  
+  obtenerMedicosPorConsulta = (ID_Paciente: number) => {
+    this.qService
+      .ObtenerMedicosPorConsulta(ID_Paciente)
       .pipe(
         catchError((error: any) => {
           return [
@@ -116,6 +131,10 @@ export class AtencionComponent implements OnInit {
       .subscribe((data) => {
         this.hospitalizaciones = data;
       });
+  };
+  onPacienteChange = () => {
+     this.obtenerMedicosPorConsulta(this.ID_Paciente);
+    
   };
 
   insertarAtencion = () => {
