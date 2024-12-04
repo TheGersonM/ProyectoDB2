@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="EstablecerParametros(0, 0, '', 0, 0, 0, [])" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,7 +21,7 @@
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerFactura()" [attr.data-toggle]="seleccionFactura.size == 1 ? 'modal': null"
+                    <button (click)="abrirModal('actualizar')" [attr.data-toggle]="seleccionFactura.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionFactura.size == 1 ? '#medic': null"
                         [disabled]="seleccionFactura.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
@@ -47,7 +47,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let factura of facturas"
                                     [ngClass]="{'table-primary': seleccionFactura.has(factura)}"
-                                    (click)="seleccionarLinea(seleccionFactura, factura, 1)">
+                                    (click)="seleccionarLinea(seleccionFactura, factura, 0)">
                                     <td>{{factura.NombrePaciente}}</td>
                                     <td>{{factura.Fecha}}</td>
                                     <td>{{factura.Subtotal}}</td>
@@ -149,7 +149,7 @@
                                         <tbody style="cursor: pointer;">
                                             <tr *ngFor="let detalle of FacturaDetalle"
                                                 [ngClass]="{'table-primary': seleccionDetalle.has(detalle)}"
-                                                (click)="seleccionarLinea(seleccionDetalle, detalle, 1)">
+                                                (click)="seleccionarLinea(seleccionDetalle, detalle, 0)">
                                                 <td>{{detalle.ID_Detalle}}</td>
                                                 <td>{{detalle.Detalle}}</td>
                                                 <td (click)="edicionLinea(detalle, 'Cantidad')">
@@ -184,7 +184,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button (click)="seleccionFactura.size == 1 ? actualizarFactura() : insertarFactura()" type="button"
+                    <button (click)="modoFormulario === 'actualizar' ? actualizarFactura() : insertarFactura()" type="button"
                         class="btn btn-primary">Save changes</button>
                 </div>
             </div>
@@ -230,7 +230,7 @@
                                         <tbody style="cursor: pointer;">
                                             <tr *ngFor="let atencion of atenciones"
                                                 [ngClass]="{'table-primary': seleccionAtencion.has(atencion)}"
-                                                (click)="seleccionarLinea(seleccionAtencion, atencion, 1)">
+                                                (click)="seleccionarLinea(seleccionAtencion, atencion, 0)">
                                                 <td>{{atencion.ID_Detalle}}</td>
                                                 <td>{{atencion.Detalle}}</td>
                                             </tr>

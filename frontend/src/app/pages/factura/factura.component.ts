@@ -5,6 +5,8 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+
+declare var $: any;
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
@@ -30,6 +32,7 @@ export class FacturaComponent implements OnInit {
   seleccionAtencion: Set<any> = new Set()
   edicionFila: Set<any> = new Set();
   edicion: any
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar'
 
   constructor(
     private toastService: ToastrService,
@@ -104,6 +107,7 @@ export class FacturaComponent implements OnInit {
       })
     ).subscribe(data => {
       this.insertarFacturaDetalle(data[1][0].ID, this.FacturaDetalle)
+      
     })
   }
 
@@ -116,6 +120,7 @@ export class FacturaComponent implements OnInit {
       this.toastService.success("Factura Creada")
       this.ObtenerFacturas()
       this.seleccionFactura.clear()
+      this.cerrarModal()
     })
   }
 
@@ -140,37 +145,58 @@ export class FacturaComponent implements OnInit {
       this.obtenerFactura()
       this.seleccionDetalle.clear()
       this.seleccionFactura.clear()
+      this.cerrarModal()
     })
   }
 
   eliminarFactura = () => {
-    const { ID } = Array.from(this.seleccionFactura.values())[0];
-    this.pService.EliminarFactura(ID).pipe(
-      catchError((err) => {
-        return [];
-      })
-    ).subscribe(data => {
-      this.eliminarFacturaDetalle(ID)
-    })
+    if(1==1)
+      {
+        this.toastService.error("Las facturas no se pueden eliminar")
+        return 0;
+      }else {
+        return 0; 
+      }
   }
 
   eliminarFacturaDetalle = (ID: any) => {
-    this.pService.EliminarFacturaDetalle(ID).pipe(
-      catchError((err) => {
-        return [];
-      })
-    ).subscribe(data => {
-      this.toastService.success("Factura Eliminada")
-      this.ObtenerFacturas()
-      this.seleccionFactura.clear()
-    })
+    if(1==1)
+    {
+      this.toastService.error("Las facturas no se pueden eliminar")
+      return 0;
+    }else {
+      return 0; 
+    }
   }
-
   agragerAtencionesAFactura = () => {
-    this.FacturaDetalle = Array.from(new Set([...this.FacturaDetalle, ...this.seleccionAtencion]))
-    this.seleccionDetalle.clear()
-    this.seleccionAtencion.clear()
+    this.FacturaDetalle = Array.from(new Set([...this.FacturaDetalle, ...this.seleccionAtencion])).map(atencion => {
+      if (atencion.Detalle.startsWith('Cirugia')) {
+        atencion.Precio = 1000;
+      }
+        else if (atencion.Detalle.startsWith('Cirugía')) {
+          atencion.Precio = 1000;
+      } else if (atencion.Detalle.startsWith('Consulta')) {
+        atencion.Precio = 500;
+      } else if (atencion.Detalle.startsWith('Hospitalizacion')) {
+        atencion.Precio = 800;
+      } else if (atencion.Detalle.startsWith('Hospitalización')) {
+        atencion.Precio = 800;
+      } else if (atencion.Detalle.startsWith('Atenciones')) {
+        atencion.Precio = 200;
+      } else {
+        atencion.Precio = 1; // Valor por defecto si no coincide con ninguna condición
+      }
+      return atencion;
+    });
+    this.seleccionDetalle.clear();
+    this.seleccionAtencion.clear();
   }
+  
+  //agragerAtencionesAFactura = () => {
+    //this.FacturaDetalle = Array.from(new Set([...this.FacturaDetalle, ...this.seleccionAtencion]))
+    //this.seleccionDetalle.clear()
+   // this.seleccionAtencion.clear()
+  //}
 
   seleccionarLinea = (set: Set<any>, obj: any, tipo: number) => {
     this.globalService.addLine(set, obj, tipo);
@@ -206,6 +232,34 @@ export class FacturaComponent implements OnInit {
     this.Impuesto = Impuesto
     this.Total = Total
     this.FacturaDetalle = FacturaDetalle
+  }
+
+  abrirModal = (modo: 'insertar' | 'actualizar') => {
+    this.modoFormulario = modo;
+    if (this.modoFormulario === 'insertar') {
+      this.ID_Paciente = '';
+      this.Fecha = '';
+      this.Subtotal = '';
+      this.Impuesto = '';
+      this.Total = '';
+      this.FacturaDetalle = [];
+      
+    } else if (this.modoFormulario === 'actualizar') {
+      const seleccionado = Array.from(this.seleccionFactura.values())[0];
+      if (seleccionado) {
+        this.ID = seleccionado.ID;
+        this.ID_Paciente = seleccionado.ID_Paciente;
+        this.Fecha = seleccionado.Fecha;
+        this.Subtotal = seleccionado.Subtotal;
+        this.Impuesto = seleccionado.Impuesto;
+        this.Total = seleccionado.Total;
+        this.obtenerFactura()
+      }
+    }
+  };
+
+  cerrarModal() {
+    $('#medic').modal('hide');
   }
 
 }

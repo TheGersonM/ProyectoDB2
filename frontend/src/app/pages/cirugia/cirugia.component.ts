@@ -90,7 +90,7 @@ export class CirugiaComponent implements OnInit {
   insertarCirugia = () => {
     const { ID_Paciente, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = this
     this.pService.InsertarCirugia(ID_Paciente, this.medicos[0].ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano).pipe(catchError((error: any) => {
-      this.toastService.error("Error Interno");
+      this.toastService.error("Llenar todos los campos");
       return [];
     })).subscribe(() => {
       this.toastService.success("Cirugía Programada con exito");
@@ -101,7 +101,7 @@ export class CirugiaComponent implements OnInit {
 
   actualizarCirugia = () => {
     this.pService.ActualizarCirugia(this.ID, this.ID_Paciente, this.ID_Medico, this.Fecha, this.Hora, this.Tipo, this.PersonalMedico, this.Medicamentos, this.Materiales, this.ID_Quirofano).pipe(catchError((error: any) => {
-      this.toastService.error("Error Interno");
+      this.toastService.error("Llenar todos los campos");
       return [];
     })).subscribe((data) => {
       this.toastService.success("Cirugía Actualizada");

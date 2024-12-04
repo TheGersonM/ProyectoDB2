@@ -29,6 +29,7 @@ import {
     ObtenerMedico,
     ObtenerMedicos,
     ObtenerMedicosPorConsulta,
+    ObtenerMedicosInternos,
     ObtenerPaciente,
     ObtenerPacientes,
     ObtenerQuirofano,
@@ -42,6 +43,7 @@ const router = Router();
 router.get("/ObtenerMedicos", ObtenerMedicos)
 router.get("/ObtenerMedico", ObtenerMedico)
 router.get("/ObtenerMedicosPorConsulta", ObtenerMedicosPorConsulta)
+router.get("/ObtenerMedicosInternos", ObtenerMedicosInternos)
 router.get("/ObtenerHabitaciones", ObtenerHabitaciones)
 router.get("/ObtenerHabitacion", ObtenerHabitacion)
 router.get("/ObtenerQuirofanos", ObtenerQuirofanos)

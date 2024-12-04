@@ -101,7 +101,6 @@ export class AtencionComponent implements OnInit {
       )
       .subscribe((data) => {
         this.medicos = data;
-        this.ID_Medico = null; // Limpiar la selección de médico
         this.hospitalizaciones = []; // Limpiar la lista de hospitalizaciones
         //data traee los medicos y hospitalizaciones
         this.obtenerHospitalizacionesPorPaciente();
@@ -131,7 +130,7 @@ export class AtencionComponent implements OnInit {
       .InsertarAtencion(
         this.ID_Paciente,
         this.ID_Hospitalizacion,
-        this.ID_Medico,
+        this.medicos[0].ID_Medico,
         this.Fecha,
         this.Tipo,
         this.Detalles

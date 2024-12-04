@@ -31,7 +31,7 @@ export class ChequeComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerCheques();
-    this.obtenerMedicos();
+    this.obtenerMedicosInternos();
   }
 
   obtenerCheques = () => {
@@ -51,8 +51,15 @@ export class ChequeComponent implements OnInit {
     })
   }
 
-  obtenerMedicos = () => {
-    this.qService.ObtenerMedicos().pipe(catchError((error: any) => {
+  //obtenerMedicos = () => {
+    //this.qService.ObtenerMedicos().pipe(catchError((error: any) => {
+     // return [];
+    //})).subscribe(data => {
+    //  this.medicos = data
+   // })
+  //}
+  obtenerMedicosInternos = () => {
+    this.qService.ObtenerMedicosInternos().pipe(catchError((error: any) => {
       return [];
     })).subscribe(data => {
       this.medicos = data

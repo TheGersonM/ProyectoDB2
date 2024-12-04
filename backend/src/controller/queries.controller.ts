@@ -15,6 +15,14 @@ export const ObtenerMedicos = async ({ body }: Request, res: Response) => {
         return res.status(500).json(err.message);
     }
 }
+export const ObtenerMedicosInternos = async ({ body }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.ObtenerMedicosInternos());
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err.message);
+    }
+}
 
 export const ObtenerMedico = async ({ query }: Request, res: Response) => {
     try {
