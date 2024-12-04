@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, 0, 0, '', '', '', '', '', '', 0)" type="button"
+                    <button (click)="abrirModal('insertar')" type="button"
                         data-toggle="modal" data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,7 +21,7 @@
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerCirugia()" [attr.data-toggle]="seleccionCirugia.size == 1 ? 'modal': null"
+                    <button (click)="abrirModal('actualizar')" [attr.data-toggle]="seleccionCirugia.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionCirugia.size == 1 ? '#medic': null"
                         [disabled]="seleccionCirugia.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
@@ -50,7 +50,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let cirugia of cirugias"
                                     [ngClass]="{'table-primary': seleccionCirugia.has(cirugia)}"
-                                    (click)="seleccionarLinea(seleccionCirugia, cirugia, 1)">
+                                    (click)="seleccionarLinea(seleccionCirugia, cirugia, 0)">
                                     <td>{{cirugia.NombrePaciente}}</td>
                                     <td>{{cirugia.NombreMedico}}</td>
                                     <td>{{cirugia.Fecha}}</td>
@@ -84,7 +84,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Paciente</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="ID_Paciente">
+                            <select (change)="onPacienteChange()" class="form-control form-control-sm" [(ngModel)]="ID_Paciente">
                                 <option *ngFor="let paciente of pacientes" [ngValue]="paciente.ID">
                                     {{paciente.Nombre + ' ' + paciente.Apellidos}}
                                 </option>
@@ -159,7 +159,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionCirugia.size == 1 ? actualizarCirugia() : insertarCirugia()" type="button"
+                <button (click)="modoFormulario === 'actualizar' ? actualizarCirugia() : insertarCirugia()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>

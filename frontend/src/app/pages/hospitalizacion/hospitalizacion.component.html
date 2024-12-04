@@ -81,24 +81,24 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="">Paciente</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="ID_Paciente">
-                                <option *ngFor="let paciente of pacientes" [ngValue]="paciente.ID">
-                                    {{paciente.Nombre + ' ' + paciente.Apellidos}}
-                                </option>
-                            </select>
+                          <label for="">Paciente</label>
+                          <select (change)="onPacienteChange()" class="form-control form-control-sm" [(ngModel)]="ID_Paciente">
+                            <option *ngFor="let paciente of pacientes" [ngValue]="paciente.ID">
+                              {{paciente.Nombre + ' ' + paciente.Apellidos}}
+                            </option>
+                          </select>
                         </div>
-                    </div>
-                    <div class="col">
+                      </div>
+                      <div class="col">
                         <div class="form-group">
-                            <label for="">Médico</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="ID_Medico">
-                                <option *ngFor="let medico of medicos" [ngValue]="medico.ID">
-                                    {{medico.Nombre}}
-                                </option>
-                            </select>
+                          <label for="">Médico</label>
+                          <select class="form-control form-control-sm" [(ngModel)]="ID_Medico">
+                            <option *ngFor="let medico of medicos" [ngValue]="medico.ID">
+                              {{medico.Nombre}}
+                            </option>
+                          </select>
                         </div>
-                    </div>
+                      </div>                      
                 </div>
                 <div class="row">
                     <div class="col">

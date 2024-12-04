@@ -5,6 +5,7 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+declare var $:any;
 @Component({
   selector: 'app-cirugia',
   templateUrl: './cirugia.component.html',
@@ -27,6 +28,7 @@ export class CirugiaComponent implements OnInit {
   Medicamentos: any
   Materiales: any
   ID_Quirofano: any
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar'
 
   seleccionCirugia: Set<any> = new Set();
 
@@ -86,13 +88,14 @@ export class CirugiaComponent implements OnInit {
   }
 
   insertarCirugia = () => {
-    const { ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = this
-    this.pService.InsertarCirugia(ID_Paciente, ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano).pipe(catchError((error: any) => {
+    const { ID_Paciente, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano } = this
+    this.pService.InsertarCirugia(ID_Paciente, this.medicos[0].ID_Medico, Fecha, Hora, Tipo, PersonalMedico, Medicamentos, Materiales, ID_Quirofano).pipe(catchError((error: any) => {
       this.toastService.error("Error Interno");
       return [];
     })).subscribe(() => {
-      this.toastService.success("Cirugía Creada");
+      this.toastService.success("Cirugía Programada con exito");
       this.obtenerCirugias();
+      this.cerrarModal();
     })
   }
 
@@ -104,6 +107,7 @@ export class CirugiaComponent implements OnInit {
       this.toastService.success("Cirugía Actualizada");
       this.seleccionCirugia.clear();
       this.obtenerCirugias();
+      this.cerrarModal();
     })
   }
 
@@ -143,5 +147,55 @@ export class CirugiaComponent implements OnInit {
     this.Materiales = Materiales
     this.ID_Quirofano = ID_Quirofano
   }
+  cerrarModal() { 
+    $('#medic').modal('hide');
+  }
+
+  abrirModal = (modo: 'insertar' | 'actualizar') => {
+    this.modoFormulario = modo;
+    if (this.modoFormulario === 'insertar') {
+      this.ID_Paciente = '';
+      this.ID_Medico = '';
+      this.Fecha = '';
+      this.Tipo = '';
+      this.PersonalMedico = '';
+      this.Medicamentos = '';
+      this.Materiales = '';
+      this.ID_Quirofano = '';
+    } else if (this.modoFormulario === 'actualizar') {
+      const seleccionado = Array.from(this.seleccionCirugia.values())[0];
+      if (seleccionado) {
+
+        this.ID = seleccionado.ID;
+        this.ID_Paciente = seleccionado.ID_Paciente;
+      this.ID_Medico = seleccionado.ID_Medico;
+      this.Fecha = seleccionado.Fecha;
+      this.Tipo = seleccionado.Tipo;
+      this.PersonalMedico = seleccionado.PersonalMedico;
+      this.Medicamentos = seleccionado.Medicamentos;
+      this.Materiales = seleccionado.Materiales;
+      this.ID_Quirofano = seleccionado.ID_Quirofano;
+      }
+    }
+  };
+
+  onPacienteChange = () => {
+    this.medicos = []; // Limpiar la lista de médicos
+    this.obtenerMedicosPorConsulta(this.ID_Paciente);
+  };
+
+  obtenerMedicosPorConsulta = (ID_Paciente: number) => {
+    this.qService
+      .ObtenerMedicosPorConsulta(ID_Paciente)
+      .pipe(
+        catchError((error: any) => {
+          return [];
+        })
+      )
+      .subscribe((data) => {
+        this.medicos = data;
+      });
+  };
+
 
 }

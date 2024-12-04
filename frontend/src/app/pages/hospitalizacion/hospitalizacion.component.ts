@@ -95,7 +95,8 @@ export class HospitalizacionComponent implements OnInit {
   }
 
   insertarHospitalizacion = () => {
-    this.pService.InsertarHospitalizacion(this.ID_Paciente, this.ID_Medico, this.FechaIngreso, this.ID_Habitacion, this.ID_Cama).pipe(catchError((error: any) => {
+    this.toastService.success("ID_Medico : " + this.ID_Medico+ " Medicos : " + this.medicos[0].ID_Medico);
+    this.pService.InsertarHospitalizacion(this.ID_Paciente, this.medicos[0].ID_Medico, this.FechaIngreso, this.ID_Habitacion, this.ID_Cama).pipe(catchError((error: any) => {
       this.toastService.error("No se pudeo insertar");
       return [];
     })).subscribe(data => {
@@ -171,5 +172,29 @@ export class HospitalizacionComponent implements OnInit {
       }
     }
   };
+
+  onPacienteChange = () => {
+    this.medicos = []; // Limpiar la lista de médicos
+    this.obtenerMedicosPorConsulta(this.ID_Paciente);
+  };
+
+  obtenerMedicosPorConsulta = (ID_Paciente: number) => {
+    this.qService
+      .ObtenerMedicosPorConsulta(ID_Paciente)
+      .pipe(
+        catchError((error: any) => {
+          this.toastService.error('Seleccione al paciente primero', 'Error Interno');
+          return [];
+        })
+      )
+      .subscribe((data) => {
+        this.medicos = data;
+        if (this.medicos.length > 0) {
+          this.ID_Medico = data[0].ID_Medico // Establecer el primer médico como seleccionado
+        } 
+      });
+  };
+  
+  
 
 }
