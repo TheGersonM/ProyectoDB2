@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, 0, 0, 0, '', '', '')" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,7 +21,7 @@
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerAtencion()" [attr.data-toggle]="seleccionAtencion.size == 1 ? 'modal': null"
+                    <button (click)="abrirModal('actualizar')" [attr.data-toggle]="seleccionAtencion.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionAtencion.size == 1 ? '#medic': null"
                         [disabled]="seleccionAtencion.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
@@ -47,7 +47,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let atencion of atenciones"
                                     [ngClass]="{'table-primary': seleccionAtencion.has(atencion)}"
-                                    (click)="seleccionarLinea(seleccionAtencion, atencion, 1)">
+                                    (click)="seleccionarLinea(seleccionAtencion, atencion, 0)">
                                     <td>{{atencion.NombrePaciente}}</td>
                                     <td>{{atencion.NombreMedico}}</td>
                                     <td>{{atencion.ID_Hospitalizacion}}</td>
@@ -139,7 +139,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionAtencion.size == 1 ? actualizarAtencion() : insertarAtencion()" type="button"
+                <button (click)="modoFormulario === 'actualizar' ? actualizarAtencion() : insertarAtencion()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>

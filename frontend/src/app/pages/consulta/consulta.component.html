@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '', 0, 0, '')" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,7 +21,7 @@
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerConsulta()" [attr.data-toggle]="seleccionConsulta.size == 1 ? 'modal': null"
+                    <button (click)="abrirModal('actualizar')" [attr.data-toggle]="seleccionConsulta.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionConsulta.size == 1 ? '#medic': null"
                         [disabled]="seleccionConsulta.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
@@ -48,7 +48,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let consulta of consultas"
                                     [ngClass]="{'table-primary': seleccionConsulta.has(consulta)}"
-                                    (click)="seleccionarLinea(seleccionConsulta, consulta, 1)">
+                                    (click)="seleccionarLinea(seleccionConsulta, consulta, 0)">
                                     <td>{{consulta.NombrePaciente}}</td>
                                     <td>{{consulta.NombreMedico}}</td>
                                     <td>{{consulta.Fecha}}</td>
@@ -124,7 +124,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionConsulta.size == 1 ? actualizarConsulta() : insertarConsulta()" type="button"
+                <button (click)="modoFormulario === 'actualizar' ? actualizarConsulta() : insertarConsulta()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>

@@ -24,6 +24,14 @@ export const ObtenerMedico = async ({ query }: Request, res: Response) => {
         return res.status(500).json(err);
     }
 }
+export const ObtenerMedicosPorConsulta = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID } = query
+        return res.json(await queriesModel.ObtenerMedicosPorConsulta(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
 
 export const ObtenerHabitaciones = async ({ query }: Request, res: Response) => {
     try {

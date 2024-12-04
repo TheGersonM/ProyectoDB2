@@ -5,6 +5,7 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+declare var $:any;
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
@@ -21,6 +22,8 @@ export class ConsultaComponent implements OnInit {
   Fecha: any;
   Hora: any;
   Motivo: any;
+  Estado: any;
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar';
 
   seleccionConsulta: Set<any> = new Set();
 
@@ -84,6 +87,8 @@ export class ConsultaComponent implements OnInit {
     ).subscribe(data => {
       this.toastService.success("Se ha insertado la consulta");
       this.obtenerConsultas();
+      this.seleccionConsulta.clear();
+      this.cerrarModal();
     })
   }
 
@@ -97,6 +102,7 @@ export class ConsultaComponent implements OnInit {
       this.toastService.success("Se ha actualizado la consulta");
       this.seleccionConsulta.clear();
       this.obtenerConsultas();
+      this.cerrarModal();
     })
   }
 
@@ -132,6 +138,37 @@ export class ConsultaComponent implements OnInit {
     this.Fecha = Fecha;
     this.Hora = Hora;
     this.Motivo = Motivo;
+  }
+  cerrarModal() {
+    $('#medic').modal('hide');
+  }
+  abrirModal(modo: 'insertar' | 'actualizar') {
+    this.modoFormulario = modo;
+  
+    if (modo === 'insertar') {
+      // Limpiar el formulario
+      this.ID_Paciente = '';
+      this.ID_Medico = '';
+      this.Fecha = '';
+      this.Hora = '';
+      this.Motivo = '';
+      this.Estado = '';
+    } else if (modo === 'actualizar') {
+      
+      // Cargar los datos del quirófano seleccionado
+      const seleccionado = Array.from(this.seleccionConsulta.values())[0];
+      if (seleccionado) {
+        this.ID = seleccionado.ID;
+        this.ID_Paciente = seleccionado.ID_Paciente;
+        this.ID_Medico = seleccionado.ID_Medico;
+        this.Fecha = seleccionado.Fecha;
+        this.Hora = seleccionado.Hora;
+        this.Motivo = seleccionado.Motivo;
+        this.Estado = seleccionado.Estado;
+      }else {
+        this.toastService.warning("Debe seleccionar un medico");
+      }
+    }
   }
 
 }

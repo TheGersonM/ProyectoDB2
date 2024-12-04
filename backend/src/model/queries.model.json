@@ -12,6 +12,18 @@
         }
     },
     {
+        "ObtenerMedicosPorConsulta": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerMedicosPorConsulta(@ID)",
+            "type": "query"
+        }
+    },
+    {
         "ObtenerMedicos": {
             "params": [],
             "query": "select * from dbo.ObtenerMedicos",
