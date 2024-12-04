@@ -32,7 +32,8 @@
             "styles": [
               "src/styles.sass",
               "src/assets/plugins/fontawesome-free/css/all.min.css",
-              "src/assets/dist/css/adminlte.min.css"
+              "src/assets/dist/css/adminlte.min.css",
+              "./node_modules/@syncfusion/ej2-material-theme/styles/material.css"
             ],
             "scripts": [
               "src/assets/plugins/jquery/jquery.min.js",
@@ -99,7 +100,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.sass",
+              "./node_modules/@syncfusion/ej2-material-theme/styles/material.css"
             ],
             "scripts": []
           }

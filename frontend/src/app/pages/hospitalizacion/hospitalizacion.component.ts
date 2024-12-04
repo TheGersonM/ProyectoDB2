@@ -5,6 +5,7 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+declare var $:any;
 @Component({
   selector: 'app-hospitalizacion',
   templateUrl: './hospitalizacion.component.html',
@@ -25,6 +26,7 @@ export class HospitalizacionComponent implements OnInit {
   FechaAlta: any;
   ID_Habitacion: any = 0;
   ID_Cama: any = 0;
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar';
 
   seleccionHospitalizacion: Set<any> = new Set();
 
@@ -56,7 +58,7 @@ export class HospitalizacionComponent implements OnInit {
     this.qService.ObtenerHospitalizacion(ID).pipe(catchError((error: any) => {
       return [];
     })).subscribe(data => {
-      this.establecerParametros(data[0].ID, data[0].ID_Paciente, data[0].ID_Medico, data[0].FechaIngreso, data[0].FechaAlta, data[0].ID_Habitacion, data[0].ID_Cama);
+      this.establecerParametros(data[0].ID);
     })
   }
 
@@ -100,6 +102,7 @@ export class HospitalizacionComponent implements OnInit {
       this.obtenerHospitalizaciones();
       this.seleccionHospitalizacion.clear();
       this.toastService.success("Se inserto correctamente");
+      this.cerrarModal();
     })
   }
 
@@ -111,12 +114,13 @@ export class HospitalizacionComponent implements OnInit {
       this.obtenerHospitalizaciones();
       this.seleccionHospitalizacion.clear();
       this.toastService.success("Se actualizo correctamente");
+      this.cerrarModal();
     })
   }
 
   eliminarHospitalizacion = () => {
     this.pService.EliminarHospitalizacion(this.ID).pipe(catchError((error: any) => {
-      this.toastService.error("No se pudo eliminar");
+      this.toastService.error("No se puede eliminar una hospitalizacion con pacientes");
       return [];
     })).subscribe(data => {
       this.obtenerHospitalizaciones();
@@ -137,14 +141,35 @@ export class HospitalizacionComponent implements OnInit {
     this.globalService.removeLine(arr, set);
   }
 
-  establecerParametros = (ID: any, ID_Paciente: any, ID_Medico: any, FechaIngreso: any, FechaAlta: any, ID_Habitacion: any, ID_Cama: any) => {
+  establecerParametros = (ID: any) => {
     this.ID = ID;
-    this.ID_Paciente = ID_Paciente;
-    this.ID_Medico = ID_Medico;
-    this.FechaIngreso = FechaIngreso;
-    this.FechaAlta = FechaAlta;
-    this.ID_Habitacion = ID_Habitacion;
-    this.ID_Cama = ID_Cama;
   }
+
+  cerrarModal() {
+    $('#medic').modal('hide');
+  }
+  abrirModal = (modo: 'insertar' | 'actualizar') => {
+    this.modoFormulario = modo;
+    if (this.modoFormulario === 'insertar') {
+      this.ID_Paciente = '';
+      this.ID_Medico = '';
+      this.FechaIngreso = '';
+      this.FechaAlta = '';
+      this.ID_Habitacion = '';
+      this.ID_Cama = '';
+    } else if (this.modoFormulario === 'actualizar') {
+      const seleccionado = Array.from(this.seleccionHospitalizacion.values())[0];
+      if (seleccionado) {
+
+        this.ID = seleccionado.ID;
+        this.ID_Paciente = seleccionado.ID_Paciente;
+        this.ID_Medico = seleccionado.ID_Medico;
+        this.FechaIngreso = seleccionado.FechaIngreso;
+        this.FechaAlta = seleccionado.FechaAlta;
+        this.ID_Habitacion = seleccionado.ID_Habitacion;
+        this.ID_Cama = seleccionado.ID_Cama;
+      }
+    }
+  };
 
 }

@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, 0, 0, '', '', 0, 0)" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,7 +21,7 @@
                         type="button" class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerHospitalizacion()"
+                    <button (click)="abrirModal('actualizar')" type="button"
                         [attr.data-toggle]="seleccionHospitalizacion.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionHospitalizacion.size == 1 ? '#medic': null"
                         [disabled]="seleccionHospitalizacion.size != 1" class="btn btn-default btn-sm">
@@ -50,7 +50,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let hospitalizacion of hospitalizaciones"
                                     [ngClass]="{'table-primary': seleccionHospitalizacion.has(hospitalizacion)}"
-                                    (click)="seleccionarLinea(seleccionHospitalizacion, hospitalizacion, 1)">
+                                    (click)="seleccionarLinea(seleccionHospitalizacion, hospitalizacion, 0)">
                                     <td>{{hospitalizacion.NombrePaciente}}</td>
                                     <td>{{hospitalizacion.NombreMedico}}</td>
                                     <td>{{hospitalizacion.FechaIngreso}}</td>
@@ -141,7 +141,7 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button
-                    (click)="seleccionHospitalizacion.size == 1 ? actualizarHospitalizacion() : insertarHospitalizacion()"
+                    (click)="modoFormulario === 'actualizar' ? actualizarHospitalizacion() : insertarHospitalizacion()"
                     type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>

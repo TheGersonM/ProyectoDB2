@@ -38,7 +38,6 @@ export class AtencionComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerAtenciones();
     this.obtenerPacientes();
-    this.obtenerMedicos();
   }
 
   obtenerAtenciones = () => {
@@ -90,33 +89,22 @@ export class AtencionComponent implements OnInit {
       });
   };
 
-  obtenerMedicos = () => {
-    this.qService
-      .ObtenerMedicos()
-      .pipe(
-        catchError((error: any) => {
-          return [
-            this.toastService.error('Error Interno', 'Error Interno'),
-          ];
-        })
-      )
-      .subscribe((data) => {
-        this.medicos = data;
-      });
-  };
-  
   obtenerMedicosPorConsulta = (ID_Paciente: number) => {
     this.qService
       .ObtenerMedicosPorConsulta(ID_Paciente)
       .pipe(
         catchError((error: any) => {
           return [
-            this.toastService.error('Selecione al paciente primero', 'Error Interno'),
+            this.toastService.error('Seleccione al paciente primero', 'Error Interno'),
           ];
         })
       )
       .subscribe((data) => {
         this.medicos = data;
+        this.ID_Medico = null; // Limpiar la selección de médico
+        this.hospitalizaciones = []; // Limpiar la lista de hospitalizaciones
+        //data traee los medicos y hospitalizaciones
+        this.obtenerHospitalizacionesPorPaciente();
       });
   };
 
@@ -132,9 +120,10 @@ export class AtencionComponent implements OnInit {
         this.hospitalizaciones = data;
       });
   };
+
   onPacienteChange = () => {
-     this.obtenerMedicosPorConsulta(this.ID_Paciente);
-    
+    this.medicos = []; // Limpiar la lista de médicos
+    this.obtenerMedicosPorConsulta(this.ID_Paciente);
   };
 
   insertarAtencion = () => {
@@ -153,7 +142,7 @@ export class AtencionComponent implements OnInit {
         })
       )
       .subscribe((data) => {
-        this.toastService.success('Atención Creada');
+        this.toastService.success('Atención Creada');
         this.obtenerAtenciones();
         this.seleccionAtencion.clear();
         this.cerrarModal();
@@ -177,7 +166,7 @@ export class AtencionComponent implements OnInit {
         })
       )
       .subscribe((data) => {
-        this.toastService.success('Atención Actualizada');
+        this.toastService.success('Atención Actualizada');
         this.seleccionAtencion.clear();
         this.obtenerAtenciones();
         this.cerrarModal();
@@ -194,7 +183,7 @@ export class AtencionComponent implements OnInit {
         })
       )
       .subscribe((data) => {
-        this.toastService.success('Atención Eliminada');
+        this.toastService.success('Atención Eliminada');
         this.seleccionAtencion.clear();
         this.obtenerAtenciones();
       });
@@ -229,6 +218,7 @@ export class AtencionComponent implements OnInit {
     this.Tipo = Tipo;
     this.Detalles = Detalles;
   };
+
   cerrarModal = () => {
     $('#medic').modal('hide');
   };
@@ -242,7 +232,6 @@ export class AtencionComponent implements OnInit {
       this.Tipo = '';
       this.Detalles = '';
     } else if (this.modoFormulario === 'actualizar') {
-      
       const seleccionado = Array.from(this.seleccionAtencion.values())[0];
       if (seleccionado) {
         this.ID = seleccionado.ID;

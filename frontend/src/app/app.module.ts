@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
+import { GridModule, PagerModule } from '@syncfusion/ej2-angular-grids';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     PagesModule,
-    HttpClientModule
+    HttpClientModule,
+    GridModule, PagerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
