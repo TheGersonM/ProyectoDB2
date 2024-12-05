@@ -5,6 +5,8 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+
+declare var $: any;
 @Component({
   selector: 'app-cobro-consultorio',
   templateUrl: './cobro-consultorio.component.html',
@@ -13,14 +15,16 @@ import { catchError } from 'rxjs';
 export class CobroConsultorioComponent implements OnInit {
   cobroConsultorios: any[] = [];
   consultorios: any[] = [];
+  medicos: any[] = []
 
   ID: any
-  Nombre: any
+  ID_Medico: any
   Concepto: any
   Valor: any
   Impuesto: any
   Total: any
   ID_Consultorio: any
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar'; 
 
   seleccionCobroConsultorio: Set<any> = new Set();
 
@@ -34,6 +38,7 @@ export class CobroConsultorioComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerCobroConsultorios();
     this.obtenerConsultoriosAlquilados();
+    this.ObtenerMedicosExternos();
   }
 
   obtenerCobroConsultorios = () => {
@@ -53,6 +58,14 @@ export class CobroConsultorioComponent implements OnInit {
     })
   }
 
+  ObtenerMedicosExternos = () => {
+    this.qService.ObtenerMedicosExternos().pipe(catchError((error: any) => {
+      return [];
+    })).subscribe(data => {
+      this.medicos = data
+    })
+  }
+
   obtenerConsultoriosAlquilados = () => {
     this.qService.ObtenerConsultoriosAlquilados().pipe(catchError((error: any) => {
       return [];
@@ -62,19 +75,7 @@ export class CobroConsultorioComponent implements OnInit {
   }
 
   insertarCobroConsultorio = () => {
-    this.pService.InsertarCobroConsultorio(this.Nombre, this.Concepto, this.Valor, this.Impuesto, this.Total, this.ID_Consultorio).pipe(
-      catchError((error: any) => {
-        this.toastService.error("Error Interno");
-        return [];
-      })
-    ).subscribe(data => {
-      this.obtenerCobroConsultorios()
-      this.toastService.success("Cobro Creado Correctamente");
-    })
-  }
-
-  actualizarCobroConsultorio = () => {
-    this.pService.ActualizarCobroConsultorio(this.ID, this.Nombre, this.Concepto, this.Valor, this.Impuesto, this.Total, this.ID_Consultorio).pipe(
+    this.pService.InsertarCobroConsultorio(this.ID_Medico, this.Concepto, this.Valor, this.Impuesto, this.Total, this.consultorios[0].ID).pipe(
       catchError((error: any) => {
         this.toastService.error("Error Interno");
         return [];
@@ -83,6 +84,21 @@ export class CobroConsultorioComponent implements OnInit {
       this.obtenerCobroConsultorios()
       this.toastService.success("Cobro Creado Correctamente");
       this.seleccionCobroConsultorio.clear();
+      this.cerraModal();
+    })
+  }
+
+  actualizarCobroConsultorio = () => {
+    this.pService.ActualizarCobroConsultorio(this.ID, this.ID_Medico, this.Concepto, this.Valor, this.Impuesto, this.Total, this.ID_Consultorio).pipe(
+      catchError((error: any) => {
+        this.toastService.error("Error Interno");
+        return [];
+      })
+    ).subscribe(data => {
+      this.obtenerCobroConsultorios()
+      this.toastService.success("Cobro actualizado Correctamente");
+      this.seleccionCobroConsultorio.clear();
+      this.cerraModal();
     })
   }
 
@@ -113,14 +129,64 @@ export class CobroConsultorioComponent implements OnInit {
     this.globalService.removeLine(arr, set);
   }
 
-  establecerParametros(ID: any, Nombre: any, Concepto: any, Valor: any, Impuesto: any, Total: any, ID_Consultorio: any) {
+  establecerParametros(ID: any, ID_Medico: any, Concepto: any, Valor: any, Impuesto: any, Total: any, ID_Consultorio: any) {
     this.ID = ID
-    this.Nombre = Nombre
+    this.ID_Medico = ID_Medico
     this.Concepto = Concepto
     this.Valor = Valor
     this.Impuesto = Impuesto
     this.Total = Total
     this.ID_Consultorio = ID_Consultorio
+  }
+
+  OnMedicoChange = (ID_Medico: any) => {
+    this.ID_Medico = ID_Medico
+    this.toastService.success("Medico Seleccionado " + ID_Medico);
+    this.ObtenerConsultorioPorMedico(ID_Medico);
+  }
+  
+  ObtenerConsultorioPorMedico = (ID_Medico: number) => {
+    this.qService
+      .ObtenerConsultorioPorMedico(ID_Medico)
+      .pipe(
+        catchError((error: any) => {
+          this.toastService.error('Seleccione al medico primero', 'Error Interno');
+          return [];
+        })
+      )
+      .subscribe((data) => {
+        this.consultorios = data;
+        if (this.consultorios.length > 0) {
+          this.ID = data[0].ID // Establecer el primer médico como seleccionado
+        } 
+      });
+  };
+  abrirModal = (modo: 'insertar' | 'actualizar') => {
+    this.modoFormulario = modo;
+    if (this.modoFormulario === 'insertar') {
+      this.ID_Medico = '';
+      this.Concepto = '';
+      this.Valor = '';
+      this.Impuesto = '';
+      this.Total = '';
+      this.ID_Consultorio = '';
+      
+    } else if (this.modoFormulario === 'actualizar') {
+      const seleccionado = Array.from(this.seleccionCobroConsultorio.values())[0];
+      if (seleccionado) {
+        this.ID = seleccionado.ID;
+        this.ID_Medico = seleccionado.ID_Medico;
+        this.Concepto = seleccionado.Concepto;
+        this.Valor = seleccionado.Valor;
+        this.Impuesto = seleccionado.Impuesto;
+        this.Total = seleccionado.Total;
+        this.ID_Consultorio = seleccionado.ID_Consultorio;
+      }
+    }
+  };
+
+  cerraModal = () => {
+    $('#medic').modal('hide');
   }
 
 }

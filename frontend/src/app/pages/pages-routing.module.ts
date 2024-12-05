@@ -14,6 +14,7 @@ import { ConsultorioComponent } from './consultorio/consultorio.component';
 import { FacturaComponent } from './factura/factura.component';
 import { CobroConsultorioComponent } from './cobro-consultorio/cobro-consultorio.component';
 import { ChequeComponent } from './cheque/cheque.component';
+import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-atendidos.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'consultorio', component: ConsultorioComponent, pathMatch: 'full' },
       { path: 'factura', component: FacturaComponent, pathMatch: 'full' },
       { path: 'cobroconsultorio', component: CobroConsultorioComponent, pathMatch: 'full' },
-      { path: 'cheque', component: ChequeComponent, pathMatch: 'full' }
+      { path: 'cheque', component: ChequeComponent, pathMatch: 'full' },
+      { path: 'pacientesatendidos', component: PacientesAtendidosComponent, pathMatch: 'full' }
     ]
   }
 ];

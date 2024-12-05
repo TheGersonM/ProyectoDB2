@@ -48,6 +48,14 @@ export const ObtenerMedicosPorConsulta = async ({ query }: Request, res: Respons
         return res.status(500).json(err);
     }
 }
+export const ObtenerConsultorioPorMedico = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID } = query
+        return res.json(await queriesModel.ObtenerConsultorioPorMedico(ID));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
 
 export const ObtenerHabitaciones = async ({ query }: Request, res: Response) => {
     try {
@@ -299,6 +307,16 @@ export const ObtenerAtencionesPorPaciente = async ({ query }: Request, res: Resp
     try {
         const { ID_Paciente } = query
         return res.json(await queriesModel.ObtenerAtencionesPorPaciente(ID_Paciente));
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const ObtenerPacientesAtendidosPorMedico = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID_Medico } = query
+        return res.json(await queriesModel.ObtenerPacientesAtendidosPorMedico(ID_Medico));
     } catch (err) {
         console.log(err)
         return res.status(500).json(err);

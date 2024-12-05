@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Cobro de Consultorios a Medicos Externos</h1>
+                <h1 class="m-0">Consulta pacientes atendidos por medico</h1>
             </div>
         </div>
     </div>
@@ -13,21 +13,18 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, '', '', 0, 0, 0, 0)" type="button" data-toggle="modal"
+                    <button  type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <button [disabled]="!seleccionCobroConsultorio.size" (click)="eliminarCobroConsultorio()"
+                    <button  
                         type="button" class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerCobroConsultorio()"
-                        [attr.data-toggle]="seleccionCobroConsultorio.size == 1 ? 'modal': null"
-                        [attr.data-target]="seleccionCobroConsultorio.size == 1 ? '#medic': null"
-                        [disabled]="seleccionCobroConsultorio.size != 1" class="btn btn-default btn-sm">
+                    <button  class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button (click)="seleccionarTodo(cobroConsultorios, seleccionCobroConsultorio)"
+                    <button 
                         class="btn btn-default btn-sm">
                         <i class="fas fa-check-double"></i>
                     </button>
@@ -48,16 +45,7 @@
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let coboConsultorio of cobroConsultorios"
-                                    [ngClass]="{'table-primary': seleccionCobroConsultorio.has(coboConsultorio)}"
-                                    (click)="seleccionarLinea(seleccionCobroConsultorio, coboConsultorio, 0)">
-                                    <td>{{coboConsultorio.Medico}}</td>
-                                    <td>{{coboConsultorio.Concepto}}</td>
-                                    <td>{{coboConsultorio.Valor}}</td>
-                                    <td>{{coboConsultorio.Impuesto}}</td>
-                                    <td>{{coboConsultorio.Total}}</td>
-                                    <td>{{coboConsultorio.NombreConsultorio}}</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -82,17 +70,15 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Médico</label>
-                            <select (change)="OnMedicoChange(ID_Medico)" class="form-control form-control-sm" [(ngModel)]="ID_Medico">
-                                <option *ngFor="let medico of medicos" [value]="medico.ID">
-                                    {{medico.Nombre}}
-                                </option>
+                            <select >
+                                
                             </select>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="">Concepto</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Concepto">
+                            <input type="text" class="form-control form-control-sm" >
                         </div>
                     </div>
                 </div>
@@ -100,13 +86,13 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Valor</label>
-                            <input type="number" class="form-control form-control-sm" [(ngModel)]="Valor">
+                            <input type="number" class="form-control form-control-sm" >
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="">Impuesto</label>
-                            <input type="number" class="form-control form-control-sm" [(ngModel)]="Impuesto">
+                            <input type="number" class="form-control form-control-sm">
                         </div>
                     </div>
                 </div>
@@ -114,16 +100,14 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="">Total</label>
-                            <input type="number" class="form-control form-control-sm" [(ngModel)]="Total">
+                            <input type="number" class="form-control form-control-sm" >
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="">Consultorio</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="ID_Consultorio">
-                                <option *ngFor="let consultorio of consultorios" [value]="consultorio.ID">
-                                    {{consultorio.Nombre}}
-                                </option>
+                            <select class="form-control form-control-sm" >
+                                
                             </select>
                         </div>
                     </div>
@@ -132,7 +116,7 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button
-                    (click)="seleccionCobroConsultorio.size == 1 ? actualizarCobroConsultorio() : insertarCobroConsultorio()"
+                   
                     type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>

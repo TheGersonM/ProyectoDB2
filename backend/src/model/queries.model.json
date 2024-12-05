@@ -328,5 +328,30 @@
             "query": "select * from dbo.ObtenerAtencionesPorPaciente(@ID_Paciente)",
             "type": "query"
         }
+    },
+    {
+        "ObtenerConsultorioPorMedico": {
+            "params": [
+                {
+                    "Param": "ID_Medico",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerConsultorioPorMedico(@ID_Medico)",
+            "type": "query"
+        }
+    },
+    {
+
+        "ObtenerPacientesAtendidosPorMedico": {
+            "params": [
+                {
+                    "Param": "ID_Medico",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerPacientesAtendidosPorMedico(@ID_Medico)",
+            "type": "query"
+        }
     }
 ]

@@ -28,6 +28,10 @@ export class QueriesService {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerMedicosPorConsulta?ID=${ID}`)
   }
 
+  ObtenerConsultorioPorMedico = (ID: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerConsultorioPorMedico?ID=${ID}`)
+  }
+
   ObtenerCheques = () => {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerCheques`)
   }
@@ -146,5 +150,9 @@ export class QueriesService {
 
   ObtenerAtencionesPorPaciente = (ID_Paciente: any) => {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerAtencionesPorPaciente?ID_Paciente=${ID_Paciente}`)
+  }
+
+  ObtenerPacientesAtendidosPorMedico = (ID_Medico: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerPacientesAtendidosPorMedico?ID_Medico=${ID_Medico}`)
   }
 }

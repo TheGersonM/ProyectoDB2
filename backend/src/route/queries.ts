@@ -34,13 +34,16 @@ import {
     ObtenerPaciente,
     ObtenerPacientes,
     ObtenerQuirofano,
-    ObtenerQuirofanos
+    ObtenerQuirofanos,
+    ObtenerConsultorioPorMedico,
+    ObtenerPacientesAtendidosPorMedico
 } from "../controller/queries.controller";
 
 
 const router = Router();
 
 
+router.get("/ObtenerPacientesAtendidosPorMedico", ObtenerPacientesAtendidosPorMedico)
 router.get("/ObtenerMedicos", ObtenerMedicos)
 router.get("/ObtenerMedico", ObtenerMedico)
 router.get("/ObtenerMedicosPorConsulta", ObtenerMedicosPorConsulta)
@@ -76,6 +79,7 @@ router.get("/ObtenerHospitalizacionesPorPaciente", ObtenerHospitalizacionesPorPa
 router.get("/ObtenerHabitacionesDisponibles", ObtenerHabitacionesDisponibles)
 router.get("/ObtenerCamasDisponibles", ObtenerCamasDisponibles)
 router.get("/ObtenerAtencionesPorPaciente", ObtenerAtencionesPorPaciente)
+router.get("/ObtenerConsultorioPorMedico", ObtenerConsultorioPorMedico)
 
 
 export { router };

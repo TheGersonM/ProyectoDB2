@@ -19,6 +19,7 @@ import { ConsultorioComponent } from './consultorio/consultorio.component';
 import { FacturaComponent } from './factura/factura.component';
 import { CobroConsultorioComponent } from './cobro-consultorio/cobro-consultorio.component';
 import { ChequeComponent } from './cheque/cheque.component';
+import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-atendidos.component';
 
 
 
@@ -37,7 +38,8 @@ import { ChequeComponent } from './cheque/cheque.component';
     ConsultorioComponent,
     FacturaComponent,
     CobroConsultorioComponent,
-    ChequeComponent
+    ChequeComponent,
+    PacientesAtendidosComponent
   ],
   imports: [
     CommonModule,
