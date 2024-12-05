@@ -12,40 +12,40 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <div class="btn-group">
-                    <button  type="button" data-toggle="modal"
-                        data-target="#medic" class="btn btn-default btn-sm">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <button  
-                        type="button" class="btn btn-default btn-sm">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button  class="btn btn-default btn-sm">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button 
-                        class="btn btn-default btn-sm">
-                        <i class="fas fa-check-double"></i>
-                    </button>
-                </div>
             </div>
+            <div class="form-group">
+                <label for="medico  ">Seleccione un Médico</label>
+                <select (change)="obtenerPacientesAtendidosPorMedico(ID_Medico)" class="form-control form-control-sm" [(ngModel)]="ID_Medico" style="width: auto; display: inline-block; margin-right: 25px;">
+                  <option *ngFor="let medico of medicos" [value]="medico.ID">{{medico.Nombre}}</option>
+                </select>
+              </div>
+              
+              
             <div class="card-body p-0">
                 <div class="card-responsive">
                     <div class="table-responsive">
                         <table class="table table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <th>Medico</th>
-                                    <th>Concepto</th>
-                                    <th>Valor</th>
-                                    <th>Impuesto</th>
-                                    <th>Total</th>
-                                    <th>Nombre Consultorio</th>
+                                    <th>Paciente ID</th>
+                                    <th>Nombre Paciente</th>
+                                    <th>No. de Consulta</th>
+                                    <th>No. de Hospitalizacion</th>
+                                    <th>Total de cirugias</th>
+                                    <th>Total de Atenciones</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                
+                                <tr *ngFor="let pacienteatendido of pacientesAtendidos"
+                                    [ngClass]="{'table-primary': seleccionPacienteAtendido.has(pacienteatendido)}"
+                                    (click)="seleccionarLinea(seleccionPacienteAtendido, pacienteatendido, 0)">
+                                    <td>{{pacienteatendido.ID_Paciente}}</td>
+                                    <td>{{pacienteatendido.Nombre_Paciente}}</td>
+                                    <td>{{pacienteatendido.ID_Consulta}}</td>
+                                    <td>{{pacienteatendido.ID_Hospitalizacion}}</td>
+                                    <td>{{pacienteatendido.Cirugias_Recibidas}}</td>
+                                    <td>{{pacienteatendido.Atenciones_Recibidas}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

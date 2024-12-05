@@ -16,11 +16,12 @@ export class PacientesAtendidosComponent implements OnInit {
   pacientesAtendidos: any[] = [];
   medicos: any[] = []
 
-  ID: any
-  ID_Medico: any
-  Fecha: any
-  Concepto: any
-  Valor: any
+  ID_Paciente: any 
+  ID_Medico: any = 1
+  nombre_Paciente: any
+  ID_Hospitalizacion: any
+  cirugias_Recibidas: any
+  atenciones_Recibidas: any
   modoFormulario: 'insertar' | 'actualizar' = 'insertar'
 
   seleccionPacienteAtendido: Set<any> = new Set()
@@ -33,41 +34,27 @@ export class PacientesAtendidosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerPacientesAtendidosPorMedico();
-    this.obtenerMedicosInternos();
+    this.obtenerPacientesAtendidosPorMedico(this.ID_Medico);
+    this.obtenerMedicos(); // Llamar al método para obtener los doctores
   }
 
-  obtenerPacientesAtendidosPorMedico = () => {
-    this.qService.ObtenerPacientesAtendidosPorMedico(this.ID_Medico).pipe(catchError((error: any) => {
+  obtenerPacientesAtendidosPorMedico = (ID_Medico: number) => {
+    this.qService.ObtenerPacientesAtendidosPorMedico(ID_Medico).pipe(catchError((error: any) => {
       return [];
     })).subscribe(data => {
       this.pacientesAtendidos = data
     })
   }
 
-  
-
-  obtenerMedicosInternos = () => {
-    this.qService.ObtenerMedicosInternos().pipe(catchError((error: any) => {
+  obtenerMedicos = () => {
+    this.qService.ObtenerMedicos().pipe(catchError((error: any) => {
       return [];
     })).subscribe(data => {
-      this.medicos = data
+      this.medicos = data;
     })
   }
 
-  establecerParametros = (ID: any, ID_Medico: any, Fecha: any, Concepto: any, Valor: any) => {
-    this.ID = ID;
-    this.ID_Medico = ID_Medico;
-    this.Fecha = Fecha;
-    this.Concepto = Concepto;
-    this.Valor = Valor;
-  }
-
-  limpiarParametros = () => {
-    this.ID = undefined;
-    this.ID_Medico = undefined;
-    this.Fecha = undefined;
-    this.Concepto = undefined;
-    this.Valor = undefined;
+  seleccionarLinea = (set: Set<any>, obj: any, tipo: number) => {
+    this.globalService.addLine(set, obj, tipo);
   }
 }

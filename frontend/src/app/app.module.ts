@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
 import { GridModule, PagerModule } from '@syncfusion/ej2-angular-grids';
+import { InventarioComponent } from './pages/inventario/inventario.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    InventarioComponent
   ],
   imports: [
     BrowserModule,
