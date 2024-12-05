@@ -1,112 +1,100 @@
 <div class="content-header">
-    <div class="container">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0">Médicos</h1>
-        </div>
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Médicos</h1>
       </div>
     </div>
   </div>
-  
-  <div class="content">
-    <div class="container">
-      <div class="card">
-        <div class="card-header">
-          <div class="btn-group">
-            <button (click)="abrirModal('insertar')" class="btn btn-default btn-sm">
-              <i class="fas fa-plus"></i>
-            </button>
-            <button [disabled]="!seleccionMedico.size" (click)="eliminarMedico()" class="btn btn-default btn-sm">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button [disabled]="seleccionMedico.size !== 1" (click)="abrirModal('actualizar')" class="btn btn-default btn-sm">
-              <i class="fas fa-edit"></i>
-            </button>
-            <button (click)="seleccionarTodo(medicos, seleccionMedico)" class="btn btn-default btn-sm">
-              <i class="fas fa-check-double"></i>
-            </button>
-          </div>
-        </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover table-sm">
-              <thead>
-                <tr>
-                  <th>Seleccionar</th>
-                  <th>Nombre</th>
-                  <th>Licencia</th>
-                  <th>Especialidad</th>
-                  <th>Tipo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let medico of medicos">
-                  <td>
-                    <input 
-                      type="checkbox" 
-                      [checked]="seleccionMedico.has(medico)" 
-                      (change)="seleccionarLinea(seleccionMedico, medico, 0)" 
-                    />
-                  </td>
-                  <td>{{ medico.Nombre }}</td>
-                  <td>{{ medico.NumeroLicencia }}</td>
-                  <td>{{ medico.Especialidad }}</td>
-                  <td>{{ medico.Tipo }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="medic" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{ modoFormulario === 'insertar' ? 'Agregar Médico' : 'Editar Médico' }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        
+        <div class="demo-button-container">
+          <button mat-raised-button (click)="agregarFila()" class="demo-button">
+            Agregar Medico
           </button>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                  <label for="nombre">Nombre:</label>
-                  <input id="nombre" type="text" class="form-control" [(ngModel)]="Nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                  <label for="numeroLicencia">Número de Licencia:</label>
-                  <input id="numeroLicencia" type="text" class="form-control" [(ngModel)]="NumeroLicencia" name="numeroLicencia" required>
-                </div>
-                <div class="form-group">
-                  <label for="especialidad">Especialidad:</label>
-                  <input id="especialidad" type="text" class="form-control" [(ngModel)]="Especialidad" name="especialidad" required>
-                </div>
-                <div class="form-group">
-                  <label for="tipo">Tipo:</label>
-                  <select id="tipo" class="form-control" [(ngModel)]="Tipo" name="tipo" required>
-                    <option value="general">General</option>
-                    <option value="especialista">Especialista</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-              </form>
-              
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
           <button
-            type="button"
-            class="btn btn-primary"
-            (click)="modoFormulario === 'insertar' ? insertarMedico() : actualizarMedico()"
-          >
-            {{ modoFormulario === 'insertar' ? 'Guardar' : 'Actualizar' }}
+              mat-raised-button
+              [disabled]="!medicos.length"
+              (click)="removeData()"
+              class="demo-button">
+            Eliminar Medico
+          </button>
+          <button
+              mat-raised-button
+              *ngIf="hasEditableMedicos()"
+              (click)="guardarCambios()"
+              class="demo-button"
+              style="float: right;">
+            Guardar cambios
           </button>
         </div>
+        
+        <table mat-table [dataSource]="medicos" class="mat-elevation-z8">
+          <!-- Columna Nombre -->
+          <ng-container matColumnDef="Nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="!element.isEditing; else editNombre">
+                {{ element.Nombre }}
+              </div>
+              <ng-template #editNombre>
+                <input matInput [(ngModel)]="element.Nombre" placeholder="Nombre" />
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Licencia">
+            <th mat-header-cell *matHeaderCellDef> Licencia </th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="!element.isEditing; else editLicencia">
+                {{ element.NumeroLicencia }}
+              </div>
+              <ng-template #editLicencia>
+                <input matInput [(ngModel)]="element.NumeroLicencia" placeholder="Licencia" />
+              </ng-template>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Especialidad">
+            <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="!element.isEditing; else editEspecialidad">
+                {{ element.Especialidad }}
+              </div>
+              <ng-template #editEspecialidad>
+                <input matInput [(ngModel)]="element.Especialidad" placeholder="Especialidad" />
+              </ng-template>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Tipo">
+            <th mat-header-cell *matHeaderCellDef> Tipo </th>
+            <td mat-cell *matCellDef="let element">
+              <div *ngIf="!element.isEditing; else editTipo">
+                {{ element.Tipo }}
+              </div>
+              <ng-template #editTipo>
+                <input matInput [(ngModel)]="element.Tipo" placeholder="Tipo" />
+              </ng-template>
+            </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="Acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button (click)="toggleEdit(element)">Editar</button>
+              <button mat-button *ngIf="element.isEditing" (click)="saveRow(element)">Guardar</button>
+              <button mat-button *ngIf="element.isEditing" (click)="cancelarEdicion(element)">Cancelar</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
       </div>
     </div>
   </div>
-  
+</div>

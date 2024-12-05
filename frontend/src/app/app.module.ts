@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
-import { GridModule, PagerModule } from '@syncfusion/ej2-angular-grids';
+import { MatTableModule } from '@angular/material/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { GridModule, PagerModule } from '@syncfusion/ej2-angular-grids';
     AppRoutingModule,
     PagesModule,
     HttpClientModule,
-    GridModule, PagerModule
+    MatTableModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

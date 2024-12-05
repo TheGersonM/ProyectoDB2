@@ -369,7 +369,7 @@
                     "Type": "VarChar"
                 },
                 {
-                    "Param": "Tipo",
+                    "Param": "TipoMedico",
                     "Type": "VarChar"
                 }
             ],

@@ -17,6 +17,7 @@ import { ChequeComponent } from './cheque/cheque.component';
 import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-atendidos.component';
 import { InventarioComponent } from './inventario/inventario.component';
 import { ResumenMedicosComponent } from './resumen-medicos/resumen-medicos.component';
+import { ListComponentComponent } from './list/list-component.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,9 @@ const routes: Routes = [
       { path: 'cheque', component: ChequeComponent, pathMatch: 'full' },
       { path: 'pacientesatendidos', component: PacientesAtendidosComponent, pathMatch: 'full' },
       { path: 'inventario', component: InventarioComponent, pathMatch: 'full' },
-      { path: 'resumenmedicos', component: ResumenMedicosComponent, pathMatch: 'full' }
+      { path: 'resumenmedicos', component: ResumenMedicosComponent, pathMatch: 'full' },
+      { path: 'list', component: ListComponentComponent, pathMatch: 'full' }
+
     ]
   }
 ];

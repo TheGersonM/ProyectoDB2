@@ -22,13 +22,13 @@ import { ChequeComponent } from './cheque/cheque.component';
 import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-atendidos.component';
 import { InventarioComponent } from './inventario/inventario.component';
 import { ResumenMedicosComponent } from './resumen-medicos/resumen-medicos.component';
+import { ListComponentComponent } from './list/list-component.component';
 
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    MedicoComponent,
     HabitacionComponent,
     QuirofanoComponent,
     PacienteComponent,
@@ -51,7 +51,9 @@ import { ResumenMedicosComponent } from './resumen-medicos/resumen-medicos.compo
     ToastrModule.forRoot(),
     RouterModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MedicoComponent,
+    ListComponentComponent
   ]
 })
 export class PagesModule { }
