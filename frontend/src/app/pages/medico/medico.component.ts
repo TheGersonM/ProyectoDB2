@@ -5,22 +5,22 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
-
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-medico',
   templateUrl: './medico.component.html',
-  styleUrls: ['./medico.component.sass']
+  styleUrls: ['./medico.component.sass'],
 })
 export class MedicoComponent implements OnInit {
   medicos: any[] = [];
 
-  ID: any
-  Nombre: any
-  NumeroLicencia: any
-  Especialidad: any
-  Tipo: any
+  ID: any = null;
+  Nombre: string = '';
+  NumeroLicencia: string = '';
+  Especialidad: string = '';
+  Tipo: string = '';
+
   seleccionMedico: Set<any> = new Set();
   modoFormulario: 'insertar' | 'actualizar' = 'insertar';
 
@@ -29,12 +29,13 @@ export class MedicoComponent implements OnInit {
     private qService: QueriesService,
     private globalService: GlobalService,
     private toastService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.obtenerMedicos();
   }
-//#region Obtener medicos
+
+  //#region Obtener médicos
   obtenerMedicos() {
     this.qService.ObtenerMedicos().pipe(catchError((error: any) => {
       this.toastService.error("Error Interno");
@@ -43,104 +44,134 @@ export class MedicoComponent implements OnInit {
       this.medicos = data;
     })
   }
-  obtenerMedico = () => {
-    const { ID } = Array.from(this.seleccionMedico.values())[0];
-    this.qService.ObtenerMedico(ID).pipe(catchError((error: any) => {
-      this.toastService.error("Error Interno");
-      return [];
-    })).subscribe(data => {
-      if (data && data.length > 0) {
-        this.establecerParametros(data[0].ID, data[0].Nombre, data[0].NumeroLicencia, data[0].Especialidad, data[0].Tipo);
-      }
-    });
+
+  //#endregion
+
+  //#region Insertar médico
+  insertarMedico() {
+    if (!this.Nombre || !this.NumeroLicencia || !this.Especialidad || !this.Tipo) {
+      this.toastService.warning('Todos los campos son obligatorios');
+      return;
+    }
+
+    this.pService
+      .InsertarMedico(this.Nombre, this.NumeroLicencia, this.Especialidad, this.Tipo)
+      .pipe(
+        catchError((error: any) => {
+          this.toastService.error('Error al insertar médico');
+          return [];
+        })
+      )
+      .subscribe(() => {
+        this.toastService.success('Médico insertado exitosamente');
+        this.cerrarModal();
+        this.obtenerMedicos();
+      });
   }
-  
-//#region Insertar medico
-insertarMedico = () => {  
-  this.pService.InsertarMedico(this.Nombre, this.NumeroLicencia, this.Especialidad, this.Tipo).pipe(
-    catchError((error: any) => {
-      this.toastService.error("Error Interno");
-      return [];
-    })
-  )
-  .subscribe(data => {
-    this.seleccionMedico.clear(); // Limpiar la selección
-    this.toastService.success("Medico insertado");
-    this.cerrarModal(); // Llamar al método para cerrar el modal
-    $('#medic').modal('hide'); // Usar jQuery para cerrar el modal
-    this.obtenerMedicos();
-  })
-}
-cerrarModal() {
-}  
-  //#region Eliminar medico
-  eliminarMedico = () => {
-    const { ID } = Array.from(this.seleccionMedico.values())[0];
-    this.pService.EliminarMedico(ID).pipe(
-      catchError((error: any) => {
-        this.toastService.error("Error Interno");
-        return [];
-      }),
-    ).subscribe(data => {
-      this.toastService.success("Medico eliminado");
-      this.seleccionMedico.clear();
-      this.obtenerMedicos();
-    })
+
+  //#endregion
+
+  //#region Actualizar médico
+  actualizarMedico() {
+    if (!this.ID || !this.Nombre || !this.NumeroLicencia || !this.Especialidad || !this.Tipo) {
+      this.toastService.warning('Todos los campos son obligatorios');
+      return;
+    }
+
+    this.pService
+      .ActualizarMedico(this.ID, this.Nombre, this.NumeroLicencia, this.Especialidad, this.Tipo)
+      .pipe(
+        catchError((error: any) => {
+          this.toastService.error('Error al actualizar médico');
+          return [];
+        })
+      )
+      .subscribe(() => {
+        this.toastService.success('Médico actualizado exitosamente');
+        this.cerrarModal();
+        this.obtenerMedicos();
+      });
   }
-  //#region Actualizar medico
-  actualizarMedico = () => {
-    this.pService.ActualizarMedico(this.ID, this.Nombre, this.NumeroLicencia, this.Especialidad, this.Tipo).pipe(
-      catchError((error: any) => {
-        this.toastService.error("Error Interno");
-        return [];
-      }),
-    ).subscribe(data => {
-      this.toastService.success("Medico actualizado");
-      this.seleccionMedico.clear();
-      this.obtenerMedicos();
-      this.cerrarModal();
-      $('#medic').modal('hide'); // Usar jQuery para cerrar el modal
-    });
+
+  //#endregion
+
+  //#region Eliminar médico
+  eliminarMedico() {
+    const seleccionado = Array.from(this.seleccionMedico.values())[0];
+    if (!seleccionado) {
+      this.toastService.warning('Debe seleccionar un médico para eliminar');
+      return;
+    }
+
+    this.pService
+      .EliminarMedico(seleccionado.ID)
+      .pipe(
+        catchError((error: any) => {
+          this.toastService.error('Error al eliminar médico');
+          return [];
+        })
+      )
+      .subscribe(() => {
+        this.toastService.success('Médico eliminado exitosamente');
+        this.seleccionMedico.clear();
+        this.obtenerMedicos();
+      });
   }
-  seleccionarLinea = (set: Set<any>, obj: any, tipo: number) => {
-    this.globalService.addLine(set, obj, tipo);
-  }
-  
-  seleccionarTodo = (arr: any[], set: Set<any>) => {
-    this.globalService.selectAll(arr, set);
-  }
-  removeLine = (arr: any[], set: Set<any>) => {
-    this.globalService.removeLine(arr, set);
-  }
-  establecerParametros = (ID: any, Nombre: any, NumeroLicencia: any, Especialidad: any, Tipo: any) => {
-    this.ID = ID;
-    this.Nombre = Nombre;
-    this.NumeroLicencia = NumeroLicencia;
-    this.Especialidad = Especialidad;
-    this.Tipo = Tipo;
-  }
+
+  //#endregion
+
+  //#region Gestión del formulario
   abrirModal(modo: 'insertar' | 'actualizar') {
     this.modoFormulario = modo;
-  
+
     if (modo === 'insertar') {
-      // Limpiar el formulario
-      this.Nombre = '';
-      this.NumeroLicencia = '';
-      this.Especialidad = '';
-      this.Tipo = '';
+      // Limpiar campos
+      this.limpiarFormulario();
     } else if (modo === 'actualizar') {
-      
-      // Cargar los datos del quirófano seleccionado
       const seleccionado = Array.from(this.seleccionMedico.values())[0];
-      if (seleccionado) {
-        this.ID = seleccionado.ID;
-        this.Nombre = seleccionado.Nombre;
-        this.NumeroLicencia = seleccionado.NumeroLicencia;
-        this.Especialidad = seleccionado.Especialidad;
-        this.Tipo = seleccionado.Tipo;
-      }else {
-        this.toastService.warning("Debe seleccionar un medico");
+      if (!seleccionado) {
+        this.toastService.warning('Debe seleccionar un médico para editar');
+        return;
       }
+
+      // Precargar datos en el formulario
+      this.ID = seleccionado.ID;
+      this.Nombre = seleccionado.Nombre;
+      this.NumeroLicencia = seleccionado.NumeroLicencia;
+      this.Especialidad = seleccionado.Especialidad;
+      this.Tipo = seleccionado.Tipo;
     }
+
+    $('#medic').modal('show'); // Mostrar el modal
   }
+
+  cerrarModal() {
+    $('#medic').modal('hide'); // Cerrar el modal
+    this.limpiarFormulario();
+  }
+
+  limpiarFormulario() {
+    this.ID = null;
+    this.Nombre = '';
+    this.NumeroLicencia = '';
+    this.Especialidad = '';
+    this.Tipo = '';
+  }
+
+  //#endregion
+
+  //#region Selección de filas
+  seleccionarLinea(set: Set<any>, obj: any, tipo: number) {
+    this.globalService.addLine(set, obj, tipo);
+  }
+
+  seleccionarTodo(arr: any[], set: Set<any>) {
+    this.globalService.selectAll(arr, set);
+  }
+
+  removeLine(arr: any[], set: Set<any>) {
+    this.globalService.removeLine(arr, set);
+  }
+
+  //#endregion
 }
