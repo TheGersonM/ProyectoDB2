@@ -30,6 +30,7 @@ import {
     ObtenerMedicos,
     ObtenerMedicosPorConsulta,
     ObtenerMedicosInternos,
+    ObtenerMedicosExternos,
     ObtenerPaciente,
     ObtenerPacientes,
     ObtenerQuirofano,
@@ -44,6 +45,7 @@ router.get("/ObtenerMedicos", ObtenerMedicos)
 router.get("/ObtenerMedico", ObtenerMedico)
 router.get("/ObtenerMedicosPorConsulta", ObtenerMedicosPorConsulta)
 router.get("/ObtenerMedicosInternos", ObtenerMedicosInternos)
+router.get("/ObtenerMedicosExternos", ObtenerMedicosExternos)
 router.get("/ObtenerHabitaciones", ObtenerHabitaciones)
 router.get("/ObtenerHabitacion", ObtenerHabitacion)
 router.get("/ObtenerQuirofanos", ObtenerQuirofanos)

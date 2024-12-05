@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="btn-group">
-                    <button (click)="establecerParametros(0, 0, '', '', 0)" type="button" data-toggle="modal"
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
                         data-target="#medic" class="btn btn-default btn-sm">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -21,7 +21,7 @@
                         class="btn btn-default btn-sm">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <button (click)="obtenerCheque()" [attr.data-toggle]="seleccionCheque.size == 1 ? 'modal': null"
+                    <button (click)="abrirModal('actualizar')" [attr.data-toggle]="seleccionCheque.size == 1 ? 'modal': null"
                         [attr.data-target]="seleccionCheque.size == 1 ? '#medic': null"
                         [disabled]="seleccionCheque.size != 1" class="btn btn-default btn-sm">
                         <i class="fas fa-edit"></i>
@@ -46,7 +46,7 @@
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let cheque of cheques"
                                     [ngClass]="{'table-primary': seleccionCheque.has(cheque)}"
-                                    (click)="seleccionarLinea(seleccionCheque, cheque, 1)">
+                                    (click)="seleccionarLinea(seleccionCheque, cheque, 0)">
                                     <td>{{cheque.NombreMedico}}</td>
                                     <td>{{cheque.Fecha}}</td>
                                     <td>{{cheque.Concepto}}</td>
@@ -107,7 +107,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="seleccionCheque.size == 1 ? actualizarCheque() : insertarCheque()" type="button"
+                <button (click)="modoFormulario === 'actualizar' ? actualizarCheque() : insertarCheque()" type="button"
                     class="btn btn-primary">Save changes</button>
             </div>
         </div>

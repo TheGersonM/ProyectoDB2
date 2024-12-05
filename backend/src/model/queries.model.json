@@ -38,6 +38,13 @@
         }
     },
     {
+        "ObtenerMedicosExternos": {
+            "params": [],
+            "query": "select * from dbo.ObtenerMedicosExternos",
+            "type": "query"
+        }
+    },
+    {
         "ObtenerHabitaciones": {
             "params": [],
             "query": "select * from dbo.ObtenerHabitaciones",

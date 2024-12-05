@@ -5,6 +5,7 @@ import { QueriesService } from 'app/service/queries.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+declare var $: any;
 @Component({
   selector: 'app-cheque',
   templateUrl: './cheque.component.html',
@@ -19,6 +20,7 @@ export class ChequeComponent implements OnInit {
   Fecha: any
   Concepto: any
   Valor: any
+  modoFormulario: 'insertar' | 'actualizar' = 'insertar'
 
   seleccionCheque: Set<any> = new Set()
 
@@ -73,6 +75,8 @@ export class ChequeComponent implements OnInit {
     })).subscribe(data => {
       this.obtenerCheques();
       this.toastService.success("Se inserto correctamente");
+      this.seleccionCheque.clear();
+      this.cerrarModal();
     })
   }
 
@@ -84,6 +88,7 @@ export class ChequeComponent implements OnInit {
       this.obtenerCheques();
       this.toastService.success("Se actualizo correctamente");
       this.seleccionCheque.clear();
+      this.cerrarModal();
     })
   }
 
@@ -118,4 +123,25 @@ export class ChequeComponent implements OnInit {
     this.Valor = Valor
   }
 
+  abrirModal = (modo: 'insertar' | 'actualizar') => {
+    this.modoFormulario = modo;
+    if (this.modoFormulario === 'insertar') {
+      this.ID_Medico = '';
+      this.Fecha = '';
+      this.Concepto = '';
+    } else if (this.modoFormulario === 'actualizar') {
+      const seleccionado = Array.from(this.seleccionCheque.values())[0];
+      if (seleccionado) {
+        this.ID = seleccionado.ID;
+        this.ID_Medico = seleccionado.ID_Medico;
+        this.Fecha = seleccionado.Fecha;
+        this.Concepto = seleccionado.Concepto;
+        this.Valor = seleccionado.Valor;
+      }
+    }
+  };
+
+  cerrarModal() {
+    $('#medic').modal('hide');
+  }
 }

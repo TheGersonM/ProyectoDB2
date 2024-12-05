@@ -23,6 +23,14 @@ export const ObtenerMedicosInternos = async ({ body }: Request, res: Response) =
         return res.status(500).json(err.message);
     }
 }
+export const ObtenerMedicosExternos = async ({ body }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.ObtenerMedicosExternos());
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err.message);
+    }
+}
 
 export const ObtenerMedico = async ({ query }: Request, res: Response) => {
     try {
