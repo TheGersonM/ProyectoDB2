@@ -20,6 +20,8 @@ import { FacturaComponent } from './factura/factura.component';
 import { CobroConsultorioComponent } from './cobro-consultorio/cobro-consultorio.component';
 import { ChequeComponent } from './cheque/cheque.component';
 import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-atendidos.component';
+import { InventarioComponent } from './inventario/inventario.component';
+import { ResumenMedicosComponent } from './resumen-medicos/resumen-medicos.component';
 
 
 
@@ -39,7 +41,9 @@ import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-ate
     FacturaComponent,
     CobroConsultorioComponent,
     ChequeComponent,
-    PacientesAtendidosComponent
+    PacientesAtendidosComponent,
+    InventarioComponent,
+    ResumenMedicosComponent
   ],
   imports: [
     CommonModule,

@@ -322,3 +322,21 @@ export const ObtenerPacientesAtendidosPorMedico = async ({ query }: Request, res
         return res.status(500).json(err);
     }
 }
+
+export const VistaInventario = async ({ query }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.VistaInventario());
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}
+
+export const ResumenMedicos = async ({ query }: Request, res: Response) => {
+    try {
+        return res.json(await queriesModel.ResumenMedicos());
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}

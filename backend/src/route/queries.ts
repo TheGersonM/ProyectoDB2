@@ -36,13 +36,17 @@ import {
     ObtenerQuirofano,
     ObtenerQuirofanos,
     ObtenerConsultorioPorMedico,
-    ObtenerPacientesAtendidosPorMedico
+    ObtenerPacientesAtendidosPorMedico,
+    VistaInventario,
+    ResumenMedicos
 } from "../controller/queries.controller";
 
 
 const router = Router();
 
 
+router.get("/ResumenMedicos", ResumenMedicos)
+router.get("/VistaInventario", VistaInventario)
 router.get("/ObtenerPacientesAtendidosPorMedico", ObtenerPacientesAtendidosPorMedico)
 router.get("/ObtenerMedicos", ObtenerMedicos)
 router.get("/ObtenerMedico", ObtenerMedico)

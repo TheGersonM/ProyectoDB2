@@ -353,5 +353,19 @@
             "query": "select * from dbo.ObtenerPacientesAtendidosPorMedico(@ID_Medico)",
             "type": "query"
         }
+    },
+    {
+        "VistaInventario": {
+            "params": [],
+            "query": "select * from dbo.VistaInventario",
+            "type": "query"
+        }
+    },
+    {
+        "ResumenMedicos": {
+            "params": [],
+            "query": "select * from dbo.ResumenMedicos",
+            "type": "query"
+        }
     }
 ]

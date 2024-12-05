@@ -1,8 +1,9 @@
+
 <div class="content-header">
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Consulta de inventario del Hospital</h1>
+                <h1 class="m-0">Resumen General Medicos la Paz</h1>
             </div>
         </div>
     </div>
@@ -19,20 +20,22 @@
                         <table class="table table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <th>Categoria</th>
+                                    <th>Medico ID</th>
                                     <th>Nombre</th>
-                                    <th>Stock</th>
-                                    <th>Precio</th>
+                                    <th>Especialidad</th>
+                                    <th>Consultas Realizadas</th>
+                                    <th>Cirugias Realizadas</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
-                                <tr *ngFor="let inventario of Inventarios"
-                                    [ngClass]="{'table-primary': seleccionInventario.has(inventario)}"
-                                    (click)="seleccionarLinea(seleccionInventario, inventario, 0)">
-                                    <td>{{inventario.Categoria}}</td>
-                                    <td>{{inventario.Nombre}}</td>
-                                    <td>{{inventario.Stock}}</td>
-                                    <td>{{inventario.Precio}}</td>
+                                <tr *ngFor="let resumen of Resumenes"
+                                    [ngClass]="{'table-primary': seleccionResumen.has(resumen)}"
+                                    (click)="seleccionarLinea(seleccionResumen, resumen, 0)">
+                                    <td>{{resumen.ID_Medico}}</td>
+                                    <td>{{resumen.Nombre_Medico}}</td>
+                                    <td>{{resumen.Especialidad}}</td>
+                                    <td>{{resumen.Consultas_Realizadas}}</td>
+                                    <td>{{resumen.Cirugias_Realizadas}}</td>
                                 </tr>
                             </tbody>
                         </table>

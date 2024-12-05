@@ -155,4 +155,14 @@ export class QueriesService {
   ObtenerPacientesAtendidosPorMedico = (ID_Medico: any) => {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerPacientesAtendidosPorMedico?ID_Medico=${ID_Medico}`)
   }
+
+  VistaInventario =()=>{
+    return this.http.get<any>(`${environment.baseUrlApi}queries/VistaInventario`)
+  }
+
+  ResumenMedicos =()=>{
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ResumenMedicos`)
+  }
+
+
 }

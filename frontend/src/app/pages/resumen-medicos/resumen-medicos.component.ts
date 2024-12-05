@@ -6,21 +6,21 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
 
-declare var $:any;
 @Component({
-  selector: 'app-inventario',
-  templateUrl: './inventario.component.html',
-  styleUrls: ['./inventario.component.sass']
+  selector: 'app-resumen-medicos',
+  templateUrl: './resumen-medicos.component.html',
+  styleUrls: ['./resumen-medicos.component.sass']
 })
-export class InventarioComponent {
-  Inventarios: any[] = []
+export class ResumenMedicosComponent {
+  Resumenes: any[] = []
 
-  categoria: any
-  nombre: any
-  stock: any
-  precio: any
+  ID_medico: any
+  Nombre_Medico: any
+  Especialidad: any
+  Consultas_Realizadas: any
+  Cirugias_Realizadas: any
 
-  seleccionInventario: Set<any> = new Set()
+  seleccionResumen: Set<any> = new Set()
   constructor(
     private pService: ProceduresService,
     private qService: QueriesService,
@@ -29,15 +29,15 @@ export class InventarioComponent {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerInventarios();
+    this.ResumenMedicos();
   }
 
-  obtenerInventarios = () => {
-    this.qService.VistaInventario().pipe(catchError((error: any) => {
+  ResumenMedicos = () => {
+    this.qService.ResumenMedicos().pipe(catchError((error: any) => {
       this.toastService.error("Error Interno");
       return [];
     })).subscribe(data => {
-      this.Inventarios = data
+      this.Resumenes = data
     })
   }
 
@@ -46,3 +46,5 @@ export class InventarioComponent {
     this.globalService.addLine(set, obj, tipo);
   }
 }
+
+
