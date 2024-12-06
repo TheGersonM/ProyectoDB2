@@ -340,3 +340,12 @@ export const ResumenMedicos = async ({ query }: Request, res: Response) => {
         return res.status(500).json(err);
     }
 }
+export const ObtenerItemInventario = async ({ query }: Request, res: Response) => {
+    try {
+        const { ID, Categoria } = query
+        return res.json(await queriesModel.ObtenerItemInventario(ID, Categoria));
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+}

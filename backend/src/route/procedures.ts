@@ -41,13 +41,19 @@ import {
     InsertarHospitalizacion,
     InsertarMedico,
     InsertarPaciente,
-    InsertarQuirofano
+    InsertarQuirofano,
+    CrearItemInventario,
+    EditarItemInventario,
+    EliminarItemInventario
 } from "../controller/procedures.controller";
 
 
 const router = Router();
 
 
+router.post("/EliminarItemInventario", EliminarItemInventario)
+router.post("/EditarItemInventario", EditarItemInventario)
+router.post("/CrearItemInventario", CrearItemInventario)
 router.post("/ActualizarAtencion", ActualizarAtencion)
 router.post("/ActualizarCama", ActualizarCama)
 router.post("/ActualizarCheque", ActualizarCheque)

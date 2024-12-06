@@ -19,19 +19,22 @@
           </button>
           <button
               mat-raised-button
-              [disabled]="!medicos.length"
-              (click)="removeData()"
+              *ngIf="hasEditableMedicos()"
+              (click)="eliminarMedico()"
               class="demo-button">
             Eliminar Medico
           </button>
+          <!--
           <button
               mat-raised-button
-              *ngIf="hasEditableMedicos()"
+              [disabled]="!hasEditableMedicos()"
               (click)="guardarCambios()"
               class="demo-button"
               style="float: right;">
             Guardar cambios
           </button>
+        -->
+          
         </div>
         
         <table mat-table [dataSource]="medicos" class="mat-elevation-z8">

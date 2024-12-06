@@ -135,4 +135,13 @@ export class ProceduresService {
   InsertarQuirofano = (Numero: any, Estado: any) => {
     return this.http.post<any>(`${environment.baseUrlApi}procedures/InsertarQuirofano`, { Numero, Estado })
   }
+  CrearItemInventario = (Categoria : any, Nombre: any, Stock: any, Precio: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/CrearItemInventario`, { Categoria, Nombre, Stock, Precio })
+  }
+  EditarItemInventario = (ID: any, Categoria : any, Nombre: any, Stock: any, Precio: any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/CrearItemInventario`, { ID, Categoria, Nombre, Stock, Precio })
+  }
+  EliminarItemInventario = (ID: any, Categoria : any) => {
+    return this.http.post<any>(`${environment.baseUrlApi}procedures/CrearItemInventario`, { ID, Categoria })
+  }
 }

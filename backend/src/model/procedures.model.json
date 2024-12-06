@@ -979,5 +979,73 @@
             "query": "dbo.InsertarQuirofano",
             "type": "execute"
         }
+    },
+    {
+        "CrearItemInventario": {
+            "params": [
+                {
+                    "Param": "Categoria",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Nombre",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Stock",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Precio",
+                    "Type": "Decimal"
+                }
+            ],
+            "query": "dbo.CrearItemInventario",
+            "type": "execute"
+        }
+    },
+    {
+        "EditarItemInventario": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Categoria",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Nombre",
+                    "Type": "VarChar"
+                },
+                {
+                    "Param": "Stock",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Precio",
+                    "Type": "Decimal"
+                }
+            ],
+            "query": "dbo.EditarItemInventario",
+            "type": "execute"
+        }
+    },
+    {
+        "EliminarItemInventario": {
+            "params": [
+                {
+                    "Param": "ID",
+                    "Type": "Int"
+                },
+                {
+                    "Param": "Categoria",
+                    "Type": "VarChar"
+                }
+            ],
+            "query": "dbo.EliminarItemInventario",
+            "type": "execute"
+        }
     }
 ]

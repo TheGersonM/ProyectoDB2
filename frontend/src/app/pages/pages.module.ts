@@ -23,17 +23,15 @@ import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-ate
 import { InventarioComponent } from './inventario/inventario.component';
 import { ResumenMedicosComponent } from './resumen-medicos/resumen-medicos.component';
 import { ListComponentComponent } from './list/list-component.component';
+import { EditarInventarioComponent } from '@pages/editar-inventario/editar-inventario.component';
 
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    HabitacionComponent,
     QuirofanoComponent,
-    PacienteComponent,
     ConsultaComponent,
-    CamaComponent,
     HospitalizacionComponent,
     AtencionComponent,
     CirugiaComponent,
@@ -43,7 +41,8 @@ import { ListComponentComponent } from './list/list-component.component';
     ChequeComponent,
     PacientesAtendidosComponent,
     InventarioComponent,
-    ResumenMedicosComponent
+    ResumenMedicosComponent,
+    EditarInventarioComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +52,10 @@ import { ListComponentComponent } from './list/list-component.component';
     FormsModule,
     BrowserAnimationsModule,
     MedicoComponent,
-    ListComponentComponent
+    ListComponentComponent,
+    HabitacionComponent,
+    PacienteComponent,
+    CamaComponent
   ]
 })
 export class PagesModule { }

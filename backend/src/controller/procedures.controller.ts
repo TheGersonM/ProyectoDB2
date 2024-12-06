@@ -383,3 +383,28 @@ export const InsertarQuirofano = async ({ body }: Request, res: Response) => {
         return res.status(500).json(err);
     }
 }
+
+export const CrearItemInventario = async ({ body }: Request, res: Response) => {
+    try {
+        const { Categoria, Nombre, Stock, Precio } = body
+        return res.json(await proceduresModel.CrearItemInventario(Categoria, Nombre, Stock, Precio));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+export const EditarItemInventario = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID, Categoria, Nombre, Stock, Precio } = body
+        return res.json(await proceduresModel.EditarItemInventario(ID, Categoria, Nombre, Stock, Precio));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+export const EliminarItemInventario = async ({ body }: Request, res: Response) => {
+    try {
+        const { ID, Categoria, Nombre, Stock, Precio } = body
+        return res.json(await proceduresModel.EliminarItemInventario(ID, Categoria));
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}

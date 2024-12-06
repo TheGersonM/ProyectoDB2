@@ -1,108 +1,92 @@
 <div class="content-header">
     <div class="container">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Camas</h1>
-            </div>
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Camas</h1>
         </div>
+      </div>
     </div>
-</div>
-
-<div class="content">
+  </div>
+  
+  <div class="content">
     <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <div class="btn-group">
-                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal"
-                        data-target="#medic" class="btn btn-default btn-sm">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <button [disabled]="!seleccionCama.size" (click)="eliminarCama()" type="button"
-                        class="btn btn-default btn-sm">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button (click)="abrirModal('actualizar')" [attr.data-toggle]="seleccionCama.size == 1 ? 'modal': null"
-                        [attr.data-target]="seleccionCama.size == 1 ? '#medic': null"
-                        [disabled]="seleccionCama.size != 1" class="btn btn-default btn-sm">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button (click)="seleccionarTodo(camas, seleccionCama)" class="btn btn-default btn-sm">
-                        <i class="fas fa-check-double"></i>
-                    </button>
+      <div class="card">
+        <div class="card-header">
+          
+          <div class="demo-button-container">
+            <button mat-raised-button (click)="agregarFila()" class="demo-button">
+              Agregar Cama
+            </button>
+            <button
+                mat-raised-button
+                *ngIf="hasEditableCamas()"
+                (click)="eliminarCama()"
+                class="demo-button">
+              Eliminar Cama
+            </button>
+            <!--
+            <button
+                mat-raised-button
+                [disabled]="!hasEditableMedicos()"
+                (click)="guardarCambios()"
+                class="demo-button"
+                style="float: right;">
+              Guardar cambios
+            </button>
+          -->
+            
+          </div>
+          
+          <table mat-table [dataSource]="camas" class="mat-elevation-z8">
+            <!-- Columna Nombre -->
+            <ng-container matColumnDef="Numero">
+              <th mat-header-cell *matHeaderCellDef> Numero </th>
+              <td mat-cell *matCellDef="let element">
+                <div *ngIf="!element.isEditing; else editNumero">
+                  {{ element.Numero }}
                 </div>
-            </div>
-            <div class="card-body p-0">
-                <div class="card-responsive">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Numero de cama</th>
-                                    <th>Estado</th>
-                                    <th>Numero de habitacion</th>
-                                </tr>
-                            </thead>
-                            <tbody style="cursor: pointer;">
-                                <tr *ngFor="let cama of camas" 
-                                    [ngClass]="{'table-primary': seleccionCama.has(cama)}"
-                                    [ngStyle]="{'background-color': cama.Estado === 'libre' ? '#d4edda' : '#f8d7da', 'color': cama.Estado === 'libre' ? '#155724' : '#721c24'}"
-                                    (click)="seleccionarLinea(seleccionCama, cama, 0)">
-                                    <td>{{cama.Numero}}</td>
-                                    <td>{{cama.Estado}}</td>
-                                    <td>{{cama.Habitacion_ID}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <ng-template #editNumero>
+                  <input matInput [(ngModel)]="element.Numero" placeholder="Numero" />
+                </ng-template>
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="Estado">
+              <th mat-header-cell *matHeaderCellDef> Estado </th>
+              <td mat-cell *matCellDef="let element">
+                <div *ngIf="!element.isEditing; else editEstado">
+                  {{ element.Estado }}
                 </div>
-            </div>
+                <ng-template #editEstado>
+                  <input matInput [(ngModel)]="element.Estado" placeholder="Estado" />
+                </ng-template>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Habitacion_ID">
+              <th mat-header-cell *matHeaderCellDef> Habitacion_ID </th>
+              <td mat-cell *matCellDef="let element">
+                <div *ngIf="!element.isEditing; else editHabitacion_ID">
+                  {{ element.Habitacion_ID }}
+                </div>
+                <ng-template #editHabitacion_ID>
+                  <input matInput [(ngModel)]="element.Habitacion_ID" placeholder="Habitacion_ID" />
+                </ng-template>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-button (click)="toggleEdit(element)">Editar</button>
+                <button mat-button *ngIf="element.isEditing" (click)="saveRow(element)">Guardar</button>
+                <button mat-button *ngIf="element.isEditing" (click)="cancelarEdicion(element)">Cancelar</button>
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
         </div>
+      </div>
     </div>
-</div>
-
-<div class="modal fade" id="medic" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Cama</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="">Número de cama</label>
-                            <input [(ngModel)]="Numero" type="text" class="form-control-sm form-control">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="">Estado de la cama</label>
-                            <select class="form-control form-control-sm" [(ngModel)]="Estado">
-                                <option value="ocupada">Ocupada</option>
-                                <option value="libre">Libre</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="">Número de habitacion</label>
-                            <input [(ngModel)]="Habitacion_ID" type="text" class="form-control-sm form-control">
-                        </div>
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button (click)="modoFormulario === 'actualizar' ? actualizarCama() : insertarCama()" type="button"
-                    class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+  </div>
+  

@@ -29,7 +29,7 @@
                             </thead>
                             <tbody style="cursor: pointer;">
                                 <tr *ngFor="let resumen of Resumenes"
-                                    [ngClass]="{'table-primary': seleccionResumen.has(resumen)}"
+                                    [class.table-primary]="seleccionResumen.has(resumen)"
                                     (click)="seleccionarLinea(seleccionResumen, resumen, 0)">
                                     <td>{{resumen.ID_Medico}}</td>
                                     <td>{{resumen.Nombre_Medico}}</td>

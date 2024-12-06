@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { row } from '@syncfusion/ej2-angular-grids';
 
 declare var $: any;
 
@@ -42,7 +41,6 @@ export class MedicoComponent implements OnInit {
   Tipo: string = '';
 
   seleccionMedico: Set<any> = new Set();
-  modoFormulario: 'insertar' | 'actualizar' = 'insertar';
 
   displayedColumns: string[] = ['Nombre', 'Licencia', 'Especialidad', 'Tipo', 'Acciones'];
 
@@ -83,7 +81,6 @@ export class MedicoComponent implements OnInit {
       )
       .subscribe(() => {
         this.toastService.success('Médico insertado exitosamente');
-        this.cerrarModal();
         this.obtenerMedicos();
       });
   }
@@ -106,67 +103,10 @@ export class MedicoComponent implements OnInit {
       )
       .subscribe(() => {
         this.toastService.success('Médico actualizado exitosamente');
-        this.cerrarModal();
         this.obtenerMedicos();
       });
   }
 
-  eliminarMedico() {
-    const seleccionado = Array.from(this.seleccionMedico.values())[0];
-    if (!seleccionado) {
-      this.toastService.warning('Debe seleccionar un médico para eliminar');
-      return;
-    }
-
-    this.pService
-      .EliminarMedico(seleccionado.ID)
-      .pipe(
-        catchError((error: any) => {
-          this.toastService.error('Error al eliminar médico');
-          return [];
-        })
-      )
-      .subscribe(() => {
-        this.toastService.success('Médico eliminado exitosamente');
-        this.seleccionMedico.clear();
-        this.obtenerMedicos();
-      });
-  }
-
-  abrirModal(modo: 'insertar' | 'actualizar') {
-    this.modoFormulario = modo;
-
-    if (modo === 'insertar') {
-      this.limpiarFormulario();
-    } else if (modo === 'actualizar') {
-      const seleccionado = Array.from(this.seleccionMedico.values())[0];
-      if (!seleccionado) {
-        this.toastService.warning('Debe seleccionar un médico para editar');
-        return;
-      }
-
-      this.ID = seleccionado.ID;
-      this.Nombre = seleccionado.Nombre;
-      this.NumeroLicencia = seleccionado.NumeroLicencia;
-      this.Especialidad = seleccionado.Especialidad;
-      this.Tipo = seleccionado.Tipo;
-    }
-
-    $('#medic').modal('show');
-  }
-
-  cerrarModal() {
-    $('#medic').modal('hide');
-    this.limpiarFormulario();
-  }
-
-  limpiarFormulario() {
-    this.ID = null;
-    this.Nombre = '';
-    this.NumeroLicencia = '';
-    this.Especialidad = '';
-    this.Tipo = '';
-  }
 
   toggleEdit(row: any) {
     this.medicos.forEach(medico => medico.isEditing = false); // Asegura que solo una fila pueda ser editada a la vez
@@ -243,7 +183,6 @@ export class MedicoComponent implements OnInit {
     });
   }
   
-  
 
   cancelarEdicion(medico: Medico) {
 
@@ -259,18 +198,33 @@ export class MedicoComponent implements OnInit {
   }
 
   hasEditableMedicos(): boolean {
-    return this.medicos.some(medico => medico.isEditable);
+    return this.medicos.some(medico => medico.isEditing);
   }
-
   
-  removeData() {
-    this.medicos.pop();
-
-    if (this.table) {
-      this.table.renderRows(); // Renderiza las filas después de eliminar un elemento
+  eliminarMedico() {
+    const seleccionado = this.medicos.find(medico => medico.isEditing);
+    if (!seleccionado) {
+      this.toastService.warning('Debe seleccionar un médico para eliminar');
+      return;
     }
+  
+    this.pService.EliminarMedico(seleccionado.ID)
+      .pipe(
+        catchError((error: any) => {
+          this.toastService.error('Error al eliminar médico');
+          return [];
+        })
+      )
+      .subscribe(() => {
+        this.toastService.success('Médico eliminado exitosamente');
+        this.medicos = this.medicos.filter(medico => medico !== seleccionado);
+        if (this.table) {
+          this.obtenerMedicos();
+          this.table.renderRows(); // Renderiza las filas después de eliminar un elemento
+        }
+      });
   }
-
+  
   seleccionarMedico(medico: Medico) {
     this.selectedMedico = medico;
     this.selectedMedico.isEditable = true; // Habilita la edición para la fila seleccionada
@@ -281,6 +235,7 @@ export class MedicoComponent implements OnInit {
   get isEditable(): boolean {
     return this.medicos.some(medico => medico.isEditable);
   }
+  
 }
 
 interface Medico {

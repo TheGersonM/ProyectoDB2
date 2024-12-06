@@ -367,5 +367,21 @@
             "query": "select * from dbo.ResumenMedicos",
             "type": "query"
         }
+    },
+    {
+
+        "ObtenerItemInventario": {
+            "params": [
+                {
+                    "Param": "Categoria",
+                    "Type": "String"
+                },{
+                    "Param": "ID",
+                    "Type": "Int"
+                }
+            ],
+            "query": "select * from dbo.ObtenerItemInventario(@Categoria, @ID)",
+            "type": "query"
+        }
     }
 ]

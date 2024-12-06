@@ -18,6 +18,7 @@ import { PacientesAtendidosComponent } from './pacientes-atendidos/pacientes-ate
 import { InventarioComponent } from './inventario/inventario.component';
 import { ResumenMedicosComponent } from './resumen-medicos/resumen-medicos.component';
 import { ListComponentComponent } from './list/list-component.component';
+import { EditarInventarioComponent } from '@pages/editar-inventario/editar-inventario.component';
 
 const routes: Routes = [
   {
@@ -39,7 +40,8 @@ const routes: Routes = [
       { path: 'pacientesatendidos', component: PacientesAtendidosComponent, pathMatch: 'full' },
       { path: 'inventario', component: InventarioComponent, pathMatch: 'full' },
       { path: 'resumenmedicos', component: ResumenMedicosComponent, pathMatch: 'full' },
-      { path: 'list', component: ListComponentComponent, pathMatch: 'full' }
+      { path: 'list', component: ListComponentComponent, pathMatch: 'full' },
+      { path: 'editar-inventario', component: EditarInventarioComponent, pathMatch: 'full' }
 
     ]
   }

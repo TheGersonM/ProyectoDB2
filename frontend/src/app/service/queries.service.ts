@@ -164,5 +164,9 @@ export class QueriesService {
     return this.http.get<any>(`${environment.baseUrlApi}queries/ResumenMedicos`)
   }
 
+  ObtenerItemInventario = (ID: any, Categoria: any) => {
+    return this.http.get<any>(`${environment.baseUrlApi}queries/ObtenerItemInventario?ID=${ID}&Categoria=${Categoria}`);
+}
+
 
 }

@@ -1,0 +1,126 @@
+<div class="content-header">
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Items del inventario</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="btn-group">
+                    <button (click)="abrirModal('insertar')" type="button" data-toggle="modal" data-target="#medic"
+                        class="btn btn-default btn-sm">
+                        <i class="fas fa-plus"></i>
+                    </button>
+
+                    <button [disabled]="!seleccionItem.size" (click)="eliminarItem()" type="button"
+                        class="btn btn-default btn-sm">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button [disabled]="!seleccionItem.size" (click)="abrirModal('actualizar')"
+                        [attr.data-toggle]="seleccionItem.size == 1 ? 'modal': null"
+                        [attr.data-target]="seleccionItem.size == 1 ? '#medic': null"
+                        class="btn btn-default btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </button>
+
+                    <button (click)="seleccionarTodo(items, seleccionItem)" class="btn btn-default btn-sm">
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="card-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Nombre</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody style="cursor: pointer;">
+                                <tr *ngFor="let item of items"
+                                    [ngClass]="{'table-primary': seleccionItem.has(item)}"
+                                    (click)="seleccionarLinea(seleccionItem, item, 0)">
+                                    <td>{{item.Categoria}}</td>
+                                    <td>{{item.Nombre}}</td>
+                                    <td>{{item.Stock}}</td>
+                                    <td>{{item.Precio}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="medic" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalXlLabel">Creación/Edición de Items</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Categoria</label>
+                            <select class="form-control form-control-sm" [(ngModel)]="categoria" required>
+                                <option value="alimentos">Alimentos</option>
+                                <option value="insumos">Insumos</option>
+                                <option value="medicamentos">Medicamentos</option>
+                              </select>                              
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Nombre del item</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Nombre"
+                            placeholder="Ingrese un nombre" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Stock</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Stock"
+                            placeholder="Ingrese la cantidad" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="">Precio</label>
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Precio"
+                            placeholder="Ingrese el Precio" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button (click)="modoFormulario === 'actualizar' ? actualizarItem() : insertarItem()"
+                    type="button" class="btn btn-primary">
+                    Save changes
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
